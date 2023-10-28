@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prepare": "panda codegen"
   },
   "dependencies": {
     "@prisma/client": "^5.5.1",
@@ -16,6 +17,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@pandacss/dev": "^0.17.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
