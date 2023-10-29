@@ -1,9 +1,10 @@
 "use client";
 import CodeMirror from "@uiw/react-codemirror";
+import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { EditorHeader } from "@/app/components/headers";
-import { /*css,*/ cva } from "@/styled-system/css";
+import { css, cva } from "@/styled-system/css";
 
 const code = `# Title
 
@@ -48,19 +49,42 @@ const code = `# Title
 
 `;
 
+const editorSetup: BasicSetupOptions = {
+  lineNumbers: false,
+  foldGutter: false,
+};
+
 export default function App() {
   return (
     <main className={mainStyle()}>
       <EditorHeader />
-      <CodeMirror
-        value={code}
-        extensions={[
-          markdown({
-            base: markdownLanguage,
-            codeLanguages: languages,
-          }),
-        ]}
-      />
+      <div
+        className={css({
+          display: "flex",
+        })}
+      >
+        <div
+          className={css({
+            display: "flex",
+          })}
+        >
+          <CodeMirror
+            value={code}
+            basicSetup={editorSetup}
+            extensions={[
+              markdown({
+                base: markdownLanguage,
+                codeLanguages: languages,
+              }),
+            ]}
+          />
+        </div>
+        <div
+          className={css({
+            display: "flex",
+          })}
+        ></div>
+      </div>
     </main>
   );
 }
