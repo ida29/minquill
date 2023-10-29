@@ -9,7 +9,7 @@ import { EditorHeader } from "@/app/components/headers";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
 
-const code = `# Title
+const code = `# Markdown syntax
 
 ## Headers
 # Header 1
@@ -71,7 +71,7 @@ export default function App() {
       >
         <div
           className={css({
-            width: "50%",
+            width: "40%",
             border: "3px solid black",
             borderRadius: "10px",
             padding: "4px",
@@ -93,10 +93,10 @@ export default function App() {
         </div>
         <div
           className={css({
-            width: "50%",
+            width: "60%",
             border: "3px solid black",
             borderRadius: "10px",
-            padding: "4px",
+            padding: "4px 0 0 26px",
           })}
         >
           <MarkdownPreview
