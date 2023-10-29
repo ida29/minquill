@@ -40,22 +40,6 @@ export const PostButton: React.FC<ButtonProps> = ({ text }) => {
   );
 };
 
-export const PreviewButton: React.FC<ButtonProps> = ({ text }) => {
-  const router = useRouter();
-
-  const handlePostClick = () => {
-    router.push("/posts/new");
-  };
-  return (
-    <button
-      className={btnStyle({ color: "primary" })}
-      onClick={handlePostClick}
-    >
-      {text}
-    </button>
-  );
-};
-
 export const PublishButton: React.FC<ButtonProps> = ({ text }) => {
   const router = useRouter();
 

@@ -5,6 +5,7 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { EditorHeader } from "@/app/components/headers";
 import { css, cva } from "@/styled-system/css";
+import "./styles.css";
 
 const code = `# Title
 
@@ -61,11 +62,15 @@ export default function App() {
       <div
         className={css({
           display: "flex",
+          gap: "4px",
         })}
       >
         <div
           className={css({
-            display: "flex",
+            width: "50%",
+            border: "3px solid black",
+            borderRadius: "10px",
+            padding: "4px",
           })}
         >
           <CodeMirror
@@ -81,7 +86,10 @@ export default function App() {
         </div>
         <div
           className={css({
-            display: "flex",
+            width: "50%",
+            border: "3px solid black",
+            borderRadius: "10px",
+            padding: "4px",
           })}
         ></div>
       </div>

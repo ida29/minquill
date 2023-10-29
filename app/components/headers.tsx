@@ -7,7 +7,6 @@ import {
   LogoutButton,
   PostButton,
   PublishButton,
-  PreviewButton,
   BackButton,
 } from "@/app/components/buttons";
 import { useSession } from "next-auth/react";
@@ -59,7 +58,6 @@ export const EditorHeader = () => {
         className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}
       >
         <PublishButton text="Publish" />
-        <PreviewButton text="Preview" />
       </div>
     );
   } else {
