@@ -1,30 +1,50 @@
 // app/components/header.tsx
 "use client";
 import Link from "next/link";
-//import { css } from "@/styled-system/css";
-import { Stack } from "@/styled-system/jsx";
+import { cva } from "@/styled-system/css";
+import { LoginButton, LogoutButton } from "@/app/components/buttons";
 
 export const Header = () => {
   return (
-    <Stack gap="6">
-      <header className="panda-header">
-        <div className="container">
-          <Link href="/">MyWebsite</Link>
-          <nav>
-            <ul className="nav">
-              <li>
-                <Link href="/">ホーム</Link>
-              </li>
-              <li>
-                <Link href="/about">私たちについて</Link>
-              </li>
-              <li>
-                <Link href="/contact">お問い合わせ</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    </Stack>
+    <header className={headerStyle()}>
+      <Link href="/" className={logoStyle()}>
+        MinQuill
+      </Link>
+      <nav className={navStyle()}>
+        <ul>
+          <li>
+            <LoginButton text="Login" />
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 };
+
+const headerStyle = cva({
+  base: {
+    bg: "white",
+    border: "3px solid black",
+    display: "flex",
+    padding: "1rem",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "4.6rem",
+    borderRadius: "10px",
+    boxShadow: "4px 4px 0 #000",
+  },
+});
+
+const logoStyle = cva({
+  base: {
+    font: "600 2rem/1 futura",
+  },
+});
+
+const navStyle = cva({
+  base: {
+    display: "flex",
+    width: "6rem",
+  },
+});

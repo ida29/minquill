@@ -12,9 +12,7 @@ export default defineConfig({
   jsxFramework: "react",
 
   // Useful for theme customization
-  theme: {
-    extend: {},
-  },
+  theme: {},
 
   // The output directory for your css system
   outdir: "styled-system",

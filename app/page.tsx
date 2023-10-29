@@ -1,22 +1,23 @@
 "use client";
-import { useSession } from "next-auth/react";
-import { css } from "@/styled-system/css";
 import { Header } from "@/app/components/header";
-import { LoginButton, LogoutButton } from "@/app/components/buttons";
+import { cva } from "@/styled-system/css";
 
 export default function Home() {
-  const { data: session, status } = useSession();
   return (
-    <main>
+    <main className={mainStyle()}>
       <Header />
-      {status == "authenticated" ? <p>ログイン</p> : <p>ログアウト</p>}
-      <div>
-        <LoginButton />
-        <LogoutButton />
-      </div>
-      <h1 className={css({ fontSize: "2xl", fontWeight: "bold" })}>
-        Hello 🐼!
-      </h1>
     </main>
   );
 }
+
+const mainStyle = cva({
+  base: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "2rem",
+    minHeight: "100vh",
+    maxWidth: "1200px",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
+});
