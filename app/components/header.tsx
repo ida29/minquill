@@ -2,7 +2,7 @@
 "use client";
 import Link from "next/link";
 import { cva } from "@/styled-system/css";
-import { LoginButton, LogoutButton } from "@/app/components/buttons";
+import { LoginButton /*LogoutButton*/ } from "@/app/components/buttons";
 
 export const Header = () => {
   return (
