@@ -2,6 +2,8 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
+import { Header2 } from "@/app/components/header";
+import { /*css,*/ cva } from "@/styled-system/css";
 
 const code = `# Title
 
@@ -48,14 +50,28 @@ const code = `# Title
 
 export default function App() {
   return (
-    <CodeMirror
-      value={code}
-      extensions={[
-        markdown({
-          base: markdownLanguage,
-          codeLanguages: languages,
-        }),
-      ]}
-    />
+    <main className={mainStyle()}>
+      <Header2 />
+      <CodeMirror
+        value={code}
+        extensions={[
+          markdown({
+            base: markdownLanguage,
+            codeLanguages: languages,
+          }),
+        ]}
+      />
+    </main>
   );
 }
+
+const mainStyle = cva({
+  base: {
+    //bg: "yellow",
+    padding: "1rem 2rem 2rem 2rem",
+    maxWidth: "1200px",
+    marginRight: "auto",
+    marginLeft: "auto",
+    height: "100vh",
+  },
+});

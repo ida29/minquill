@@ -40,6 +40,51 @@ export const PostButton: React.FC<ButtonProps> = ({ text }) => {
   );
 };
 
+export const PreviewButton: React.FC<ButtonProps> = ({ text }) => {
+  const router = useRouter();
+
+  const handlePostClick = () => {
+    router.push("/posts/new");
+  };
+  return (
+    <button
+      className={btnStyle({ color: "primary" })}
+      onClick={handlePostClick}
+    >
+      {text}
+    </button>
+  );
+};
+
+export const PublishButton: React.FC<ButtonProps> = ({ text }) => {
+  const router = useRouter();
+
+  const handlePostClick = () => {
+    router.push("/posts/new");
+  };
+  return (
+    <button
+      className={btnStyle({ color: "primary" })}
+      onClick={handlePostClick}
+    >
+      {text}
+    </button>
+  );
+};
+
+export const BackButton: React.FC<ButtonProps> = ({ text }) => {
+  const router = useRouter();
+
+  const handlePostClick = () => {
+    router.push("/");
+  };
+  return (
+    <button className={btnStyle()} onClick={handlePostClick}>
+      {text}
+    </button>
+  );
+};
+
 const btnStyle = cva({
   base: {
     //bg: "white",
@@ -50,7 +95,7 @@ const btnStyle = cva({
     borderRadius: "8px",
     boxShadow: "4px 4px 0 #000",
     cursor: "pointer",
-    transition: "all 0.2s",
+    transition: "all 0.1s",
     _hover: { bg: "lightgray" },
     _active: {
       transform: "translate(4px, 4px)",
