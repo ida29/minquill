@@ -2,6 +2,7 @@
 
 import { signIn, signOut } from "next-auth/react";
 import { cva } from "@/styled-system/css";
+import { useRouter } from "next/navigation";
 
 type ButtonProps = {
   text: string;
@@ -23,6 +24,22 @@ export const LogoutButton: React.FC<ButtonProps> = ({ text }) => {
   );
 };
 
+export const PostButton: React.FC<ButtonProps> = ({ text }) => {
+  const router = useRouter();
+
+  const handlePostClick = () => {
+    router.push("/posts/new");
+  };
+  return (
+    <button
+      className={btnStyle({ color: "primary" })}
+      onClick={handlePostClick}
+    >
+      {text}
+    </button>
+  );
+};
+
 const btnStyle = cva({
   base: {
     //bg: "white",
@@ -33,6 +50,7 @@ const btnStyle = cva({
     borderRadius: "8px",
     boxShadow: "4px 4px 0 #000",
     cursor: "pointer",
+    transition: "all 0.2s",
     _hover: { bg: "lightgray" },
     _active: {
       transform: "translate(4px, 4px)",
@@ -42,8 +60,8 @@ const btnStyle = cva({
   variants: {
     color: {
       light: { bg: "white", _hover: { bg: "lightgrey" } },
-      primary: { bg: "blue.500", _hover: { bg: "blue.300" } },
-      secondary: { bg: "grey.500", _hover: { bg: "grey.300" } },
+      primary: { bg: "blue.300", _hover: { bg: "blue.200" } },
+      secondary: { bg: "grey.300", _hover: { bg: "grey.200" } },
     },
   },
   defaultVariants: {
