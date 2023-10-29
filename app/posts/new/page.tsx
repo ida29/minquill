@@ -2,7 +2,7 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
-import { Header2 } from "@/app/components/header";
+import { EditorHeader } from "@/app/components/headers";
 import { /*css,*/ cva } from "@/styled-system/css";
 
 const code = `# Title
@@ -51,7 +51,7 @@ const code = `# Title
 export default function App() {
   return (
     <main className={mainStyle()}>
-      <Header2 />
+      <EditorHeader />
       <CodeMirror
         value={code}
         extensions={[

@@ -1,5 +1,5 @@
 "use client";
-import { Header } from "@/app/components/header";
+import { Header } from "@/app/components/headers";
 import { css, cva } from "@/styled-system/css";
 
 export default function Home() {

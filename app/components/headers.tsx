@@ -46,7 +46,7 @@ export const Header = () => {
   );
 };
 
-export const Header2 = () => {
+export const EditorHeader = () => {
   const { /*data: session,*/ status } = useSession();
   if (status === "loading") {
     return <div>Loading...</div>;
