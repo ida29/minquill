@@ -3,18 +3,22 @@
 import { signIn, signOut } from "next-auth/react";
 import { cva } from "@/styled-system/css";
 
-export const LoginButton = (props) => {
+type ButtonProps = {
+  text: string;
+};
+
+export const LoginButton: React.FC<ButtonProps> = ({ text }) => {
   return (
     <button className={btnStyle({ color: "primary" })} onClick={() => signIn()}>
-      {props.text}
+      {text}
     </button>
   );
 };
 
-export const LogoutButton = (props) => {
+export const LogoutButton: React.FC<ButtonProps> = ({ text }) => {
   return (
     <button className={btnStyle()} onClick={() => signOut()}>
-      {props.text}
+      {text}
     </button>
   );
 };
