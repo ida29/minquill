@@ -1,5 +1,7 @@
 "use client";
+import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
@@ -56,6 +58,8 @@ const editorSetup: BasicSetupOptions = {
 };
 
 export default function App() {
+  const [editorContent, setEditorContent] = useState(code);
+
   return (
     <main className={mainStyle()}>
       <EditorHeader />
@@ -74,7 +78,7 @@ export default function App() {
           })}
         >
           <CodeMirror
-            value={code}
+            value={editorContent}
             basicSetup={editorSetup}
             extensions={[
               markdown({
@@ -82,6 +86,9 @@ export default function App() {
                 codeLanguages: languages,
               }),
             ]}
+            onChange={(text) => {
+              setEditorContent(text);
+            }}
           />
         </div>
         <div
@@ -91,7 +98,12 @@ export default function App() {
             borderRadius: "10px",
             padding: "4px",
           })}
-        ></div>
+        >
+          <MarkdownPreview
+            source={editorContent}
+            wrapperElement={{ "data-color-mode": "light" }}
+          />
+        </div>
       </div>
     </main>
   );
