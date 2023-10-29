@@ -1,16 +1,61 @@
 "use client";
-//import { css, cva } from "@/styled-system/css";
+import CodeMirror from "@uiw/react-codemirror";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { languages } from "@codemirror/language-data";
 
-export default function newPost() {
+const code = `# Title
+
+## Headers
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
+
+## Emphasis
+*Italic* or _Italic_
+**Bold** or __Bold__
+**_Bold and Italic_** or *__Bold and Italic__*
+
+## Lists
+- Item 1
+- Item 2
+  - Subitem 2.1
+  - Subitem 2.2
+1. First
+2. Second
+3. Third
+
+## Links
+[example url](https://example.com)
+
+## Images
+![example image](https://picsum.photos/200/300/?blur)
+
+## Blockquotes
+> This is a blockquote.
+
+## Horizontal Rule
+---
+
+## Task Lists
+- [x] Task 1
+- [ ] Task 2
+- [x] Task 3
+
+`;
+
+export default function App() {
   return (
-    <div>
-      New Post!!Lorem ipsum dolor sit amet, consectetur adipisci elit, sed
-      eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-      nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-      sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum.
-    </div>
+    <CodeMirror
+      value={code}
+      extensions={[
+        markdown({
+          base: markdownLanguage,
+          codeLanguages: languages,
+        }),
+      ]}
+    />
   );
 }
