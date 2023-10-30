@@ -1,15 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
+import MarkdownPreview from "@uiw/react-markdown-preview";
+import remarkBreaks from "remark-breaks";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { EditorHeader } from "@/app/components/headers";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
-import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import remarkGfm from "remark-gfm";
 
 const code = `# Markdown syntax
 
@@ -68,7 +67,7 @@ export default function App() {
       >
         <div
           className={css({
-            width: "40%",
+            width: "50%",
             border: "3px solid black",
             borderRadius: "10px",
             padding: "4px",
@@ -90,22 +89,31 @@ export default function App() {
         </div>
         <div
           className={css({
-            width: "60%",
+            width: "50%",
             border: "3px solid black",
             borderRadius: "10px",
-            padding: "10px",
+            padding: "8px",
           })}
         >
-          <ReactMarkdown
-            remarkPlugins={[remarkBreaks, remarkGfm]}
-            components={{
-              p: ({ children }) => (
-                <p style={{ marginBottom: "1em" }}>{children}</p>
-              ),
+          <MarkdownPreview
+            source={editorContent}
+            pluginsFilter={(type, plugins) => {
+              if (type === "remark") {
+                return [...plugins, remarkBreaks];
+              }
+              return plugins;
             }}
-          >
-            {editorContent}
-          </ReactMarkdown>
+            rehypeRewrite={(node, index, parent) => {
+              if (
+                node.tagName === "a" &&
+                parent &&
+                /^h(1|2|3|4|5|6)/.test(parent.tagName)
+              ) {
+                parent.children = parent.children.slice(1);
+              }
+            }}
+            wrapperElement={{ "data-color-mode": "light" }}
+          />
         </div>
       </div>
     </main>
