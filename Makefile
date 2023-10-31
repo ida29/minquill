@@ -1,4 +1,4 @@
-.PHONY: build run fmt prisma_studio kill_prisma_studio
+.PHONY: build run fmt ps pdp
 
 build:
 	npm run build
@@ -9,5 +9,8 @@ dev:
 fmt:
 	npm run format
 
-prisma_studio:
+ps:
 	./node_modules/dotenv-cli/cli.js -e .env.local -- npx prisma studio
+
+pdp:
+	./node_modules/dotenv-cli/cli.js -e .env.local -- npx prisma db push

@@ -1,69 +1,21 @@
+// app/components/buttons.tsx
 "use client";
 
-import { signIn, signOut } from "next-auth/react";
 import { cva } from "@/styled-system/css";
-import { useRouter } from "next/navigation";
 
 type ButtonProps = {
   text: string;
+  colorVariant?: "primary" | "light" | "secondary";
+  onClick: () => void;
 };
 
-export const LoginButton: React.FC<ButtonProps> = ({ text }) => {
+export const ActionButton: React.FC<ButtonProps> = ({
+  text,
+  colorVariant = "light",
+  onClick,
+}) => {
   return (
-    <button className={btnStyle({ color: "primary" })} onClick={() => signIn()}>
-      {text}
-    </button>
-  );
-};
-
-export const LogoutButton: React.FC<ButtonProps> = ({ text }) => {
-  return (
-    <button className={btnStyle()} onClick={() => signOut()}>
-      {text}
-    </button>
-  );
-};
-
-export const PostButton: React.FC<ButtonProps> = ({ text }) => {
-  const router = useRouter();
-
-  const handlePostClick = () => {
-    router.push("/posts/new");
-  };
-  return (
-    <button
-      className={btnStyle({ color: "primary" })}
-      onClick={handlePostClick}
-    >
-      {text}
-    </button>
-  );
-};
-
-export const PublishButton: React.FC<ButtonProps> = ({ text }) => {
-  const router = useRouter();
-
-  const handlePostClick = () => {
-    router.push("/posts/new");
-  };
-  return (
-    <button
-      className={btnStyle({ color: "primary" })}
-      onClick={handlePostClick}
-    >
-      {text}
-    </button>
-  );
-};
-
-export const BackButton: React.FC<ButtonProps> = ({ text }) => {
-  const router = useRouter();
-
-  const handlePostClick = () => {
-    router.push("/");
-  };
-  return (
-    <button className={btnStyle()} onClick={handlePostClick}>
+    <button className={btnStyle({ color: colorVariant })} onClick={onClick}>
       {text}
     </button>
   );

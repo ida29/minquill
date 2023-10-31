@@ -22,8 +22,7 @@ model Account {
   scope              String?
   id_token           String?  @db.Text
   session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -46,6 +45,10 @@ model User {
   sessions      Session[]
   role          Role      @default(USER)
   posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  followers     Follow[]  @relation("Follower")
+  followings    Follow[]  @relation("Following")
 
   @@map("users")
 }
@@ -59,18 +62,75 @@ model VerificationToken {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-  title     String   @db.VarChar(255)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(false)
+  title       String   @db.VarChar(255)
+  content     String?
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  images      Image[]
+  comments    Comment[]
+  likes       Like[]
 
   @@index([authorId])
+}
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  postId      Int
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  post        Post     @relation(fields: [postId], references: [id])
+  likes       Like[]
+
+  @@index([postId])
+}
+
+model Comment {
+  id              Int            @id @default(autoincrement())
+  userId          String
+  postId          Int?
+  serviceId       Int?
+  commentText     String
+  createdAt       DateTime       @default(now())
+  user            User           @relation(fields: [userId], references: [id])
+  post            Post?          @relation(fields: [postId], references: [id])
+
+  @@index([userId, postId])
+  @@index([userId, serviceId])
+}
+
+model Like {
+  id             Int     @id @default(autoincrement())
+  userId         String
+  postId         Int?
+  imageId        Int?
+  serviceId      Int?
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
+  post           Post?    @relation(fields: [postId], references: [id])
+  image          Image?   @relation(fields: [imageId], references: [id])
+
+  @@index([userId, postId])
+  @@index([userId, imageId])
+  @@index([userId, serviceId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("Follower", fields: [followerId], references: [id])
+  following   User     @relation("Following", fields: [followingId], references: [id])
+
+  @@unique([followerId, followingId])
 }
 
 enum Role {
   USER
   ADMIN
 }
+

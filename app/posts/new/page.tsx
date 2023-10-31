@@ -1,12 +1,13 @@
+// app/posts/new/page.tsx
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import remarkBreaks from "remark-breaks";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
-import { EditorHeader } from "@/app/components/headers";
+import { EditorHeader } from "@/app/components/editor_header";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
 
@@ -58,7 +59,7 @@ export default function App() {
 
   return (
     <main className={mainStyle()}>
-      <EditorHeader />
+      <EditorHeader content={editorContent} />
       <div
         className={css({
           display: "flex",
@@ -67,7 +68,8 @@ export default function App() {
       >
         <div
           className={css({
-            width: "50%",
+            width: "70%",
+            minHeight: "100vh",
             border: "3px solid black",
             borderRadius: "10px",
             padding: "4px",
@@ -89,7 +91,8 @@ export default function App() {
         </div>
         <div
           className={css({
-            width: "50%",
+            width: "30%",
+            minHeight: "100vh",
             border: "3px solid black",
             borderRadius: "10px",
             padding: "8px",

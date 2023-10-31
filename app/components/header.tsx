@@ -2,17 +2,15 @@
 "use client";
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import {
-  LoginButton,
-  LogoutButton,
-  PostButton,
-  PublishButton,
-  BackButton,
-} from "@/app/components/buttons";
+import { signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { ActionButton } from "@/app/components/buttons";
 import { useSession } from "next-auth/react";
 
 export const Header = () => {
   const { /*data: session,*/ status } = useSession();
+  const router = useRouter();
+
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -23,51 +21,28 @@ export const Header = () => {
       <div
         className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}
       >
-        <PostButton text="Post" />
-        <LogoutButton text="Logout" />
+        <ActionButton
+          text="CreatePost"
+          colorVariant="primary"
+          onClick={() => router.push("/posts/new")}
+        />
+        <ActionButton text="Logout" onClick={() => signOut()} />
       </div>
     );
   } else {
-    buttons = <LoginButton text="Login" />;
+    buttons = (
+      <ActionButton
+        text="login"
+        colorVariant="primary"
+        onClick={() => signIn()}
+      />
+    );
   }
 
   return (
     <header className={headerStyle()}>
       <Link href="/" className={logoStyle()}>
         MinQuill
-      </Link>
-      <nav className={navStyle()}>
-        <ul className={css({ display: "flex", marginLeft: "auto" })}>
-          <li>{buttons}</li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
-
-export const EditorHeader = () => {
-  const { /*data: session,*/ status } = useSession();
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
-  let buttons;
-  if (status === "authenticated") {
-    buttons = (
-      <div
-        className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}
-      >
-        <PublishButton text="Publish" />
-      </div>
-    );
-  } else {
-    buttons = <LoginButton text="Login" />;
-  }
-
-  return (
-    <header className={headerStyle()}>
-      <Link href="/" className={logoStyle()}>
-        <BackButton text="Back" />
       </Link>
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>

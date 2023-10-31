@@ -1,5 +1,6 @@
+// app/page.tsx
 "use client";
-import { Header } from "@/app/components/headers";
+import { Header } from "@/app/components/header";
 import { css, cva } from "@/styled-system/css";
 
 export default function Home() {
