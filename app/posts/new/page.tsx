@@ -11,6 +11,9 @@ import { languages } from "@codemirror/language-data";
 import { EditorHeader } from "@/app/components/editor_header";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
+import { historyField } from "@codemirror/commands";
+
+const stateFields = { history: historyField };
 
 const md_syntax = `# Markdown syntax
 
@@ -86,7 +89,7 @@ const md_syntax = `# Markdown syntax
 
 const tabStrArr: string[] = ["Editor", "Preview", "Markdown Syntax"];
 
-const initStr: string = "### Input your text";
+const initStr: string = `### Input your text`;
 
 const editorSetup: BasicSetupOptions = {
   lineNumbers: false,
@@ -110,8 +113,9 @@ const myTheme = createTheme({
 });
 
 export default function App() {
-  const [editorContent, setEditorContent] = useState(initStr);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const serializedState = localStorage.getItem("myEditorState");
+  const value = localStorage.getItem("myValue") || initStr;
 
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
@@ -121,7 +125,15 @@ export default function App() {
   if (activeTabIndex === 0) {
     activeTabItem = (
       <CodeMirror
-        value={editorContent}
+        value={value}
+        initialState={
+          serializedState
+            ? {
+                json: JSON.parse(serializedState || ""),
+                fields: stateFields,
+              }
+            : undefined
+        }
         theme={myTheme}
         basicSetup={editorSetup}
         extensions={[
@@ -130,15 +142,18 @@ export default function App() {
             codeLanguages: languages,
           }),
         ]}
-        onChange={(text) => {
-          setEditorContent(text);
+        onChange={(value, viewUpdate) => {
+          localStorage.setItem("myValue", value);
+
+          const state = viewUpdate.state.toJSON(stateFields);
+          localStorage.setItem("myEditorState", JSON.stringify(state));
         }}
       />
     );
   } else {
     activeTabItem = (
       <MarkdownPreview
-        source={activeTabIndex === 1 ? editorContent : md_syntax}
+        source={activeTabIndex === 1 ? value : md_syntax}
         pluginsFilter={(type, plugins) => {
           if (type === "remark") {
             return [...plugins, remarkBreaks];
@@ -161,7 +176,7 @@ export default function App() {
 
   return (
     <main className={mainStyle()}>
-      <EditorHeader content={editorContent} />
+      <EditorHeader content={value} />
       <div
         className={css({
           display: "flex",
