@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
+import { createTheme } from "@uiw/codemirror-themes";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import remarkBreaks from "remark-breaks";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
@@ -92,6 +93,22 @@ const editorSetup: BasicSetupOptions = {
   foldGutter: false,
 };
 
+const myTheme = createTheme({
+  theme: "light",
+  settings: {
+    background: "white",
+    backgroundImage: "",
+    foreground: "black",
+    caret: "#5d00ff",
+    selection: "#036dd626",
+    selectionMatch: "#036dd626",
+    lineHighlight: "#8a91991a",
+    gutterBackground: "#fff",
+    gutterForeground: "#8a919966",
+  },
+  styles: [],
+});
+
 export default function App() {
   const [editorContent, setEditorContent] = useState(initStr);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -105,6 +122,7 @@ export default function App() {
     activeTabItem = (
       <CodeMirror
         value={editorContent}
+        theme={myTheme}
         basicSetup={editorSetup}
         extensions={[
           markdown({
