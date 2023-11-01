@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { ActionButton } from "@/app/components/buttons";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 type EditorHeaderProps = {
@@ -11,6 +12,7 @@ type EditorHeaderProps = {
 
 export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
   const { /*data: session,*/ status } = useSession();
+  const router = useRouter();
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -60,7 +62,7 @@ async function savePost(content: string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title: "title",
-      content: content.slice(0, 100),
+      content: content.slice(0, 2000),
     }),
   });
 

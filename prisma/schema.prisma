@@ -67,7 +67,7 @@ model Post {
   updatedAt   DateTime @updatedAt
   published   Boolean  @default(false)
   title       String   @db.VarChar(255)
-  content     String?
+  content     String?  @db.VarChar(2000)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   images      Image[]
