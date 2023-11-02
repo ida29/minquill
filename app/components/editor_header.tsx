@@ -15,7 +15,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
   const router = useRouter();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <header className={headerStyle()}>Loading...</header>;
   }
 
   let buttons;
