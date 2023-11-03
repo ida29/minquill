@@ -1,6 +1,6 @@
 // app/posts/new/page.tsx
 "use client";
-import { useState } from "react";
+//import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import MarkdownPreview from "@uiw/react-markdown-preview";
@@ -12,6 +12,8 @@ import { EditorHeader } from "@/app/components/editor_header";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
 import { historyField } from "@codemirror/commands";
+import useLocalStorageState from "use-local-storage-state";
+import { useSession } from "next-auth/react";
 
 const stateFields = { history: historyField };
 
@@ -113,9 +115,21 @@ const myTheme = createTheme({
 });
 
 export default function App() {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const serializedState = localStorage.getItem("myEditorState");
-  const value = localStorage.getItem("myValue") || initStr;
+  const { status } = useSession();
+  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
+    "activTabIndex",
+    { defaultValue: 0 },
+  );
+  const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
+    defaultValue: initStr,
+  });
+  const [editorState, setEditorState] = useLocalStorageState("editorState", {
+    defaultValue: "",
+  });
+
+  if (status === "loading") {
+    return <main className={mainStyle()}>Loading...</main>;
+  }
 
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
@@ -125,11 +139,11 @@ export default function App() {
   if (activeTabIndex === 0) {
     activeTabItem = (
       <CodeMirror
-        value={value}
+        value={contentValue}
         initialState={
-          serializedState
+          editorState
             ? {
-                json: JSON.parse(serializedState || ""),
+                json: JSON.parse(editorState || ""),
                 fields: stateFields,
               }
             : undefined
@@ -143,17 +157,17 @@ export default function App() {
           }),
         ]}
         onChange={(value, viewUpdate) => {
-          localStorage.setItem("myValue", value);
+          setContentValue(value);
 
           const state = viewUpdate.state.toJSON(stateFields);
-          localStorage.setItem("myEditorState", JSON.stringify(state));
+          setEditorState(JSON.stringify(state));
         }}
       />
     );
   } else {
     activeTabItem = (
       <MarkdownPreview
-        source={activeTabIndex === 1 ? value : md_syntax}
+        source={activeTabIndex === 1 ? contentValue : md_syntax}
         pluginsFilter={(type, plugins) => {
           if (type === "remark") {
             return [...plugins, remarkBreaks];
@@ -162,8 +176,10 @@ export default function App() {
         }}
         rehypeRewrite={(node, index, parent) => {
           if (
+            node.type === "element" &&
             node.tagName === "a" &&
             parent &&
+            parent.type === "element" &&
             /^h(1|2|3|4|5|6)/.test(parent.tagName)
           ) {
             parent.children = parent.children.slice(1);
@@ -176,7 +192,7 @@ export default function App() {
 
   return (
     <main className={mainStyle()}>
-      <EditorHeader content={value} />
+      <EditorHeader content={contentValue} />
       <div
         className={css({
           display: "flex",

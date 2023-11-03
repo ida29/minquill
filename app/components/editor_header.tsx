@@ -75,16 +75,12 @@ async function savePost(content: string) {
 
 const headerStyle = cva({
   base: {
-    //bg: "grey",
     display: "flex",
     padding: "1rem",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
-    //border: "1px solid black",
-    //borderRadius: "10px",
-    //boxShadow: "4px 4px 0 #000",
     marginBottom: "1.6rem",
   },
 });

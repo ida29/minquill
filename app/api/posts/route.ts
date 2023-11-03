@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         content: req_json.content,
         author: {
           connect: {
-            id: session.user.id,
+            id: session?.user?.id,
           },
         },
       },

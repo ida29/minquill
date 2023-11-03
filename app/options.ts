@@ -15,7 +15,7 @@ export const options = {
     }),
   ],
   callbacks: {
-    async session({ session, user }:{session: Session, user: User}) {
+    async session({ session, user }: { session: Session; user: User }) {
       if (session?.user) {
         session.user.id = user.id;
       }

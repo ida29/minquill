@@ -8,7 +8,7 @@ import { ActionButton } from "@/app/components/buttons";
 import { useSession } from "next-auth/react";
 
 export const Header = () => {
-  const { /*data: session,*/ status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   if (status === "loading") {
@@ -61,7 +61,7 @@ const headerStyle = cva({
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
-    marginBottom: "1.2rem",
+    marginBottom: "1.6rem",
   },
 });
 
