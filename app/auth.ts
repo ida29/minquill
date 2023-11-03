@@ -5,7 +5,7 @@ import type { Session, User } from "next-auth";
 
 const prisma = new PrismaClient();
 
-export const options = {
+export const auth = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -14,6 +14,10 @@ export const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
+  },
   callbacks: {
     async session({ session, user }: { session: Session; user: User }) {
       if (session?.user) {

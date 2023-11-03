@@ -10,7 +10,11 @@ const cloudflareImagesLoader: ImageLoader = ({ src }) => {
   return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
 };
 
-export default function Home() {
+export default function Home({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   return (
     <main className={mainStyle()}>
       <Header />
@@ -21,6 +25,7 @@ export default function Home() {
               font: "600 2rem/1 futura",
             })}
           >
+            <h1>{lang}</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
               tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim

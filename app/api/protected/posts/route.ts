@@ -3,12 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Post } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { options } from "@/app/options";
+import { auth } from "@/app/auth";
 
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const session = await getServerSession(options);
+  const session = await getServerSession(auth);
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 500 });
   }
@@ -19,7 +19,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(options);
+  const session = await getServerSession(auth);
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 500 });
   }

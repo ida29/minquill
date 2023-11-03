@@ -1,4 +1,4 @@
-// app/protected/posts/new/page.tsx
+// app/[lang]/protected/posts/new/page.tsx
 "use client";
 //import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
