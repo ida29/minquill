@@ -1,4 +1,4 @@
-// app/components/buttons.tsx
+// components/buttons.tsx
 "use client";
 
 import { cva } from "@/styled-system/css";

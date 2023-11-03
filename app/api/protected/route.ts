@@ -1,4 +1,4 @@
-// app/api/posts/route.ts
+// app/api/protected/posts/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Post } from "@prisma/client";

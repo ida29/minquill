@@ -1,4 +1,4 @@
-// app/posts/new/page.tsx
+// app/protected/posts/new/page.tsx
 "use client";
 //import { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
@@ -8,7 +8,7 @@ import remarkBreaks from "remark-breaks";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
-import { EditorHeader } from "@/app/components/editor_header";
+import { EditorHeader } from "@/components/editor_header";
 import { css, cva } from "@/styled-system/css";
 import "./styles.css";
 import { historyField } from "@codemirror/commands";

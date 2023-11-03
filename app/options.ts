@@ -21,5 +21,8 @@ export const options = {
       }
       return session;
     },
+    async redirect({ baseUrl }: { baseUrl: string }) {
+      return `${baseUrl}/protected/home`;
+    },
   },
 };

@@ -1,17 +1,14 @@
-// app/components/editor_header.tsx
+// components/header.tsx
 "use client";
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { ActionButton } from "@/app/components/buttons";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ActionButton } from "@/components/buttons";
 import { useSession } from "next-auth/react";
 
-type EditorHeaderProps = {
-  content: string;
-};
-
-export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
-  const { /*data: session,*/ status } = useSession();
+export const Header = () => {
+  const { status } = useSession();
   const router = useRouter();
 
   if (status === "loading") {
@@ -25,18 +22,27 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
         className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}
       >
         <ActionButton
-          text="Publish"
+          text="CreatePost"
           colorVariant="primary"
-          onClick={() => handlePublish(content)}
+          onClick={() => router.push("/protected/posts/new")}
         />
+        <ActionButton text="Logout" onClick={() => signOut()} />
       </div>
+    );
+  } else {
+    buttons = (
+      <ActionButton
+        text="login"
+        colorVariant="primary"
+        onClick={() => signIn()}
+      />
     );
   }
 
   return (
     <header className={headerStyle()}>
       <Link href="/" className={logoStyle()}>
-        <ActionButton text="Back" onClick={() => router.push("/")} />
+        MinQuill
       </Link>
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>
@@ -46,32 +52,6 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
     </header>
   );
 };
-
-async function handlePublish(content: string) {
-  try {
-    await savePost(content);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function savePost(content: string) {
-  const response = await fetch("/api/posts", {
-    method: "POST",
-    cache: "no-cache",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      title: "title",
-      content: content.slice(0, 2000),
-    }),
-  });
-
-  if (response.ok) {
-    await response.json();
-  } else {
-    console.error("Failed to publish:", response);
-  }
-}
 
 const headerStyle = cva({
   base: {
