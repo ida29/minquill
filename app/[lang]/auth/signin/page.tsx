@@ -1,16 +1,18 @@
-"use client";
-
-import { signIn } from "next-auth/react";
+// app/[lang]/auth/signin
 import { cva } from "@/styled-system/css";
-import { ActionButton } from "@/components/action_button";
+import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
+import { getDictionary } from "@/app/[lang]/dictionary";
 
-export default function App() {
+export default async function App({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
+  const dict = await getDictionary(lang);
+
   return (
     <main className={mainStyle()}>
-      <ActionButton
-        text="Sign in with Google"
-        onClick={() => signIn("google")}
-      />
+      <SigninWithGoogleBtn text={dict.sign_in_with_google} />
     </main>
   );
 }

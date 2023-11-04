@@ -1,5 +1,9 @@
 {
-  "start": "start",
-  "login": "login",
-  "end": "end"
+  "start": "Start",
+  "signin": "Sign in",
+  "sign_in_with_google": "Sign in with Google",
+  "login": "Login",
+  "logout": "Logout",
+  "minquill": "MinQuill",
+  "end": "End"
 }

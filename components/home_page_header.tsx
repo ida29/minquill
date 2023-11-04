@@ -1,17 +1,23 @@
-// components/landing_page_header.tsx
+// components/home_header.tsx
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { LoginBtn } from "@/components/login_btn";
+import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
+import { LogoutBtn } from "@/components/logout_btn";
 import { getDictionary } from "@/app/[lang]/dictionary";
+import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 
-export const LandingPageHeader = async (params: { lang: string }) => {
+export const HomePageHeader = async (params: { lang: string }) => {
   const dict = await getDictionary(params.lang);
+  const session = await getServerSession(auth);
 
-  const buttons = (
-    <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
-      <LoginBtn text={dict.signin} />
-    </div>
-  );
+  console.log(session);
+  let buttons;
+  if (!session) {
+    buttons = <SigninWithGoogleBtn text={dict.login} />;
+  } else {
+    buttons = <LogoutBtn text={dict.logout} />;
+  }
 
   return (
     <header className={headerStyle()}>

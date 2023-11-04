@@ -1,19 +1,22 @@
-// app/page.tsx
-"use client";
-import { Header } from "@/components/header";
+// app/protected/home/page.tsx
+import { HomePageHeader } from "@/components/home_page_header";
 import { css, cva } from "@/styled-system/css";
-import Image, { ImageLoader } from "next/image";
+//import Image, { ImageLoader } from "next/image";
 //import Link from "next/link";
 import React from "react";
 
-const cloudflareImagesLoader: ImageLoader = ({ src }) => {
-  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
-};
+//const cloudflareImagesLoader: ImageLoader = ({ src }) => {
+//  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
+//};
 
-export default function Home() {
+export default async function App({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   return (
     <main className={mainStyle()}>
-      <Header />
+      <HomePageHeader lang={lang} />
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
@@ -31,18 +34,20 @@ export default function Home() {
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
-          <Image
-            src="a717cf59-f0ef-409a-d96b-904475a64c00"
-            alt="LowPoly Mage Image"
-            loader={cloudflareImagesLoader}
-            width={0}
-            height={0}
-            className={css({
-              width: "50%",
-              marginLeft: "auto",
-              alignSelf: "center",
-            })}
-          />
+          {
+            //<Image
+            //  src="a717cf59-f0ef-409a-d96b-904475a64c00"
+            //  alt="LowPoly Mage Image"
+            //  loader={cloudflareImagesLoader}
+            //  width={0}
+            //  height={0}
+            //  className={css({
+            //    width: "50%",
+            //    marginLeft: "auto",
+            //    alignSelf: "center",
+            //  })}
+            ///>
+          }
         </div>
       </div>
       <div className={div1Style({ color: "secondary" })}></div>
