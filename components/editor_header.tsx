@@ -1,7 +1,7 @@
 // components/editor_header.tsx
 "use client";
 import { css, cva } from "@/styled-system/css";
-import { ActionButton } from "@/components/buttons";
+import { ActionButton } from "@/components/action_button";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 

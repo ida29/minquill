@@ -1,17 +1,15 @@
-// components/buttons.tsx
-"use client";
-
+// components/action_button.tsx
 import { cva } from "@/styled-system/css";
 
 type ButtonProps = {
   text: string;
-  colorVariant?: "primary" | "light" | "secondary";
+  colorVariant?: "default" | "primary" | "secondary";
   onClick: () => void;
 };
 
 export const ActionButton: React.FC<ButtonProps> = ({
   text,
-  colorVariant = "light",
+  colorVariant = "default",
   onClick,
 }) => {
   return (
@@ -40,12 +38,12 @@ const btnStyle = cva({
   },
   variants: {
     color: {
-      light: { bg: "white", _hover: { bg: "lightgrey" } },
+      default: { bg: "white", _hover: { bg: "lightgrey" } },
       primary: { bg: "blue.300", _hover: { bg: "blue.200" } },
       secondary: { bg: "grey.300", _hover: { bg: "grey.200" } },
     },
   },
   defaultVariants: {
-    color: "light",
+    color: "default",
   },
 });

@@ -2,8 +2,8 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { NextRequest, NextResponse } from "next/server";
 
-let suported_locales = ["en-US", "ja"];
-let default_locale = "en-US";
+let suported_locales = ["en", "ja"];
+let default_locale = "en";
 
 function getLocale(headers: Negotiator.Headers) {
   let languages = new Negotiator({ headers }).languages();

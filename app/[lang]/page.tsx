@@ -1,53 +1,46 @@
 // app/page.tsx
-"use client";
-import { Header } from "@/components/header";
+import { LandingPageHeader } from "@/components/landing_page_header";
 import { css, cva } from "@/styled-system/css";
-import Image, { ImageLoader } from "next/image";
+//import Image, { ImageLoader } from "next/image";
 //import Link from "next/link";
 import React from "react";
+//import { getDictionary } from "@/app/[lang]/dictionary";
 
-const cloudflareImagesLoader: ImageLoader = ({ src }) => {
-  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
-};
+//const cloudflareImagesLoader: ImageLoader = ({ src }) => {
+//  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
+//};
 
-export default function Home({
+export default async function App({
   params: { lang },
 }: {
   params: { lang: string };
 }) {
+  //const dict = await getDictionary(lang);
+
   return (
     <main className={mainStyle()}>
-      <Header />
+      <LandingPageHeader lang={lang} />
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
             className={css({
               font: "600 2rem/1 futura",
             })}
-          >
-            <h1>{lang}</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
-              tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrum exercitationem ullam corporis suscipit
-              laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute
-              iure reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint obcaecat cupiditat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-          <Image
-            src="a717cf59-f0ef-409a-d96b-904475a64c00"
-            alt="LowPoly Mage Image"
-            loader={cloudflareImagesLoader}
-            width={0}
-            height={0}
-            className={css({
-              width: "50%",
-              marginLeft: "auto",
-              alignSelf: "center",
-            })}
-          />
+          ></div>
+          {
+            //<Image
+            //  src="a717cf59-f0ef-409a-d96b-904475a64c00"
+            //  alt="LowPoly Mage Image"
+            //  loader={cloudflareImagesLoader}
+            //  width={0}
+            //  height={0}
+            //  className={css({
+            //    width: "50%",
+            //    marginLeft: "auto",
+            //    alignSelf: "center",
+            //  })}
+            ///>
+          }
         </div>
       </div>
       <div className={div1Style({ color: "secondary" })}></div>

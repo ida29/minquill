@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { cva } from "@/styled-system/css";
-import { ActionButton } from "@/components/buttons";
+import { ActionButton } from "@/components/action_button";
 
 export default function App() {
   return (

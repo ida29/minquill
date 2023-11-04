@@ -4,7 +4,7 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { ActionButton } from "@/components/buttons";
+import { ActionButton } from "@/components/action_button";
 import { useSession } from "next-auth/react";
 
 export const Header = () => {
