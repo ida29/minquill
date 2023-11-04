@@ -11,9 +11,9 @@ export default async function App({
   const dict = await getDictionary(lang);
 
   return (
-    <main className={mainStyle()}>
+    <div className={mainStyle()}>
       <SigninWithGoogleBtn text={dict.sign_in_with_google} />
-    </main>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 // app/[lang]/protected/posts/new/page.tsx
 "use client";
-//import { useState } from "react";
+
 import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import MarkdownPreview from "@uiw/react-markdown-preview";
@@ -128,7 +128,7 @@ export default function App() {
   });
 
   if (status === "loading") {
-    return <main className={mainStyle()}>Loading...</main>;
+    return <div className={mainStyle()}>Loading...</div>;
   }
 
   const handleTabClick = (index: number) => {
@@ -191,49 +191,51 @@ export default function App() {
   }
 
   return (
-    <main className={mainStyle()}>
+    <div className={mainStyle()}>
       <EditorHeader content={contentValue} />
-      <div
-        className={css({
-          display: "flex",
-          //flexWrap: "wrap",
-          alignContent: "center",
-          gap: "1rem",
-        })}
-      >
+      <main>
         <div
           className={css({
-            width: "70%",
-            minHeight: "100vh",
-            //marginRight: "auto",
+            display: "flex",
+            //flexWrap: "wrap",
+            alignContent: "center",
+            gap: "1rem",
           })}
         >
-          <ul className={ulStyle()}>
-            {tabStrArr.map((tabName, index) => (
-              <li
-                key={index}
-                onClick={() => handleTabClick(index)}
-                className={`${liStyle()} 
+          <div
+            className={css({
+              width: "70%",
+              minHeight: "100vh",
+              //marginRight: "auto",
+            })}
+          >
+            <ul className={ulStyle()}>
+              {tabStrArr.map((tabName, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleTabClick(index)}
+                  className={`${liStyle()} 
                   ${index === activeTabIndex ? activeTab() : ""}`}
-              >
-                {tabName}
-              </li>
-            ))}
-          </ul>
-          <div className={divPanelStyle()}>{activeTabItem}</div>
+                >
+                  {tabName}
+                </li>
+              ))}
+            </ul>
+            <div className={divPanelStyle()}>{activeTabItem}</div>
+          </div>
+          <div
+            className={css({
+              width: "30%",
+              font: "600 0.8rem/1 futura",
+              border: "3px solid black",
+              borderRadius: "10px",
+              padding: "1rem 2rem 2rem 2rem",
+              marginTop: "1.8rem",
+            })}
+          ></div>
         </div>
-        <div
-          className={css({
-            width: "30%",
-            font: "600 0.8rem/1 futura",
-            border: "3px solid black",
-            borderRadius: "10px",
-            padding: "1rem 2rem 2rem 2rem",
-            marginTop: "1.8rem",
-          })}
-        ></div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
