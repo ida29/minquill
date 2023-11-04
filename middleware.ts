@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
   };
   const locale = getLocale(headers);
 
-  if (pathname_is_missing_locale && locale !== default_locale) {
+  if (pathname_is_missing_locale) {
     return NextResponse.redirect(
       new URL(`/${locale}/${pathname}`, request.url),
     );
