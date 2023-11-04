@@ -1,9 +1,10 @@
 {
   "start": "スタート",
-  "signin": "登録する",
+  "signin": "新規登録",
   "sign_in_with_google": "Google アカウントで登録する",
   "login": "ログイン",
   "logout": "ログアウト",
   "minquill": "MinQuill",
+  "create_post": "記事を作成",
   "end": "エンド"
 }

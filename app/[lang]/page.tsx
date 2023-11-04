@@ -3,16 +3,10 @@ import { HomePageHeader } from "@/components/home_page_header";
 import { LandingPageHeader } from "@/components/landing_page_header";
 import { CloudflareImage } from "@/components/cloudflare_image";
 import { css, cva } from "@/styled-system/css";
-//import Image, { ImageLoader } from "next/image";
-//import Link from "next/link";
 import React from "react";
 //import { getDictionary } from "@/app/[lang]/dictionary";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
-
-//const cloudflareImagesLoader: ImageLoader = ({ src }) => {
-//  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
-//};
 
 export default async function App({
   params: { lang },

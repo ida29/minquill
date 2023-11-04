@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { LoginBtn } from "@/components/login_btn";
+import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { getDictionary } from "@/app/[lang]/dictionary";
 
 export const LandingPageHeader = async (params: { lang: string }) => {
@@ -10,12 +11,13 @@ export const LandingPageHeader = async (params: { lang: string }) => {
   const buttons = (
     <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
       <LoginBtn text={dict.signin} />
+      <SigninWithGoogleBtn text={dict.login} />
     </div>
   );
 
   return (
     <header className={headerStyle()}>
-      <Link href="/protected" className={logoStyle()}>
+      <Link href="/" className={logoStyle()}>
         {dict.minquill}
       </Link>
       <nav className={navStyle()}>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { LogoutBtn } from "@/components/logout_btn";
+import { CreatePostBtn } from "@/components/create_post_btn";
 import { getDictionary } from "@/app/[lang]/dictionary";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
@@ -12,20 +13,35 @@ export const HomePageHeader = async (params: { lang: string }) => {
   const session = await getServerSession(auth);
 
   let buttons;
-  if (!session) {
-    buttons = <SigninWithGoogleBtn text={dict.login} />;
+  if (session) {
+    buttons = (
+      <>
+        <CreatePostBtn text={dict.create_post} />
+        <LogoutBtn text={dict.logout} />
+      </>
+    );
   } else {
-    buttons = <LogoutBtn text={dict.logout} />;
+    buttons = <SigninWithGoogleBtn text={dict.login} />;
   }
 
   return (
     <header className={headerStyle()}>
-      <Link href="/protected" className={logoStyle()}>
+      <Link href="/" className={logoStyle()}>
         {dict.minquill}
       </Link>
       <nav className={navStyle()}>
-        <ul className={css({ display: "flex", marginLeft: "auto" })}>
-          <li>{buttons}</li>
+        <ul
+          className={css({ display: "flex", marginLeft: "auto", gap: "1rem" })}
+        >
+          <li
+            className={css({
+              display: "flex",
+              marginLeft: "auto",
+              gap: "1rem",
+            })}
+          >
+            {buttons}
+          </li>
         </ul>
       </nav>
     </header>
