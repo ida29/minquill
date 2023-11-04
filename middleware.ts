@@ -3,7 +3,7 @@ import Negotiator from "negotiator";
 import { NextRequest, NextResponse } from "next/server";
 
 let suported_locales = ["en-US", "ja"];
-let default_locale = "en-US";
+let default_locale = "ja";
 
 function getLocale(headers: Negotiator.Headers) {
   let languages = new Negotiator({ headers }).languages();
@@ -12,7 +12,7 @@ function getLocale(headers: Negotiator.Headers) {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const pathname_is_midding_locale = suported_locales.every(function (locale) {
+  const pathname_is_missing_locale = suported_locales.every(function (locale) {
     return !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`;
   });
   const headers = {
@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
   };
   const locale = getLocale(headers);
 
-  if (pathname_is_midding_locale && locale !== default_locale) {
+  if (pathname_is_missing_locale && locale !== default_locale) {
     return NextResponse.redirect(
       new URL(`/${locale}/${pathname}`, request.url),
     );
