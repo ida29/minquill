@@ -11,7 +11,6 @@ export const HomePageHeader = async (params: { lang: string }) => {
   const dict = await getDictionary(params.lang);
   const session = await getServerSession(auth);
 
-  console.log(session);
   let buttons;
   if (!session) {
     buttons = <SigninWithGoogleBtn text={dict.login} />;
