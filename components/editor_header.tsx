@@ -34,10 +34,7 @@ export const EditorHeader: React.FC<EditorHeaderProps> = ({ content }) => {
 
   return (
     <header className={headerStyle()}>
-      <ActionButton
-        text="Back"
-        onClick={() => router.push("/protected/home")}
-      />
+      <ActionButton text="Back" onClick={() => router.push("/protected")} />
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>
           <li>{buttons}</li>

@@ -1,10 +1,14 @@
 // app/page.tsx
+import { HomePageHeader } from "@/components/home_page_header";
 import { LandingPageHeader } from "@/components/landing_page_header";
+import { CloudflareImage } from "@/components/cloudflare_image";
 import { css, cva } from "@/styled-system/css";
 //import Image, { ImageLoader } from "next/image";
 //import Link from "next/link";
 import React from "react";
 //import { getDictionary } from "@/app/[lang]/dictionary";
+import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
 
 //const cloudflareImagesLoader: ImageLoader = ({ src }) => {
 //  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}/public`;
@@ -16,37 +20,52 @@ export default async function App({
   params: { lang: string };
 }) {
   //const dict = await getDictionary(lang);
+  const session = await getServerSession(auth);
 
-  return (
-    <main className={mainStyle()}>
-      <LandingPageHeader lang={lang} />
-      <div className={div1Style()}>
-        <div className={div2Style()}>
-          <div
-            className={css({
-              font: "600 2rem/1 futura",
-            })}
-          ></div>
-          {
-            //<Image
-            //  src="a717cf59-f0ef-409a-d96b-904475a64c00"
-            //  alt="LowPoly Mage Image"
-            //  loader={cloudflareImagesLoader}
-            //  width={0}
-            //  height={0}
-            //  className={css({
-            //    width: "50%",
-            //    marginLeft: "auto",
-            //    alignSelf: "center",
-            //  })}
-            ///>
-          }
+  if (session) {
+    return (
+      <main className={mainStyle()}>
+        <HomePageHeader lang={lang} />
+        <div className={div1Style()}>
+          <div className={div2Style()}>
+            <div
+              className={css({
+                font: "600 2rem/1 futura",
+              })}
+            ></div>
+          </div>
         </div>
-      </div>
-      <div className={div1Style({ color: "secondary" })}></div>
-      <div className={div1Style()}></div>
-    </main>
-  );
+        <div className={div1Style({ color: "secondary" })}></div>
+        <div className={div1Style()}></div>
+      </main>
+    );
+  } else {
+    return (
+      <main className={mainStyle()}>
+        <LandingPageHeader lang={lang} />
+        <div className={div1Style()}>
+          <div className={div2Style()}>
+            <div
+              className={css({
+                font: "600 2rem/1 futura",
+              })}
+            ></div>
+            <CloudflareImage
+              src="a717cf59-f0ef-409a-d96b-904475a64c00"
+              alt="LowPoly Mage Image"
+              className={css({
+                width: "50%",
+                marginLeft: "auto",
+                alignSelf: "center",
+              })}
+            />
+          </div>
+        </div>
+        <div className={div1Style({ color: "secondary" })}></div>
+        <div className={div1Style()}></div>
+      </main>
+    );
+  }
 }
 
 const mainStyle = cva({

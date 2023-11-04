@@ -20,7 +20,7 @@ export const HomePageHeader = async (params: { lang: string }) => {
 
   return (
     <header className={headerStyle()}>
-      <Link href="/protected/home" className={logoStyle()}>
+      <Link href="/protected" className={logoStyle()}>
         {dict.minquill}
       </Link>
       <nav className={navStyle()}>

@@ -26,7 +26,7 @@ export const auth = {
       return session;
     },
     async redirect({ baseUrl }: { baseUrl: string }) {
-      return `${baseUrl}/protected/home`;
+      return `${baseUrl}`;
     },
   },
 };
