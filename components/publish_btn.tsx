@@ -19,7 +19,7 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const [contentValue] = useLocalStorageState("contentValue");
   const content = contentValue as string;
   const newPost: Post = {
-    title: content.split("\n")[0].replace(/^#+\s*/, ""),
+    title: content ? content.split("\n")[0].replace(/^#+\s*/, "") : "",
     content: content,
   };
 

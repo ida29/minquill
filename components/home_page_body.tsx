@@ -33,7 +33,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 <div>{post.title}</div>
               </div>
             ))}
-			{params.dict.end}
+            {params.dict.end}
           </div>
         </div>
       </div>
