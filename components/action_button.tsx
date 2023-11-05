@@ -4,16 +4,21 @@ import { cva } from "@/styled-system/css";
 type ButtonProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
+  className?: string;
   onClick: () => void;
 };
 
 export const ActionButton: React.FC<ButtonProps> = ({
   text,
   colorVariant = "default",
+  className,
   onClick,
 }) => {
   return (
-    <button className={btnStyle({ color: colorVariant })} onClick={onClick}>
+    <button
+      className={className ? className : btnStyle({ color: colorVariant })}
+      onClick={onClick}
+    >
       {text}
     </button>
   );

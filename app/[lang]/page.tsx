@@ -1,5 +1,6 @@
 // app/page.tsx
 import { HomePageHeader } from "@/components/home_page_header";
+import { HomePageBody } from "@/components/home_page_body";
 import { LandingPageHeader } from "@/components/landing_page_header";
 import { CloudflareImage } from "@/components/cloudflare_image";
 import { css, cva } from "@/styled-system/css";
@@ -21,19 +22,7 @@ export default async function App({
     return (
       <div className={mainStyle()}>
         <HomePageHeader lang={lang} />
-        <main>
-          <div className={div1Style()}>
-            <div className={div2Style()}>
-              <div
-                className={css({
-                  font: "600 2rem/1 futura",
-                })}
-              ></div>
-            </div>
-          </div>
-          <div className={div1Style({ color: "secondary" })}></div>
-          <div className={div1Style()}></div>
-        </main>
+        <HomePageBody lang={lang} />
       </div>
     );
   } else {
