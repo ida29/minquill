@@ -14,8 +14,6 @@ import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 
 const stateFields = { history: historyField };
-const tabStrArr: string[] = ["Editor", "Preview", "Markdown Syntax"];
-const initStr: string = `### Input your text`;
 const editorSetup: BasicSetupOptions = {
   lineNumbers: false,
   foldGutter: false,
@@ -38,6 +36,13 @@ const myTheme = createTheme({
 });
 
 export const EditorBody = (params: { dict: Dictionary }) => {
+  const initStr: string = params.dict.init_str;
+  const tabStrArr: string[] = [
+    params.dict.editor,
+    params.dict.preview,
+    params.dict.cheat_sheet,
+  ];
+
   const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
     "activTabIndex",
     { defaultValue: 0 },
@@ -110,49 +115,59 @@ export const EditorBody = (params: { dict: Dictionary }) => {
 
   return (
     <main>
-      <div
-        className={css({
-          display: "flex",
-          //flexWrap: "wrap",
-          alignContent: "center",
-          gap: "1rem",
-        })}
-      >
-        <div
-          className={css({
-            width: "70%",
-            minHeight: "100vh",
-            //marginRight: "auto",
-          })}
-        >
-          <ul className={ulStyle()}>
-            {tabStrArr.map((tabName, index) => (
-              <li
-                key={index}
-                onClick={() => handleTabClick(index)}
-                className={`${liStyle()} 
+      <div className={div1Style()}>
+        <div className={div2Style()}>
+          <div
+            className={css({
+              width: "100%",
+              minHeight: "100vh",
+              //marginRight: "auto",
+            })}
+          >
+            <ul className={ulStyle()}>
+              {tabStrArr.map((tabName, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleTabClick(index)}
+                  className={`${liStyle()} 
                   ${index === activeTabIndex ? activeTab() : ""}`}
-              >
-                {tabName}
-              </li>
-            ))}
-          </ul>
-          <div className={divPanelStyle()}>{activeTabItem}</div>
+                >
+                  {tabName}
+                </li>
+              ))}
+            </ul>
+            <div className={divPanelStyle()}>{activeTabItem}</div>
+          </div>
         </div>
-        <div
-          className={css({
-            width: "30%",
-            font: "600 0.8rem/1 futura",
-            border: "3px solid black",
-            borderRadius: "10px",
-            padding: "1rem 2rem 2rem 2rem",
-            marginTop: "1.8rem",
-          })}
-        ></div>
       </div>
     </main>
   );
 };
+
+const div1Style = cva({
+  base: {
+    margin: "0 calc(50% - 50vw)",
+    bg: "lightslategrey",
+    display: "flex",
+    justifyContent: "center",
+    borderTop: "3px solid black",
+    paddingTop: "1rem",
+  },
+  variants: {
+    color: {
+      primary: { bg: "lightslategrey" },
+      secondary: { bg: "white" },
+    },
+  },
+});
+
+const div2Style = cva({
+  base: {
+    display: "flex",
+    padding: "0 3rem 0 3rem",
+    width: "1200px",
+  },
+});
 
 const ulStyle = cva({
   base: {
@@ -163,7 +178,7 @@ const ulStyle = cva({
 
 const liStyle = cva({
   base: {
-    width: "12rem",
+    width: "8rem",
     height: "2rem",
     font: "600 0.8rem/1 futura",
     textAlign: "center",

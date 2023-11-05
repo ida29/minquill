@@ -8,9 +8,14 @@
   "create_post": "Create Post",
   "upload_image": "Upload Image",
   "publish": "Publish",
+  "back": "back",
   "welcome_to_minquill": "Welcome to MinQuill:",
   "grow_your_world_of_miniature_painting": "Grow Your World of Miniature Painting!!",
   "publish_your_miniature_images_posts_and_share_your_painting_knowledge": "Publish your miniature images, posts, and share your painting knowledge!!",
-  "md_syntax": "# Markdown syntax\n\n## Headers\n\n```\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n```\n\n## Bold\n\n```\n**Bold**\n```\n\n## Italic\n\n```\n*Italic*\n```\n\n## Lists\n\n```\n- Item 1\n- Item 2\n  - Subitem 2.1\n  - Subitem 2.2\n```\n\n```\n1. First\n2. Second\n3. Third\n```\n\n## Links\n\n```\n[example url](https://example.com)\n```\n\n## Images\n\n```\n![example image](https://picsum.photos/200/300/?blur)\n```\n\n## Horizontal Rule\n\n```\n---\n```\n\n## Blockquotes\n\n```\n> This is a blockquote.\n```\n\n## Code\n\n```\n`code`\n```\n\n",
+  "md_syntax": "## Headers\n\n```\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n```\n\n## Bold\n\n```\n**Bold**\n```\n\n## Italic\n\n```\n*Italic*\n```\n\n## Lists\n\n```\n- Item 1\n- Item 2\n  - Subitem 2.1\n  - Subitem 2.2\n```\n\n```\n1. First\n2. Second\n3. Third\n```\n\n## Links\n\n```\n[example url](https://example.com)\n```\n\n## Images\n\n```\n![example image](https://picsum.photos/200/300/?blur)\n```\n\n## Horizontal Rule\n\n```\n---\n```\n\n## Blockquotes\n\n```\n> This is a blockquote.\n```\n\n## Code\n\n```\n`code`\n```\n\n",
+  "editor": "Editor",
+  "preview": "Preview",
+  "cheat_sheet": "Cheat Sheet",
+  "init_str": "Input text",
   "end": "End"
 }

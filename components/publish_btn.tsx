@@ -1,6 +1,8 @@
 "use client";
 import { ActionButton } from "@/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
+import { savePost } from "@/app/[lang]/post";
+import { Post } from "@/app/[lang]/post";
 //import { css, cva } from "@/styled-system/css";
 
 type PublishBtnProps = {
@@ -16,39 +18,25 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
 }) => {
   const [contentValue] = useLocalStorageState("contentValue");
   const content = contentValue as string;
+  const newPost: Post = {
+    title: content.split("\n")[0].replace(/^#+\s*/, ""),
+    content: content,
+  };
 
   return (
     <ActionButton
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => handlePublish(content)}
+      onClick={() => handlePublish(newPost)}
     />
   );
 };
 
-async function handlePublish(content: string) {
+async function handlePublish(newPost: Post) {
   try {
-    await savePost(content);
+    await savePost(newPost);
   } catch (error) {
     console.error(error);
-  }
-}
-
-async function savePost(content: string) {
-  const response = await fetch("/api/posts", {
-    method: "POST",
-    cache: "no-cache",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      title: "title",
-      content: content.slice(0, 2000),
-    }),
-  });
-
-  if (response.ok) {
-    await response.json();
-  } else {
-    console.error("Failed to publish:", response);
   }
 }

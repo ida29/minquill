@@ -14,7 +14,7 @@ export async function GET() {
   }
 
   const posts: Post[] = await prisma.post.findMany();
-  const res: NextResponse = NextResponse.json({ posts });
+  const res: NextResponse = NextResponse.json(posts);
   return res;
 }
 

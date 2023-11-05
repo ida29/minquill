@@ -30,18 +30,24 @@ export const LandingPageHeader = async (params: { dict: Dictionary }) => {
 const headerStyle = cva({
   base: {
     display: "flex",
-    padding: "1rem",
+    padding: "0rem",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
     marginBottom: "1.6rem",
+    sm: { padding: "0.33rem" },
+    md: { padding: "0.66rem" },
+    lg: { padding: "1rem" },
   },
 });
 
 const logoStyle = cva({
   base: {
-    font: "600 2rem/1 futura",
+    font: "600 1.8rem/1 futura",
+    sm: { fontSize: "1.8rem" },
+    md: { fontSize: "1.9rem" },
+    lg: { fontSize: "2rem" },
   },
 });
 

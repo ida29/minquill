@@ -1,0 +1,2 @@
+getLocale	middleware.ts	/^function getLocale(headers: Negotiator.Headers) {$/
+middleware	middleware.ts	/^export function middleware(request: NextRequest) {/

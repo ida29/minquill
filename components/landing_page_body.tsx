@@ -3,21 +3,20 @@ import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { CloudflareImage } from "@/components/cloudflare_image";
 import { LoginBtn } from "@/components/login_btn";
-//import { getServerSession } from "next-auth";
-//import { auth } from "@/app/auth";
 
 export const LandingPageBody = async (params: { dict: Dictionary }) => {
-  //const session = await getServerSession(auth);
-
   return (
     <main>
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
             className={css({
+              width: "100%",
               font: "600 2rem/1 futura",
-              width: "60%",
               alignSelf: "center",
+              sm: { width: "100%" },
+              md: { width: "60%" },
+              lg: { width: "60%" },
             })}
           >
             <section>
@@ -25,14 +24,20 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                 <h1
                   className={css({
                     width: "100%",
-                    font: "600 4rem/1 futura",
+                    font: "600 1.5rem/1 futura",
                     paddingBottom: "2rem",
+                    sm: { fontSize: "2rem" },
+                    md: { fontSize: "2.5rem" },
+                    lg: { fontSize: "3rem" },
                   })}
                 >
                   <div
                     className={css({
-                      font: "600 3rem/1 futura",
+                      font: "600 1.5rem/1 futura",
                       paddingBottom: "1rem",
+                      sm: { fontSize: "2rem" },
+                      md: { fontSize: "2.5rem" },
+                      lg: { fontSize: "3rem" },
                     })}
                   >
                     {params.dict.welcome_to_minquill}
@@ -42,8 +47,11 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                 <h2
                   className={css({
                     width: "100%",
-                    fontSize: "1.6rem",
+                    fontSize: "1rem",
                     paddingBottom: "2rem",
+                    sm: { fontSize: "1.2rem" },
+                    md: { fontSize: "1.4rem" },
+                    lg: { fontSize: "1.6rem" },
                   })}
                 >
                   {
@@ -68,9 +76,13 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
             src="a717cf59-f0ef-409a-d96b-904475a64c00"
             alt="LowPoly Mage Image"
             className={css({
-              width: "40%",
-              marginLeft: "auto",
+              width: "50%",
+              //marginLeft: "auto",
               alignSelf: "center",
+              marginTop: "1.6rem",
+              sm: { width: "50%" },
+              md: { width: "40%" },
+              lg: { width: "40%" },
             })}
             variants="public"
           />
@@ -100,7 +112,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
 const div1Style = cva({
   base: {
     margin: "0 calc(50% - 50vw)",
-    height: "80vh",
+    height: "80wh",
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",
@@ -117,7 +129,12 @@ const div1Style = cva({
 const div2Style = cva({
   base: {
     display: "flex",
-    padding: "3rem",
+    padding: "2rem",
     width: "1200px",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    sm: { padding: "2.33rem" },
+    md: { padding: "2.66rem" },
+    lg: { padding: "3rem" },
   },
 });

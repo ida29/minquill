@@ -2,10 +2,12 @@
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { PublishBtn } from "@/components/publish_btn";
+import { BackBtn } from "@/components/back_btn";
 
 export const EditorHeader = async (params: { dict: Dictionary }) => {
   return (
     <header className={headerStyle()}>
+      <BackBtn text={params.dict.back} />
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>
           <li>
