@@ -1,13 +1,10 @@
 // components/home_page_body.tsx
 import { css, cva } from "@/styled-system/css";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/dictionary";
 //import { getServerSession } from "next-auth";
 //import { auth } from "@/app/auth";
 
-export const HomePageBody = async (params: { lang: string }) => {
-  const dict = await getDictionary(params.lang);
-  //const session = await getServerSession(auth);
-
+export const HomePageBody = async (params: { dict: Dictionary }) => {
   return (
     <main>
       <div className={div1Style({ color: "secondary" })}>
@@ -19,7 +16,7 @@ export const HomePageBody = async (params: { lang: string }) => {
               fontFamily: "futura",
             })}
           >
-            {dict.start}
+            {params.dict.start}
           </div>
           <div
             className={css({

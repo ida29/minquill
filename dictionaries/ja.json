@@ -7,8 +7,10 @@
   "minquill": "MinQuill",
   "create_post": "記事を作成",
   "upload_image": "画像をアップロード",
+  "publish": "記事を公開",
   "welcome_to_minquill": "Welcome to MinQuill:",
   "grow_your_world_of_miniature_painting": "ミニチュアペイントの世界を広げよう！",
   "publish_your_miniature_images_posts_and_share_your_painting_knowledge": "ミニチュアの画像、記事を公開し、ペインティングの知識を共有しましょう！",
+  "md_syntax": "# マークダウン記法\n\n## ヘッダー\n\n```\n# ヘッダー 1\n## ヘッダー 2\n### ヘッダー 3\n#### ヘッダー 4\n##### ヘッダー 5\n###### ヘッダー 6\n```\n\n## 太字\n\n```\n**太字**\n```\n\n## 斜体\n\n```\n*斜体*\n```\n\n## リスト\n\n```\n- 項目 1\n- 項目 2\n  - サブ項目 2.1\n  - サブ項目 2.2\n```\n\n```\n1. 最初\n2. 次\n3. 三番\n```\n\n## リンク\n\n```\n[例のURL](https://example.com)\n```\n\n## 画像\n\n```\n![例の画像](https://picsum.photos/200/300/?blur)\n```\n\n## 水平線\n\n```\n---\n```\n\n## ブロック引用\n\n```\n> これはブロック引用です。\n```\n\n## コード\n\n```\n`コード`\n```\n\n",
   "end": "エンド"
 }

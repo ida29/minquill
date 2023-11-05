@@ -1,5 +1,5 @@
-type Dictionary = Record<string, string>;
-type Locale = string;
+export type Dictionary = Record<string, string>;
+export type Locale = string;
 
 const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
   en: () => import("@/dictionaries/en.json").then((module) => module.default),

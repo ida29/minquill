@@ -4,30 +4,29 @@ import { css, cva } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { LogoutBtn } from "@/components/logout_btn";
 import { CreatePostBtn } from "@/components/create_post_btn";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/dictionary";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 
-export const HomePageHeader = async (params: { lang: string }) => {
-  const dict = await getDictionary(params.lang);
+export const HomePageHeader = async (params: { dict: Dictionary }) => {
   const session = await getServerSession(auth);
 
   let buttons;
   if (session) {
     buttons = (
       <>
-        <CreatePostBtn text={dict.create_post} />
-        <LogoutBtn text={dict.logout} />
+        <CreatePostBtn text={params.dict.create_post} />
+        <LogoutBtn text={params.dict.logout} />
       </>
     );
   } else {
-    buttons = <SigninWithGoogleBtn text={dict.login} />;
+    buttons = <SigninWithGoogleBtn text={params.dict.login} />;
   }
 
   return (
     <header className={headerStyle()}>
       <Link href="/" className={logoStyle()}>
-        {dict.minquill}
+        {params.dict.minquill}
       </Link>
       <nav className={navStyle()}>
         <ul

@@ -7,6 +7,7 @@ import { cva } from "@/styled-system/css";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
+import { getDictionary } from "@/app/[lang]/dictionary";
 
 export default async function App({
   params: { lang },
@@ -14,19 +15,20 @@ export default async function App({
   params: { lang: string };
 }) {
   const session = await getServerSession(auth);
+  const dict = await getDictionary(lang);
 
   if (session) {
     return (
       <div className={mainStyle()}>
-        <HomePageHeader lang={lang} />
-        <HomePageBody lang={lang} />
+        <HomePageHeader dict={dict} />
+        <HomePageBody dict={dict} />
       </div>
     );
   } else {
     return (
       <div className={mainStyle()}>
-        <LandingPageHeader lang={lang} />
-        <LandingPageBody lang={lang} />
+        <LandingPageHeader dict={dict} />
+        <LandingPageBody dict={dict} />
       </div>
     );
   }

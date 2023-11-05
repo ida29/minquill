@@ -3,22 +3,20 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { LoginBtn } from "@/components/login_btn";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/dictionary";
 
-export const LandingPageHeader = async (params: { lang: string }) => {
-  const dict = await getDictionary(params.lang);
-
+export const LandingPageHeader = async (params: { dict: Dictionary }) => {
   const buttons = (
     <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
-      <LoginBtn text={dict.signin} />
-      <SigninWithGoogleBtn text={dict.login} />
+      <LoginBtn text={params.dict.signin} />
+      <SigninWithGoogleBtn text={params.dict.login} />
     </div>
   );
 
   return (
     <header className={headerStyle()}>
       <Link href="/" className={logoStyle()}>
-        {dict.minquill}
+        {params.dict.minquill}
       </Link>
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>

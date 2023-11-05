@@ -1,13 +1,12 @@
 // components/home_page_body.tsx
 import { css, cva } from "@/styled-system/css";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/dictionary";
 import { CloudflareImage } from "@/components/cloudflare_image";
 import { LoginBtn } from "@/components/login_btn";
 //import { getServerSession } from "next-auth";
 //import { auth } from "@/app/auth";
 
-export const LandingPageBody = async (params: { lang: string }) => {
-  const dict = await getDictionary(params.lang);
+export const LandingPageBody = async (params: { dict: Dictionary }) => {
   //const session = await getServerSession(auth);
 
   return (
@@ -36,9 +35,9 @@ export const LandingPageBody = async (params: { lang: string }) => {
                       paddingBottom: "1rem",
                     })}
                   >
-                    {dict.welcome_to_minquill}
+                    {params.dict.welcome_to_minquill}
                   </div>
-                  {dict.grow_your_world_of_miniature_painting}
+                  {params.dict.grow_your_world_of_miniature_painting}
                 </h1>
                 <h2
                   className={css({
@@ -48,7 +47,8 @@ export const LandingPageBody = async (params: { lang: string }) => {
                   })}
                 >
                   {
-                    dict.publish_your_miniature_images_posts_and_share_your_painting_knowledge
+                    params.dict
+                      .publish_your_miniature_images_posts_and_share_your_painting_knowledge
                   }
                   <br />
                 </h2>
@@ -59,7 +59,7 @@ export const LandingPageBody = async (params: { lang: string }) => {
                     justifyContent: "center",
                   })}
                 >
-                  <LoginBtn text={dict.signin} />
+                  <LoginBtn text={params.dict.signin} />
                 </div>
               </div>
             </section>

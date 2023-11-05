@@ -6,16 +6,19 @@ import { ActionButton } from "@/components/action_button";
 type LoginBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
+  className?: string;
 };
 
 export const LoginBtn: React.FC<LoginBtnProps> = ({
   text,
   colorVariant = "default",
+  className,
 }) => {
   return (
     <ActionButton
       text={text}
       colorVariant={colorVariant}
+      className={className}
       onClick={() => signIn()}
     />
   );

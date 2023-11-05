@@ -27,8 +27,8 @@ export function middleware(request: NextRequest) {
   }
 }
 
+export { default } from "next-auth/middleware";
+
 export const config = {
   matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
-
-export { default } from "next-auth/middleware";
