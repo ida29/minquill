@@ -1,4 +1,4 @@
-// app/[lang]/protected/posts/new/page.tsx
+// app/[lang]/posts/new/page.tsx
 import { EditorHeader } from "@/components/editor_header";
 import { EditorBody } from "@/components/editor_body";
 import { cva } from "@/styled-system/css";

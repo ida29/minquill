@@ -36,7 +36,7 @@ async function handlePublish(content: string) {
 }
 
 async function savePost(content: string) {
-  const response = await fetch("/api/protected/posts", {
+  const response = await fetch("/api/posts", {
     method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
