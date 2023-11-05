@@ -16,7 +16,7 @@ export default async function App({
   const dict = await getDictionary(lang);
 
   if (!session) {
-    return redirect("api/auth/signin");
+    return redirect("/auth/signin");
   } else {
     return (
       <div className={mainStyle()}>
