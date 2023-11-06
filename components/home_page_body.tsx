@@ -61,7 +61,10 @@ const div2Style = cva({
   base: {
     display: "flex",
     padding: "0 3rem 0 3rem",
-    width: "1200px",
+    width: "100vw",
+    sm: { width: "100vw" },
+    md: { width: "95vw" },
+    lg: { width: "90vw" },
   },
 });
 

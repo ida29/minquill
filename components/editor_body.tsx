@@ -12,6 +12,7 @@ import { historyField } from "@codemirror/commands";
 import useLocalStorageState from "use-local-storage-state";
 import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
+import { UploadImgBtn } from "@/components/upload_img_btn";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -120,6 +121,14 @@ export const EditorBody = (params: { dict: Dictionary }) => {
           <div
             className={css({
               width: "100%",
+			  padding: "0 0 1rem 0",
+            })}
+          >
+            <UploadImgBtn />
+          </div>
+          <div
+            className={css({
+              width: "100%",
               minHeight: "100vh",
               //marginRight: "auto",
             })}
@@ -164,8 +173,12 @@ const div1Style = cva({
 const div2Style = cva({
   base: {
     display: "flex",
+    flexWrap: "wrap",
     padding: "0 3rem 0 3rem",
-    width: "1200px",
+    width: "100vw",
+    sm: { width: "100vw" },
+    md: { width: "95vw" },
+    lg: { width: "90vw" },
   },
 });
 
@@ -201,6 +214,7 @@ const divPanelStyle = cva({
   base: {
     padding: "16px 16px 16px",
     minHeight: "100vh",
+    width: "100%",
 
     border: "3px solid black",
     borderRadius: "0 10px 10px 10px",

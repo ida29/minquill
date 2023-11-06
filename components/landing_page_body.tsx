@@ -130,11 +130,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     padding: "2rem",
-    width: "1200px",
+    width: "100vw",
     flexWrap: "wrap",
     justifyContent: "center",
-    sm: { padding: "2.33rem" },
-    md: { padding: "2.66rem" },
-    lg: { padding: "3rem" },
+    sm: { padding: "2.33rem", width: "100vw" },
+    md: { padding: "2.66rem", width: "95vw" },
+    lg: { padding: "3rem", width: "90vw" },
   },
 });

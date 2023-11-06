@@ -38,9 +38,12 @@ const mainStyle = cva({
   base: {
     //bg: "yellow",
     padding: "1rem 2rem 2rem 2rem",
-    maxWidth: "1200px",
     marginRight: "auto",
     marginLeft: "auto",
     height: "100vh",
+    width: "100vw",
+    sm: { width: "100vw" },
+    md: { width: "95vw" },
+    lg: { width: "90vw" },
   },
 });

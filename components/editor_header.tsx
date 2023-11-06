@@ -3,7 +3,6 @@ import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { PublishBtn } from "@/components/publish_btn";
 import { BackBtn } from "@/components/back_btn";
-import { UploadImgBtn } from "@/components/upload_img_btn";
 
 export const EditorHeader = async (params: { dict: Dictionary }) => {
   return (
@@ -19,7 +18,6 @@ export const EditorHeader = async (params: { dict: Dictionary }) => {
                 marginLeft: "auto",
               })}
             >
-              <UploadImgBtn />
               <PublishBtn text={params.dict.publish} />
             </div>
           </li>
