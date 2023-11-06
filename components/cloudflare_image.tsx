@@ -4,7 +4,7 @@
 import Image, { ImageLoader } from "next/image";
 
 const cloudflareImagesLoader: ImageLoader = ({ src }) => {
-  return `https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/${src}`;
+  return `https://imagedelivery.net/${process.env.CLOUDFLARE_ACCOUNT_HASH}/${src}`;
 };
 
 type CloudflareImageProps = {

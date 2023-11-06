@@ -30,7 +30,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             {posts.map((post, index) => (
               <div key={index} className={contentStyle()}>
                 <div>{post.title}</div>
-                <div>{post.title}</div>
               </div>
             ))}
             {params.dict.end}

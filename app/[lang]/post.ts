@@ -1,4 +1,4 @@
-// app/post.ts
+// app/[lang]/post.ts
 export type Post = {
   title: string;
   content: string;

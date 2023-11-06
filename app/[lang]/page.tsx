@@ -17,14 +17,7 @@ export default async function App({
   const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
 
-  if (session) {
-    return (
-      <div className={mainStyle()}>
-        <HomePageHeader dict={dict} />
-        <HomePageBody dict={dict} />
-      </div>
-    );
-  } else {
+  if (!session) {
     return (
       <div className={mainStyle()}>
         <LandingPageHeader dict={dict} />
@@ -32,6 +25,13 @@ export default async function App({
       </div>
     );
   }
+
+  return (
+    <div className={mainStyle()}>
+      <HomePageHeader dict={dict} />
+      <HomePageBody dict={dict} />
+    </div>
+  );
 }
 
 const mainStyle = cva({
