@@ -18,8 +18,9 @@ export const UploadImgBtn: React.FC = () => {
       images.push(event.target.files[i]);
     }
 
-    let str = contentValue;
-    for (const file of event.target.files) {
+    let content = contentValue;
+	const files = Array.from(event.target.files);
+    for (const file of files) {
       const res = await fetch("/api/images/onetime_upload_url", {
         method: "POST",
         headers: {
@@ -47,10 +48,10 @@ export const UploadImgBtn: React.FC = () => {
       }
 
       const res2_json = await res2.json();
-      str += `\n\n![${res2_json.result.filename}](${res2_json.result.variants[0]})`;
+      content += `\n\n![${res2_json.result.filename}](${res2_json.result.variants[0]})`;
     }
 
-    setContentValue(str);
+    setContentValue(content);
   };
 
   return <input type="file" multiple onChange={handleUploadImg} />;
