@@ -13,6 +13,8 @@ import useLocalStorageState from "use-local-storage-state";
 import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { UploadImgBtn } from "@/components/upload_img_btn";
+import { html } from "@codemirror/lang-html";
+import { EditorView } from "@codemirror/view";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -75,6 +77,8 @@ export const EditorBody = (params: { dict: Dictionary }) => {
         theme={myTheme}
         basicSetup={editorSetup}
         extensions={[
+          html(),
+          EditorView.lineWrapping,
           markdown({
             base: markdownLanguage,
             codeLanguages: languages,
@@ -121,7 +125,7 @@ export const EditorBody = (params: { dict: Dictionary }) => {
           <div
             className={css({
               width: "100%",
-			  padding: "0 0 1rem 0",
+              padding: "0 0 1rem 0",
             })}
           >
             <UploadImgBtn />
