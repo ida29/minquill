@@ -1,6 +1,7 @@
 // app/[lang]/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
+import { css } from "@/styled-system/css";
 import { Inter } from "next/font/google";
 import NextAuthProvider from "@/app/[lang]/providers/NextAuth";
 
@@ -33,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+	    <div className={css({ overflow: "hidden"; })}>
+          <NextAuthProvider>{children}</NextAuthProvider>
+		</>
       </body>
     </html>
   );
