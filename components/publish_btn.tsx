@@ -16,11 +16,20 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   colorVariant = "default",
   className,
 }) => {
-  const [contentValue] = useLocalStorageState("contentValue");
+  const [contentValue, setContentValue] = useLocalStorageState("contentValue");
   const content = contentValue as string;
   const newPost: Post = {
     title: content ? content.split("\n")[0].replace(/^#+\s*/, "") : "",
     content: content,
+  };
+
+  const handlePublish = async (newPost: Post) => {
+    try {
+      await savePost(newPost);
+      setContentValue("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -32,11 +41,3 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
     />
   );
 };
-
-async function handlePublish(newPost: Post) {
-  try {
-    await savePost(newPost);
-  } catch (error) {
-    console.error(error);
-  }
-}

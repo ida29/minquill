@@ -30,7 +30,9 @@
     "react": "^18",
     "react-dom": "^18",
     "remark-breaks": "^4.0.0",
-    "use-local-storage-state": "^19.1.0"
+    "ulid": "^2.3.0",
+    "use-local-storage-state": "^19.1.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.17.3",
@@ -38,6 +40,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",

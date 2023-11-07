@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { Post } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
+import { ulid } from "ulid";
 
 const prisma = new PrismaClient();
 
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
       data: {
         title: req_json.title,
         content: req_json.content,
+        ulid: ulid(),
         author: {
           connect: {
             id: session?.user?.id,
