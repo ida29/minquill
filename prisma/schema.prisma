@@ -40,7 +40,6 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image         String?
   accounts      Account[]
   sessions      Session[]
   role          Role      @default(USER)
@@ -70,22 +69,10 @@ model Post {
   content     String?  @db.VarChar(2000)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
-  images      Image[]
   comments    Comment[]
   likes       Like[]
 
   @@index([authorId])
-}
-
-model Image {
-  id          Int      @id @default(autoincrement())
-  postId      Int
-  imageUrl    String
-  createdAt   DateTime @default(now())
-  post        Post     @relation(fields: [postId], references: [id])
-  likes       Like[]
-
-  @@index([postId])
 }
 
 model Comment {
@@ -106,15 +93,12 @@ model Like {
   id             Int     @id @default(autoincrement())
   userId         String
   postId         Int?
-  imageId        Int?
   serviceId      Int?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
   post           Post?    @relation(fields: [postId], references: [id])
-  image          Image?   @relation(fields: [imageId], references: [id])
 
   @@index([userId, postId])
-  @@index([userId, imageId])
   @@index([userId, serviceId])
 }
 
