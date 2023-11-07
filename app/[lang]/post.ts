@@ -4,6 +4,21 @@ export type Post = {
   content: string;
 };
 
+export async function getPost(unique: string): Promise<Post> {
+  const response = await fetch(`/api/posts/${unique}`, {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get posts: ${response.statusText}`);
+  }
+
+  const post: Post = await response.json();
+  return post;
+}
+
 export async function getPosts(): Promise<Post[]> {
   const response = await fetch("/api/posts", {
     method: "GET",

@@ -22,7 +22,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
         <div className={div2Style()}>
           <div
             className={css({
-              width: "80%",
+              width: "100%",
               height: "100%",
               fontFamily: "futura",
             })}
@@ -32,7 +32,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 <div>{post.title}</div>
               </div>
             ))}
-            {params.dict.end}
+            <div>{params.dict.end}</div>
           </div>
         </div>
       </div>
@@ -60,22 +60,22 @@ const div1Style = cva({
 const div2Style = cva({
   base: {
     display: "flex",
-    padding: "0 3rem 0 3rem",
+    flexWrap: "wrap",
+    padding: "0 0.8rem 0 0.8rem",
     width: "100vw",
-    sm: { width: "100vw" },
-    md: { width: "95vw" },
-    lg: { width: "90vw" },
+    sm: { width: "100vw", padding: "1rem 1rem 2rem 1rem" },
+    md: { width: "95vw", padding: "1rem 2rem 2rem 2rem" },
+    lg: { width: "90vw", padding: "1rem 2rem 2rem 2rem" },
   },
 });
 
 const contentStyle = cva({
   base: {
-    height: "10rem",
-    width: "20rem",
+    height: "100%",
+    width: "100%",
     border: "3px solid black",
     borderRadius: "10px",
-    padding: "1rem",
-    margin: "1rem",
+    margin: "1rem 0 1rem 0",
     display: "flex",
     justifyContent: "center",
     sm: { height: "10rem" },

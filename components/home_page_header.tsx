@@ -30,13 +30,17 @@ export const HomePageHeader = async (params: { dict: Dictionary }) => {
       </Link>
       <nav className={navStyle()}>
         <ul
-          className={css({ display: "flex", marginLeft: "auto", gap: "1rem" })}
+          className={css({
+            display: "flex",
+            marginLeft: "auto",
+            gap: "0.5rem",
+          })}
         >
           <li
             className={css({
               display: "flex",
               marginLeft: "auto",
-              gap: "1rem",
+              gap: "0.5rem",
             })}
           >
             {buttons}
@@ -61,7 +65,10 @@ const headerStyle = cva({
 
 const logoStyle = cva({
   base: {
-    font: "600 2rem/1 futura",
+    font: "600 1.8rem/1 futura",
+    sm: { fontSize: "1.8rem" },
+    md: { fontSize: "1.9rem" },
+    lg: { fontSize: "2rem" },
   },
 });
 

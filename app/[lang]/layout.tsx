@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className={css({ overflow: "hidden" })}>
+        <div className={css({ overflow: "scroll" })}>
           <NextAuthProvider>{children}</NextAuthProvider>
         </div>
       </body>
