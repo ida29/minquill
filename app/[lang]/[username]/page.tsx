@@ -1,28 +1,20 @@
-// app/[lang]/posts/new/page.tsx
-import { EditorHeader } from "@/components/editor_header";
-import { EditorBody } from "@/components/editor_body";
+// app/[lang]/[username]/page.tsx
 import { cva } from "@/styled-system/css";
-import { getServerSession } from "next-auth";
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
+import { UserPageHeader } from "@/components/user_page_header";
+import { UserPageBody } from "@/components/user_page_body";
 import { getDictionary } from "@/app/[lang]/dictionary";
 
 export default async function App({
-  params: { lang },
+  params: { lang, username },
 }: {
-  params: { lang: string };
+  params: { lang: string; username: string };
 }) {
-  const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
-
-  if (!session) {
-    return redirect("/auth/signin");
-  }
 
   return (
     <div className={mainStyle()}>
-      <EditorHeader dict={dict} />
-      <EditorBody dict={dict} />
+      <UserPageHeader dict={dict} />
+      <UserPageBody dict={dict} username={username} />
     </div>
   );
 }

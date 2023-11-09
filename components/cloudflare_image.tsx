@@ -10,8 +10,8 @@ const cloudflareImagesLoader: ImageLoader = ({ src }) => {
 type CloudflareImageProps = {
   alt: string;
   src: string;
-  className: string;
-  variants: string;
+  className?: string;
+  variants?: string;
 };
 
 export const CloudflareImage: React.FC<CloudflareImageProps> = ({

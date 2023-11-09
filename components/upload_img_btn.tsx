@@ -19,7 +19,7 @@ export const UploadImgBtn: React.FC = () => {
     }
 
     let content = contentValue;
-	const files = Array.from(event.target.files);
+    const files = Array.from(event.target.files);
     for (const file of files) {
       const res = await fetch("/api/images/onetime_upload_url", {
         method: "POST",

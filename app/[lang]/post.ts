@@ -34,6 +34,30 @@ export async function getPosts(): Promise<Post[]> {
   return posts;
 }
 
+export async function getPostsByUsername(
+  username: string,
+  count: number,
+  order: string,
+): Promise<Post[]> {
+  const url = new URL("/api/posts", window.location.origin);
+  url.searchParams.append("username", username);
+  url.searchParams.append("count", count.toString());
+  url.searchParams.append("order", order);
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get posts: ${response.statusText}`);
+  }
+
+  const posts: Post[] = await response.json();
+  return posts;
+}
+
 export async function savePost(newPost: Post): Promise<Post> {
   const response = await fetch("/api/posts", {
     method: "POST",

@@ -8,15 +8,41 @@ import { ulid } from "ulid";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const session = await getServerSession(auth);
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 500 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const posts: Post[] = await prisma.post.findMany();
-  const res: NextResponse = NextResponse.json(posts);
-  return res;
+  try {
+    const { searchParams } = new URL(req.url);
+    const username = searchParams.get("username") as string;
+    const count = Number(searchParams.get("count")) || 20;
+    const order = (searchParams.get("order") as "asc" | "desc") || "desc";
+
+    const where = username ? { authorId: username } : {};
+
+    const posts: Post[] = await prisma.post.findMany({
+      where,
+      take: count,
+      orderBy: {
+        createdAt: order,
+      },
+      include: {
+        author: true,
+        comments: true,
+        likes: true,
+      },
+    });
+
+    return new NextResponse(JSON.stringify(posts), { status: 200 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Failed to create post" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(req: NextRequest) {

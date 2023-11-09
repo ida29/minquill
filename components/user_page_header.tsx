@@ -9,7 +9,7 @@ import { Dictionary } from "@/app/[lang]/dictionary";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 
-export const HomePageHeader = async (params: { dict: Dictionary }) => {
+export const UserPageHeader = async (params: { dict: Dictionary }) => {
   const session = await getServerSession(auth);
 
   let buttons;

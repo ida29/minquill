@@ -1,20 +1,28 @@
 // components/home_page_body.tsx
 "use client";
 
+import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { getPostsByUsername, Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
 
-export const HomePageBody = (params: { dict: Dictionary }) => {
+export const UserPageBody = (params: {
+  dict: Dictionary;
+  username: string;
+}) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     (async () => {
-      const posts: Post[] = await getPostsByUsername("", 10, "desc");
+      const posts: Post[] = await getPostsByUsername(
+        params.username,
+        20,
+        "asc",
+      );
       setPosts(posts);
     })();
-  }, []);
+  }, [params]);
 
   return (
     <main>
@@ -29,7 +37,9 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           >
             {posts.map((post, index) => (
               <div key={index} className={contentStyle()}>
-                <div>{post.title}</div>
+                <Link href={`/${post.authorId}/posts/${post.ulid}`}>
+                  {post.title}
+                </Link>
               </div>
             ))}
             <div>{params.dict.end}</div>
