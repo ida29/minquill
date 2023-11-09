@@ -2,6 +2,8 @@
 export type Post = {
   title: string;
   content: string;
+  authorId?: string;
+  ulid?: string;
 };
 
 export async function getPost(unique: string): Promise<Post> {
