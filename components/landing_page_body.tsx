@@ -1,4 +1,4 @@
-// components/home_page_body.tsx
+// components/landing_page_body.tsx
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { CloudflareImage } from "@/components/cloudflare_image";
@@ -24,25 +24,31 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                 <h1
                   className={css({
                     width: "100%",
-                    font: "600 1.5rem/1 futura",
-                    paddingBottom: "2rem",
-                    sm: { fontSize: "2rem" },
-                    md: { fontSize: "2.5rem" },
-                    lg: { fontSize: "3rem" },
                   })}
                 >
                   <div
                     className={css({
-                      font: "600 1.5rem/1 futura",
-                      paddingBottom: "1rem",
-                      sm: { fontSize: "2rem" },
-                      md: { fontSize: "2.5rem" },
+                      font: "600 2rem/1 futura",
+                      margin: "1rem 0 1rem 0",
+                      sm: { fontSize: "2.33rem" },
+                      md: { fontSize: "2.66rem" },
                       lg: { fontSize: "3rem" },
                     })}
                   >
                     {params.dict.welcome_to_minquill}
                   </div>
-                  {params.dict.grow_your_world_of_miniature_painting}
+                  <div
+                    className={css({
+                      width: "100%",
+                      font: "600 1.5rem/1 futura",
+                      margin: "0 0 2rem 0",
+                      sm: { fontSize: "2rem" },
+                      md: { fontSize: "2.5rem" },
+                      lg: { fontSize: "3rem" },
+                    })}
+                  >
+                    {params.dict.grow_your_world_of_miniature_painting}
+                  </div>
                 </h1>
                 <h2
                   className={css({
@@ -65,6 +71,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
+                    margin: "0 0 1rem 0",
                   })}
                 >
                   <LoginBtn text={params.dict.signin} />
@@ -76,7 +83,6 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
             src="a717cf59-f0ef-409a-d96b-904475a64c00"
             alt="LowPoly Mage Image"
             className={css({
-              width: "50%",
               //marginLeft: "auto",
               alignSelf: "center",
               marginTop: "1.6rem",

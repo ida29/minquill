@@ -2,14 +2,12 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { LoginBtn } from "@/components/login_btn";
-import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { Dictionary } from "@/app/[lang]/dictionary";
 
 export const LandingPageHeader = async (params: { dict: Dictionary }) => {
   const buttons = (
     <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
       <LoginBtn text={params.dict.signin} />
-      <SigninWithGoogleBtn text={params.dict.login} />
     </div>
   );
 
