@@ -1,8 +1,23 @@
 "use client";
 
+//import { css } from "@/styled-system/css";
+import { ActionButton } from "@/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
+import React, { useRef } from "react";
 
-export const UploadImgBtn: React.FC = () => {
+type UploadImgBtnProps = {
+  text: string;
+  colorVariant?: "default" | "primary" | "secondary";
+  className?: string;
+};
+
+export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
+  text,
+  colorVariant = "default",
+  className,
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [contentValue, setContentValue] =
     useLocalStorageState<string>("contentValue");
 
@@ -54,5 +69,30 @@ export const UploadImgBtn: React.FC = () => {
     setContentValue(content);
   };
 
-  return <input type="file" multiple onChange={handleUploadImg} />;
+  const btnClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
+  return (
+    <>
+      <label>
+        <ActionButton
+          text={text}
+          colorVariant={colorVariant}
+          className={className}
+          onClick={btnClick}
+        />
+        <input
+          hidden
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleUploadImg}
+        />
+      </label>
+    </>
+  );
 };

@@ -58,7 +58,7 @@ export const HomePageHeader = async (params: { dict: Dictionary }) => {
               display: "flex",
               alignItems: "center",
               marginLeft: "auto",
-              gap: "0.5rem",
+              gap: "0.8rem",
             })}
           >
             {buttons}

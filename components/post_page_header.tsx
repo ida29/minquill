@@ -1,12 +1,10 @@
 // components/editor_header.tsx
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { BackBtn } from "@/components/back_btn";
 
 export const PostPageHeader = async (params: { dict: Dictionary }) => {
   return (
     <header className={headerStyle()}>
-      <BackBtn text={params.dict.back} />
       <nav className={navStyle()}>
         <ul className={css({ display: "flex", marginLeft: "auto" })}>
           <li>
@@ -20,6 +18,7 @@ export const PostPageHeader = async (params: { dict: Dictionary }) => {
           </li>
         </ul>
       </nav>
+      {params.dict.end}
     </header>
   );
 };

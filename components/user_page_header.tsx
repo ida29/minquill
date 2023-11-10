@@ -50,7 +50,7 @@ export const UserPageHeader = async (params: { dict: Dictionary }) => {
           className={css({
             display: "flex",
             marginLeft: "auto",
-            gap: "0.5rem",
+            gap: "0.8rem",
           })}
         >
           <li

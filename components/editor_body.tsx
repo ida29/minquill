@@ -10,11 +10,12 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { historyField } from "@codemirror/commands";
 import useLocalStorageState from "use-local-storage-state";
+import { useState } from "react";
 import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { UploadImgBtn } from "@/components/upload_img_btn";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
+import { FiFeather, FiPlayCircle, FiHelpCircle } from "react-icons/fi";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -40,16 +41,13 @@ const myTheme = createTheme({
 
 export const EditorBody = (params: { dict: Dictionary }) => {
   const initStr: string = params.dict.init_str;
-  const tabStrArr: string[] = [
-    params.dict.editor,
-    params.dict.preview,
-    params.dict.cheat_sheet,
+  const tabStrArr: React.ReactNode[] = [
+    <FiFeather key="0" />,
+    <FiPlayCircle key="1" />,
+    <FiHelpCircle key="2" />,
   ];
 
-  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
-    "activTabIndex",
-    { defaultValue: 0 },
-  );
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
     defaultValue: initStr,
   });
@@ -125,14 +123,6 @@ export const EditorBody = (params: { dict: Dictionary }) => {
           <div
             className={css({
               width: "100%",
-              padding: "0 0 1rem 0",
-            })}
-          >
-            <UploadImgBtn />
-          </div>
-          <div
-            className={css({
-              width: "100%",
               minHeight: "100vh",
               //marginRight: "auto",
             })}
@@ -163,7 +153,7 @@ const div1Style = cva({
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",
-    borderTop: "3px solid black",
+    borderTop: "2px solid black",
     paddingTop: "1rem",
   },
   variants: {
@@ -178,11 +168,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 0.3rem 0 0.3rem",
+    padding: "0 1.5rem 0 1.5rem",
     width: "100vw",
-    sm: { width: "100vw", padding: "1rem 1rem 2rem 1rem" },
-    md: { width: "95vw", padding: "1rem 2rem 2rem 2rem" },
-    lg: { width: "90vw", padding: "1rem 2rem 2rem 2rem" },
+    sm: { padding: "0 2rem 0 2rem", width: "100vw" },
+    md: { padding: "0 2.5rem 0 2.5rem", width: "95vw" },
+    lg: { padding: "0 3rem 0 3rem", width: "90vw" },
   },
 });
 
@@ -195,9 +185,8 @@ const ulStyle = cva({
 
 const liStyle = cva({
   base: {
-    width: "8rem",
-    height: "2rem",
-    font: "600 0.8rem/1 futura",
+    height: "2.6rem",
+    font: "600 1.4rem/1 futura",
     textAlign: "center",
 
     margin: "0",
@@ -205,11 +194,10 @@ const liStyle = cva({
     listStyle: "none",
     display: "inline-block",
 
-    border: "3px solid black",
-    borderRadius: "10px 10px 0 0",
+    border: "2px solid black",
     bg: "lightgrey",
 
-    marginRight: "-3px",
+    marginRight: "-2px",
     _hover: { bg: "darkgrey" },
   },
 });
@@ -220,11 +208,10 @@ const divPanelStyle = cva({
     minHeight: "100vh",
     width: "100%",
 
-    border: "3px solid black",
-    borderRadius: "0 10px 10px 10px",
+    border: "2px solid black",
     background: "white",
 
-    marginTop: "-0.2rem",
+    marginTop: "-0.55rem",
     position: "relative",
     zIndex: "0",
   },
@@ -233,7 +220,7 @@ const divPanelStyle = cva({
 const activeTab = cva({
   base: {
     bg: "white",
-    border: "3px solid black",
+    border: "2px solid black",
     borderBottom: "none",
 
     position: "relative",

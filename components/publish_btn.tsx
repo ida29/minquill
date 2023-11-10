@@ -13,10 +13,10 @@ type PublishBtnProps = {
 
 export const PublishBtn: React.FC<PublishBtnProps> = ({
   text,
-  colorVariant = "default",
+  colorVariant = "primary",
   className,
 }) => {
-  const [contentValue, setContentValue] = useLocalStorageState("contentValue");
+  const [contentValue] = useLocalStorageState("contentValue");
   const content = contentValue as string;
   const newPost: Post = {
     title: content ? content.split("\n")[0].replace(/^#+\s*/, "") : "",
@@ -26,7 +26,6 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const handlePublish = async (newPost: Post) => {
     try {
       await savePost(newPost);
-      setContentValue("");
     } catch (error) {
       console.error(error);
     }
