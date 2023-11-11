@@ -10,12 +10,12 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { historyField } from "@codemirror/commands";
 import useLocalStorageState from "use-local-storage-state";
-import { useState } from "react";
 import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
-import { FiFeather, FiPlayCircle, FiHelpCircle } from "react-icons/fi";
+import { PublishBtn } from "@/components/publish_btn";
+import { UploadImgBtn } from "@/components/upload_img_btn";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -41,23 +41,16 @@ const myTheme = createTheme({
 
 export const EditorBody = (params: { dict: Dictionary }) => {
   const initStr: string = params.dict.init_str;
-  const tabStrArr: React.ReactNode[] = [
-    <FiFeather key="0" />,
-    <FiPlayCircle key="1" />,
-    <FiHelpCircle key="2" />,
-  ];
 
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [activeTabIndex] = useLocalStorageState("activeTab", {
+    defaultValue: 0,
+  });
   const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
     defaultValue: initStr,
   });
   const [editorState, setEditorState] = useLocalStorageState("editorState", {
     defaultValue: "",
   });
-
-  const handleTabClick = (index: number) => {
-    setActiveTabIndex(index);
-  };
 
   let activeTabItem;
   if (activeTabIndex === 0) {
@@ -90,6 +83,20 @@ export const EditorBody = (params: { dict: Dictionary }) => {
         }}
       />
     );
+  } else if (activeTabIndex === 2) {
+    activeTabItem = (
+      <div
+        className={css({
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        })}
+      >
+        <UploadImgBtn text={params.dict.upload_images} />
+      </div>
+    );
   } else {
     activeTabItem = (
       <MarkdownPreview
@@ -117,31 +124,31 @@ export const EditorBody = (params: { dict: Dictionary }) => {
   }
 
   return (
-    <main>
+    <main
+      className={css({
+        padding: "4.4rem",
+      })}
+    >
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
             className={css({
               width: "100%",
-              minHeight: "100vh",
               //marginRight: "auto",
             })}
           >
-            <ul className={ulStyle()}>
-              {tabStrArr.map((tabName, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleTabClick(index)}
-                  className={`${liStyle()} 
-                  ${index === activeTabIndex ? activeTab() : ""}`}
-                >
-                  {tabName}
-                </li>
-              ))}
-            </ul>
             <div className={divPanelStyle()}>{activeTabItem}</div>
           </div>
         </div>
+      </div>
+      <div
+        className={css({
+          display: "flex",
+          justifyContent: "center",
+          padding: "2rem",
+        })}
+      >
+        <PublishBtn text={params.dict.publish} />
       </div>
     </main>
   );
@@ -150,11 +157,10 @@ export const EditorBody = (params: { dict: Dictionary }) => {
 const div1Style = cva({
   base: {
     margin: "0 calc(50% - 50vw)",
-    bg: "lightslategrey",
+    bg: "white",
     display: "flex",
     justifyContent: "center",
-    borderTop: "2px solid black",
-    paddingTop: "1rem",
+    paddingTop: "0.75rem",
   },
   variants: {
     color: {
@@ -168,63 +174,25 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 1.5rem 0 1.5rem",
+    padding: "0 1.0rem 0 1.0rem",
     width: "100vw",
     sm: { padding: "0 2rem 0 2rem", width: "100vw" },
-    md: { padding: "0 2.5rem 0 2.5rem", width: "95vw" },
+    md: { padding: "0 2rem 0 2rem", width: "95vw" },
     lg: { padding: "0 3rem 0 3rem", width: "90vw" },
-  },
-});
-
-const ulStyle = cva({
-  base: {
-    margin: "0",
-    padding: "0",
-  },
-});
-
-const liStyle = cva({
-  base: {
-    height: "2.6rem",
-    font: "600 1.4rem/1 futura",
-    textAlign: "center",
-
-    margin: "0",
-    padding: "8px 20px",
-    listStyle: "none",
-    display: "inline-block",
-
-    border: "2px solid black",
-    bg: "lightgrey",
-
-    marginRight: "-2px",
-    _hover: { bg: "darkgrey" },
   },
 });
 
 const divPanelStyle = cva({
   base: {
     padding: "16px 16px 16px",
-    minHeight: "100vh",
+    minHeight: "50vh",
     width: "100%",
+    height: "100%",
 
     border: "2px solid black",
     background: "white",
 
-    marginTop: "-0.55rem",
     position: "relative",
     zIndex: "0",
-  },
-});
-
-const activeTab = cva({
-  base: {
-    bg: "white",
-    border: "2px solid black",
-    borderBottom: "none",
-
-    position: "relative",
-    zIndex: "1",
-    _hover: { bg: "white !important" },
   },
 });

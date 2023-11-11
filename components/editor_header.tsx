@@ -1,12 +1,35 @@
 // components/editor_header.tsx
+"use client";
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/dictionary";
-import { PublishBtn } from "@/components/publish_btn";
-import { UploadImgBtn } from "@/components/upload_img_btn";
+//import { Dictionary } from "@/app/[lang]/dictionary";
 import { FiArrowLeftCircle } from "react-icons/fi";
+import useLocalStorageState from "use-local-storage-state";
+import {
+  FiFeather,
+  FiPlayCircle,
+  FiImage,
+  FiHelpCircle,
+  FiSliders,
+} from "react-icons/fi";
 
-export const EditorHeader = async (params: { dict: Dictionary }) => {
+export const EditorHeader = (/*params: { dict: Dictionary }*/) => {
+  const tabStrArr: React.ReactNode[] = [
+    <FiFeather key="0" />,
+    <FiPlayCircle key="1" />,
+    <FiImage key="2" />,
+    <FiHelpCircle key="3" />,
+  ];
+  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
+    "activeTab",
+    {
+      defaultValue: 0,
+    },
+  );
+  const handleTabClick = (index: number) => {
+    setActiveTabIndex(index);
+  };
+
   return (
     <header className={headerStyle()}>
       <Link
@@ -19,40 +42,81 @@ export const EditorHeader = async (params: { dict: Dictionary }) => {
       >
         <FiArrowLeftCircle />
       </Link>
-      <nav className={navStyle()}>
-        <ul className={css({ display: "flex", marginLeft: "auto" })}>
-          <li>
-            <div
-              className={css({
-                display: "flex",
-                gap: "0.8rem",
-                marginLeft: "auto",
-              })}
-            >
-              <UploadImgBtn text={params.dict.upload_image} />
-              <PublishBtn text={params.dict.publish} />
-            </div>
+      <ul className={ulStyle()}>
+        {tabStrArr.map((tabName, index) => (
+          <li
+            key={index}
+            onClick={() => handleTabClick(index)}
+            className={`${liStyle()} 
+                  ${index === activeTabIndex ? activeTab() : ""}`}
+          >
+            {tabName}
           </li>
-        </ul>
-      </nav>
+        ))}
+      </ul>
+      <div
+        className={css({
+          fontSize: "2rem",
+          _hover: { bg: "lightgray" },
+          borderRadius: "50%",
+        })}
+      >
+        <FiSliders />
+      </div>
     </header>
   );
 };
 
 const headerStyle = cva({
   base: {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    zIndex: "99",
+
     display: "flex",
-    padding: "1rem",
     justifyContent: "space-between",
     alignItems: "center",
+
+    bg: "white",
+
     width: "100%",
-    height: "1.6rem",
-    marginBottom: "1.6rem",
+    borderBottom: "2px solid black",
+
+    height: "4.4rem",
+    padding: "0 2rem",
   },
 });
 
-const navStyle = cva({
+const ulStyle = cva({
   base: {
     display: "flex",
+    alignItems: "center",
+    border: "2px solid black",
+    height: "3rem",
+    borderRadius: "10px",
+    padding: "0 0.5rem",
+  },
+});
+
+const liStyle = cva({
+  base: {
+    margin: "0.5rem",
+    listStyle: "none",
+    display: "inline-block",
+
+    fontSize: "2rem",
+    _hover: { bg: "lightgray" },
+    borderRadius: "50%",
+  },
+});
+
+const activeTab = cva({
+  base: {
+    bg: "lightgreen",
+
+    position: "relative",
+    zIndex: "1",
+    _hover: { bg: "lightgreen !important" },
   },
 });

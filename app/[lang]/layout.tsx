@@ -2,10 +2,15 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { css } from "@/styled-system/css";
-import { Inter } from "next/font/google";
+import { Hind } from "next/font/google";
 import NextAuthProvider from "@/app/[lang]/providers/NextAuth";
 
-const inter = Inter({ subsets: ["latin"] });
+export const hind = Hind({
+  weight: ["400", "700"],
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-fira-code",
+});
 
 export const metadata: Metadata = {
   title: "MinQuill",
@@ -33,8 +38,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className={css({ overflow: "scroll" })}>
+      <body className={hind.className}>
+        <div className={css({})}>
           <NextAuthProvider>{children}</NextAuthProvider>
         </div>
       </body>

@@ -1,7 +1,7 @@
 // components/landing_page_body.tsx
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { CloudflareImage } from "@/components/cloudflare_image";
+import Image from "next/image";
 import { LoginBtn } from "@/components/login_btn";
 
 export const LandingPageBody = async (params: { dict: Dictionary }) => {
@@ -12,7 +12,9 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
           <div
             className={css({
               width: "100%",
-              font: "600 2rem/1 futura",
+              fontWeight: "700",
+              fontSize: "2rem",
+              lineHeight: "1",
               alignSelf: "center",
               sm: { width: "100%" },
               md: { width: "60%" },
@@ -28,7 +30,9 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                 >
                   <div
                     className={css({
-                      font: "600 2rem/1 futura",
+                      fontWeight: "700",
+                      fontSize: "2rem",
+                      lineHeight: "1",
                       margin: "1rem 0 1rem 0",
                       sm: { fontSize: "2.33rem" },
                       md: { fontSize: "2.66rem" },
@@ -40,7 +44,9 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                   <div
                     className={css({
                       width: "100%",
-                      font: "600 1.5rem/1 futura",
+                      fontWeight: "700",
+                      fontSize: "1.5rem",
+                      lineHeight: "1",
                       margin: "0 0 2rem 0",
                       sm: { fontSize: "2rem" },
                       md: { fontSize: "2.5rem" },
@@ -79,18 +85,11 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
               </div>
             </section>
           </div>
-          <CloudflareImage
-            src="a717cf59-f0ef-409a-d96b-904475a64c00"
+          <Image
+            src="/lowpoly_whiz.png"
             alt="LowPoly Mage Image"
-            className={css({
-              //marginLeft: "auto",
-              alignSelf: "center",
-              marginTop: "1.6rem",
-              sm: { width: "50%" },
-              md: { width: "40%" },
-              lg: { width: "40%" },
-            })}
-            variants="public"
+            width="400"
+            height="400"
           />
         </div>
       </div>

@@ -16,7 +16,15 @@ export default defineConfig({
   jsxFramework: "react",
 
   // Useful for theme customization
-  theme: {},
+  theme: {
+    extend: {
+      tokens: {
+        fonts: {
+          fira: { value: "var(--font-hind)" },
+        },
+      },
+    },
+  },
 
   // The output directory for your css system
   outdir: "styled-system",

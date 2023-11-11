@@ -28,7 +28,9 @@ const btnStyle = cva({
   base: {
     //bg: "white",
     textDecoration: "none",
-    font: "600 0.8rem/1 futura",
+    fontWeight: "700",
+    fontSize: "0.8rem",
+    lineHeight: "1",
     padding: "0.8em 1em",
     border: "2px solid black",
     borderRadius: "6px",

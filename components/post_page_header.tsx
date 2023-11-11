@@ -31,7 +31,7 @@ const headerStyle = cva({
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
-    marginBottom: "1.6rem",
+    marginBottom: "1.0rem",
   },
 });
 

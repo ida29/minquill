@@ -33,7 +33,7 @@ const headerStyle = cva({
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
-    marginBottom: "1.6rem",
+    marginBottom: "1.0rem",
     sm: { padding: "0.33rem" },
     md: { padding: "0.66rem" },
     lg: { padding: "1rem" },
@@ -42,7 +42,9 @@ const headerStyle = cva({
 
 const logoStyle = cva({
   base: {
-    font: "600 1.8rem/1 futura",
+    fontWeight: "700",
+    fontSize: "1.8rem",
+    lineHeight: "1",
     sm: { fontSize: "1.8rem" },
     md: { fontSize: "1.9rem" },
     lg: { fontSize: "2rem" },

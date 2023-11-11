@@ -4,7 +4,6 @@ import { GoogleImage } from "@/components/google_image";
 import { css, cva } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { LogoutBtn } from "@/components/logout_btn";
-import { CreatePostBtn } from "@/components/create_post_btn";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
@@ -32,7 +31,6 @@ export const UserPageHeader = async (params: { dict: Dictionary }) => {
             })}
           />
         </Link>
-        <CreatePostBtn text={params.dict.create_post} />
         <LogoutBtn text={params.dict.logout} />
       </>
     );
@@ -58,7 +56,7 @@ export const UserPageHeader = async (params: { dict: Dictionary }) => {
               display: "flex",
               alignItems: "center",
               marginLeft: "auto",
-              gap: "0.5rem",
+              gap: "0.8rem",
             })}
           >
             {buttons}
@@ -77,13 +75,15 @@ const headerStyle = cva({
     alignItems: "center",
     width: "100%",
     height: "1.6rem",
-    marginBottom: "1.6rem",
+    marginBottom: "1.0rem",
   },
 });
 
 const logoStyle = cva({
   base: {
-    font: "600 1.8rem/1 futura",
+    fontWeight: "700",
+    fontSize: "1rem",
+    lineHeight: "1",
     sm: { fontSize: "1.8rem" },
     md: { fontSize: "1.9rem" },
     lg: { fontSize: "2rem" },

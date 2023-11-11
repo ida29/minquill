@@ -2,7 +2,7 @@
 import { cva, css } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { getDictionary } from "@/app/[lang]/dictionary";
-import { CloudflareImage } from "@/components/cloudflare_image";
+import Image from "next/image";
 
 export default async function App({
   params: { lang },
@@ -22,9 +22,11 @@ export default async function App({
           flexDirection: "column",
         })}
       >
-        <CloudflareImage
-          src="a717cf59-f0ef-409a-d96b-904475a64c00"
+        <Image
+          src="/lowpoly_whiz.png"
           alt="LowPoly Mage Image"
+          width="400"
+          height="400"
           className={css({
             width: "50%",
             //marginLeft: "auto",
@@ -35,7 +37,6 @@ export default async function App({
             lg: { width: "20%" },
             padding: "0 1rem 1rem 0",
           })}
-          variants="public"
         />
         <SigninWithGoogleBtn text={dict.sign_in_with_google} />
       </div>

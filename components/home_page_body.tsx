@@ -25,7 +25,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             className={css({
               width: "100%",
               height: "100%",
-              fontFamily: "futura",
             })}
           >
             {posts.map((post, index) => (
