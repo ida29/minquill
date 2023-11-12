@@ -1,7 +1,6 @@
 // app/[lang]/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
-import { css } from "@/styled-system/css";
 import { Hind } from "next/font/google";
 import NextAuthProvider from "@/app/[lang]/providers/NextAuth";
 
@@ -39,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={hind.className}>
-        <div className={css({})}>
+        <div>
           <NextAuthProvider>{children}</NextAuthProvider>
         </div>
       </body>

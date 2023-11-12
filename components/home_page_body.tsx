@@ -18,7 +18,11 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   }, []);
 
   return (
-    <main>
+    <main
+      className={css({
+        padding: "4.4rem",
+      })}
+    >
       <div className={div1Style({ color: "secondary" })}>
         <div className={div2Style()}>
           <div
@@ -49,7 +53,6 @@ const div1Style = cva({
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",
-    borderTop: "3px solid black",
   },
   variants: {
     color: {
@@ -63,11 +66,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 1.5rem 0 1.5rem",
     width: "100vw",
-    sm: { padding: "0 2rem 0 2rem", width: "100vw" },
-    md: { padding: "0 2.5rem 0 2.5rem", width: "95vw" },
-    lg: { padding: "0 3rem 0 3rem", width: "90vw" },
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 

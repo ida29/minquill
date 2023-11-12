@@ -69,13 +69,26 @@ export const UserPageHeader = async (params: { dict: Dictionary }) => {
 
 const headerStyle = cva({
   base: {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    zIndex: "99",
+
     display: "flex",
-    padding: "1rem",
     justifyContent: "space-between",
     alignItems: "center",
+
+    bg: "white",
+
     width: "100%",
-    height: "1.6rem",
-    marginBottom: "1.0rem",
+    borderBottom: "2px solid black",
+
+    height: "4.4rem",
+
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 

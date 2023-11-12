@@ -6,7 +6,11 @@ import { LoginBtn } from "@/components/login_btn";
 
 export const LandingPageBody = async (params: { dict: Dictionary }) => {
   return (
-    <main>
+    <main
+      className={css({
+        padding: "4.4rem",
+      })}
+    >
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
@@ -17,12 +21,16 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
               lineHeight: "1",
               alignSelf: "center",
               sm: { width: "100%" },
-              md: { width: "60%" },
-              lg: { width: "60%" },
+              md: { width: "69%" },
+              lg: { width: "69%" },
             })}
           >
             <section>
-              <div className={css({})}>
+              <div
+                className={css({
+                  width: "100%",
+                })}
+              >
                 <h1
                   className={css({
                     width: "100%",
@@ -90,6 +98,15 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
             alt="LowPoly Mage Image"
             width="400"
             height="400"
+            className={css({
+              alignSelf: "center",
+              marginLeft: "auto",
+
+              display: "none",
+              sm: { display: "block", width: "25%" },
+              md: { display: "block", width: "30%" },
+              lg: { display: "block", width: "35%" },
+            })}
           />
         </div>
       </div>
@@ -117,11 +134,14 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
 const div1Style = cva({
   base: {
     margin: "0 calc(50% - 50vw)",
-    height: "80wh",
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",
-    borderTop: "3px solid black",
+
+    height: "85vw",
+    sm: { height: "70vw" },
+    md: { height: "65vw" },
+    lg: { height: "45vw" },
   },
   variants: {
     color: {
@@ -133,12 +153,11 @@ const div1Style = cva({
 
 const div2Style = cva({
   base: {
+    width: "100%",
     display: "flex",
-    flexWrap: "wrap",
-    padding: "0 1.5rem 0 1.5rem",
-    width: "100vw",
-    sm: { padding: "0 2rem 0 2rem", width: "100vw" },
-    md: { padding: "0 2.5rem 0 2.5rem", width: "95vw" },
-    lg: { padding: "0 3rem 0 3rem", width: "90vw" },
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });

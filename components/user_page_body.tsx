@@ -25,7 +25,11 @@ export const UserPageBody = (params: {
   }, [params]);
 
   return (
-    <main>
+    <main
+      className={css({
+        padding: "4.4rem",
+      })}
+    >
       <div className={div1Style({ color: "secondary" })}>
         <div className={div2Style()}>
           <div
@@ -56,7 +60,6 @@ const div1Style = cva({
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",
-    borderTop: "3px solid black",
   },
   variants: {
     color: {
@@ -70,11 +73,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 0.8rem 0 0.8rem",
     width: "100vw",
-    sm: { width: "100vw", padding: "1rem 1rem 2rem 1rem" },
-    md: { width: "95vw", padding: "1rem 2rem 2rem 2rem" },
-    lg: { width: "90vw", padding: "1rem 2rem 2rem 2rem" },
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 

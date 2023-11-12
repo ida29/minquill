@@ -174,11 +174,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 1.0rem 0 1.0rem",
     width: "100vw",
-    sm: { padding: "0 2rem 0 2rem", width: "100vw" },
-    md: { padding: "0 2rem 0 2rem", width: "95vw" },
-    lg: { padding: "0 3rem 0 3rem", width: "90vw" },
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 
@@ -190,6 +190,8 @@ const divPanelStyle = cva({
     height: "100%",
 
     border: "2px solid black",
+    borderRadius: "10px",
+    boxShadow: "2px 2px 0 #000",
     background: "white",
 
     position: "relative",

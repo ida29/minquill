@@ -84,7 +84,11 @@ const headerStyle = cva({
     borderBottom: "2px solid black",
 
     height: "4.4rem",
-    padding: "0 2rem",
+
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 

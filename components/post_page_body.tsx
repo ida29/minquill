@@ -19,7 +19,11 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
   }, [params.unique]);
 
   return (
-    <main>
+    <main
+      className={css({
+        padding: "4.4rem",
+      })}
+    >
       <div className={div1Style()}>
         <div className={div2Style()}>
           <div
@@ -68,10 +72,9 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
 const div1Style = cva({
   base: {
     margin: "0 calc(50% - 50vw)",
-    bg: "lightslategrey",
+    bg: "white",
     display: "flex",
     justifyContent: "center",
-    borderTop: "3px solid black",
     paddingTop: "1rem",
   },
   variants: {
@@ -86,11 +89,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    padding: "0 1.5rem 0 1.5rem",
     width: "100vw",
-    sm: { padding: "0 2rem 0 2rem", width: "100vw" },
-    md: { padding: "0 2.5rem 0 2.5rem", width: "95vw" },
-    lg: { padding: "0 3rem 0 3rem", width: "90vw" },
+    padding: "0 0.5rem",
+    sm: { padding: "0 1rem" },
+    md: { padding: "0 1.5rem" },
+    lg: { padding: "0 2rem" },
   },
 });
 
@@ -100,10 +103,8 @@ const divPanelStyle = cva({
     minHeight: "100vh",
     width: "100%",
 
-    border: "2px solid black",
     background: "white",
 
-    marginTop: "-0.2rem",
     position: "relative",
     zIndex: "0",
   },
