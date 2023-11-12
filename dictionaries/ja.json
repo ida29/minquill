@@ -17,5 +17,8 @@
   "preview": "プレビュー",
   "cheat_sheet": "チートシート",
   "init_str": "Input text",
+  "title": "タイトル",
+  "tags": "タグ",
+  "contents": "本文",
   "end": "エンド"
 }

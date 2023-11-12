@@ -18,7 +18,7 @@ export const UserPageBody = (params: {
       const posts: Post[] = await getPostsByUsername(
         params.username,
         20,
-        "asc",
+        "desc",
       );
       setPosts(posts);
     })();
@@ -85,9 +85,9 @@ const contentStyle = cva({
   base: {
     height: "100%",
     width: "100%",
-    border: "3px solid black",
+    border: "2px solid black",
     borderRadius: "10px",
-    margin: "1rem 0 1rem 0",
+    margin: "1rem 0",
     display: "flex",
     justifyContent: "center",
     sm: { height: "10rem" },

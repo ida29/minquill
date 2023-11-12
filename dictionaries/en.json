@@ -17,5 +17,8 @@
   "preview": "Preview",
   "cheat_sheet": "Cheat Sheet",
   "init_str": "Input text",
+  "title": "Title",
+  "tags": "Tags",
+  "contents": "Contents",
   "end": "End"
 }

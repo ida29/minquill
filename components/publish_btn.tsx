@@ -3,29 +3,37 @@ import { ActionButton } from "@/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
 import { savePost } from "@/app/[lang]/post";
 import { Post } from "@/app/[lang]/post";
-//import { css, cva } from "@/styled-system/css";
+import { useRouter } from "next/navigation";
 
 type PublishBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
+  username?: string;
 };
 
 export const PublishBtn: React.FC<PublishBtnProps> = ({
   text,
   colorVariant = "primary",
   className,
+  username,
 }) => {
-  const [contentValue] = useLocalStorageState("contentValue");
+  const router = useRouter();
+  const [contentValue, setContentValue] = useLocalStorageState("contentValue");
+  const [titleValue, setTitleValue] = useLocalStorageState("title");
   const content = contentValue as string;
+  const title = titleValue as string;
   const newPost: Post = {
-    title: content ? content.split("\n")[0].replace(/^#+\s*/, "") : "",
+    title: title,
     content: content,
   };
 
   const handlePublish = async (newPost: Post) => {
     try {
+      router.push(`/${username}`);
       await savePost(newPost);
+      setContentValue("");
+      setTitleValue("");
     } catch (error) {
       console.error(error);
     }

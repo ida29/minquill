@@ -22,7 +22,10 @@ export default async function App({
   return (
     <div className={mainStyle()}>
       <EditorHeader /*dict={dict}*/ />
-      <EditorBody dict={dict} />
+      <EditorBody
+        dict={dict}
+        username={session.user ? session.user.username : ""}
+      />
     </div>
   );
 }
