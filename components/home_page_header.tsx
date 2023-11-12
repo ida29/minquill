@@ -15,6 +15,7 @@ export const HomePageHeader = async (params: { dict: Dictionary }) => {
   if (session) {
     buttons = (
       <>
+        <CreatePostBtn text={params.dict.create_post} />
         <Link href={`/${session.user?.username}`}>
           <GoogleImage
             src={`${session.user?.image}`}
@@ -25,13 +26,12 @@ export const HomePageHeader = async (params: { dict: Dictionary }) => {
               marginTop: "3px",
               width: "2rem",
               borderRadius: "50%",
-              sm: { width: "2.3rem" },
-              md: { width: "2.6rem" },
-              lg: { width: "3rem" },
+              sm: { width: "2.2rem" },
+              md: { width: "2.3rem" },
+              lg: { width: "2.4rem" },
             })}
           />
         </Link>
-        <CreatePostBtn text={params.dict.create_post} />
       </>
     );
   } else {

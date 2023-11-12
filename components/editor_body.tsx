@@ -67,6 +67,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             htmlFor="title"
             className={css({
               fontSize: "12px",
+              fontWeight: "700",
             })}
           >
             {params.dict.title}
@@ -77,16 +78,18 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className={css({
-              borderBottom: "2px solid black",
+              bg: "white",
+              border: "2px solid black",
+              boxShadow: "1px 1px 0 #000",
+              textIndent: "1rem",
+              borderRadius: "10px",
               width: "100%",
-              marginBottom: "1rem",
-              fontSize: "24px",
+              marginBottom: "2rem",
+              fontSize: "18px",
+              fontWeight: "700",
               outline: "none",
-              padding: "0.2rem 0",
+              paddingTop: "0.2rem",
               transition: "all 0.1s",
-              _focus: {
-                borderBottom: "4px solid black",
-              },
             })}
           />
         </div>
@@ -95,6 +98,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             htmlFor="tag"
             className={css({
               fontSize: "12px",
+              fontWeight: "700",
             })}
           >
             {params.dict.tags}
@@ -105,16 +109,18 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             value={tag}
             onChange={(e) => setTag(e.target.value)}
             className={css({
-              borderBottom: "2px solid black",
+              bg: "white",
+              border: "2px solid black",
+              boxShadow: "1px 1px 0 #000",
+              textIndent: "1rem",
+              borderRadius: "10px",
               width: "100%",
               marginBottom: "2rem",
-              fontSize: "24px",
+              fontSize: "18px",
+              fontWeight: "700",
               outline: "none",
-              padding: "0.2rem 0",
+              paddingTop: "0.2rem",
               transition: "all 0.1s",
-              _focus: {
-                borderBottom: "4px solid black",
-              },
             })}
           />
         </div>
@@ -122,6 +128,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           htmlFor="tag"
           className={css({
             fontSize: "12px",
+            fontWeight: "700",
           })}
         >
           {params.dict.contents}
@@ -264,12 +271,12 @@ const div2Style = cva({
 
 const divPanelStyle = cva({
   base: {
+    border: "2px solid black",
     padding: "16px 16px 16px",
     minHeight: "50dvh",
     width: "100%",
     height: "100%",
 
-    border: "2px solid black",
     borderRadius: "4px",
     boxShadow: "1px 1px 0 #000",
     background: "white",
