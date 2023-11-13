@@ -15,6 +15,7 @@ import { Dictionary } from "@/app/[lang]/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
 import { PublishBtn } from "@/components/publish_btn";
+import { UploadImgDrop } from "@/components/upload_img_drop";
 import { UploadImgBtn } from "@/components/upload_img_btn";
 
 const stateFields = { history: historyField };
@@ -61,7 +62,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   let activeTabItem;
   if (activeTabIndex === 0) {
     activeTabItem = (
-      <div>
+      <>
         <div>
           <label
             htmlFor="title"
@@ -81,7 +82,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
               bg: "white",
               border: "2px solid black",
               boxShadow: "1px 1px 0 #000",
-              textIndent: "1rem",
+              textIndent: "0.8rem",
               borderRadius: "10px",
               width: "100%",
               marginBottom: "2rem",
@@ -125,7 +126,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           />
         </div>
         <label
-          htmlFor="tag"
+          htmlFor="contents"
           className={css({
             fontSize: "12px",
             fontWeight: "700",
@@ -162,49 +163,76 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             }}
           />
         </div>
-      </div>
+      </>
     );
   } else if (activeTabIndex === 2) {
     activeTabItem = (
-      <div className={divPanelStyle()}>
+      <>
+        <label
+          htmlFor="upload_images"
+          className={css({
+            fontSize: "12px",
+            fontWeight: "700",
+          })}
+        >
+          {params.dict.upload_images}
+        </label>
         <div
           className={css({
-            width: "100%",
-            height: "100%",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
           })}
         >
-          <UploadImgBtn text={params.dict.upload_images} />
+          <UploadImgDrop text={params.dict.drag_n_drop_some_images_here} />
+          <div
+            className={css({
+              fontSize: "1.4rem",
+              margin: "2rem 0 ",
+            })}
+          >
+            {params.dict.or}
+          </div>
+          <UploadImgBtn text={params.dict.click} />
         </div>
-      </div>
+      </>
     );
   } else {
     activeTabItem = (
-      <div className={divPanelStyle()}>
-        <MarkdownPreview
-          source={activeTabIndex === 1 ? contentValue : params.dict.md_syntax}
-          pluginsFilter={(type, plugins) => {
-            if (type === "remark") {
-              return [...plugins, remarkBreaks];
-            }
-            return plugins;
-          }}
-          rehypeRewrite={(node, index, parent) => {
-            if (
-              node.type === "element" &&
-              node.tagName === "a" &&
-              parent &&
-              parent.type === "element" &&
-              /^h(1|2|3|4|5|6)/.test(parent.tagName)
-            ) {
-              parent.children = parent.children.slice(1);
-            }
-          }}
-          wrapperElement={{ "data-color-mode": "light" }}
-        />
-      </div>
+      <>
+        <label
+          htmlFor={activeTabIndex === 1 ? "preview" : "help"}
+          className={css({
+            fontSize: "12px",
+            fontWeight: "700",
+          })}
+        >
+          {activeTabIndex === 1 ? params.dict.preview : params.dict.help}
+        </label>
+        <div className={divPanelStyle()}>
+          <MarkdownPreview
+            source={activeTabIndex === 1 ? contentValue : params.dict.help_text}
+            pluginsFilter={(type, plugins) => {
+              if (type === "remark") {
+                return [...plugins, remarkBreaks];
+              }
+              return plugins;
+            }}
+            rehypeRewrite={(node, index, parent) => {
+              if (
+                node.type === "element" &&
+                node.tagName === "a" &&
+                parent &&
+                parent.type === "element" &&
+                /^h(1|2|3|4|5|6)/.test(parent.tagName)
+              ) {
+                parent.children = parent.children.slice(1);
+              }
+            }}
+            wrapperElement={{ "data-color-mode": "light" }}
+          />
+        </div>
+      </>
     );
   }
 
@@ -229,10 +257,14 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
                 padding: "2rem",
               })}
             >
-              <PublishBtn
-                text={params.dict.publish}
-                username={params.username}
-              />
+              {activeTabIndex === 0 ? (
+                <PublishBtn
+                  text={params.dict.publish}
+                  username={params.username}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -272,12 +304,11 @@ const div2Style = cva({
 const divPanelStyle = cva({
   base: {
     border: "2px solid black",
-    padding: "16px 16px 16px",
-    minHeight: "50dvh",
+    padding: "0.8rem",
     width: "100%",
-    height: "100%",
+    minHeight: "calc(100dvh - 30rem)",
 
-    borderRadius: "4px",
+    borderRadius: "10px",
     boxShadow: "1px 1px 0 #000",
     background: "white",
 

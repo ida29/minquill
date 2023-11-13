@@ -10,7 +10,7 @@ export async function POST() {
   }
 
   const formData = new FormData();
-  formData.append("requireSignedURLs", "true");
+  formData.append("requireSignedURLs", "false");
   formData.append("metadata", JSON.stringify({ key: "value" }));
 
   try {
