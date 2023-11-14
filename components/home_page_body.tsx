@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  console.log(params);
 
   useEffect(() => {
     (async () => {
@@ -27,18 +28,58 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
         <div className={div2Style()}>
           <div
             className={css({
-              width: "100%",
-              height: "100%",
+              borderLeft: "4px solid black",
+              position: "relative",
+              padding: "20px",
             })}
           >
             {posts.map((post, index) => (
-              <div key={index} className={contentStyle()}>
-                <Link href={`/${post.authorId}/posts/${post.ulid}`}>
-                  {post.title}
-                </Link>
+              <div
+                key={index}
+                className={css({
+                  marginBottom: "20px",
+                  position: "relative",
+                })}
+              >
+                <div
+                  className={css({
+                    width: "20px",
+                    height: "20px",
+                    bg: "white",
+                    border: "4px solid black",
+                    position: "absolute",
+                    left: "-32px",
+                    top: "15px",
+                  })}
+                ></div>
+                <div
+                  className={css({
+                    bg: "white",
+                    borderRadius: "5px",
+                    padding: "20px",
+                    marginLeft: "10px",
+                  })}
+                >
+                  <Link href={`/${post.authorId}/posts/${post.ulid}`}>
+                    <div
+                      className={css({
+                        bg: "white",
+                        margin: "-20px -20px 20px -20px",
+                        padding: "14px",
+                        fontWeight: "700",
+                        border: "2px solid black",
+                        boxShadow: "1px 1px 0 black",
+                        borderRadius: "10px",
+                        width: "80vw",
+                        height: "30vh",
+                      })}
+                    >
+                      {post.title}
+                    </div>
+                  </Link>
+                </div>
               </div>
             ))}
-            <div>{params.dict.end}</div>
           </div>
         </div>
       </div>
@@ -66,25 +107,11 @@ const div2Style = cva({
   base: {
     display: "flex",
     flexWrap: "wrap",
-    width: "100vw",
+    maxWidth: "1024px",
+    width: "90vw",
     padding: "0 0.5rem",
     sm: { padding: "0 1rem" },
     md: { padding: "0 1.5rem" },
     lg: { padding: "0 2rem" },
-  },
-});
-
-const contentStyle = cva({
-  base: {
-    height: "100%",
-    width: "100%",
-    border: "2px solid black",
-    borderRadius: "10px",
-    margin: "1rem 0",
-    display: "flex",
-    justifyContent: "center",
-    sm: { height: "10rem" },
-    md: { height: "20rem" },
-    lg: { height: "20rem" },
   },
 });

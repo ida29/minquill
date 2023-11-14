@@ -26,7 +26,7 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
     >
       <div className={div1Style()}>
         <div className={div2Style()}>
-          <div className={divPanelStyle()}>
+          <div id="markdown-preview" className={divPanelStyle()}>
             <ReactMarkdown
               remarkPlugins={[remarkBreaks]}
               components={{
