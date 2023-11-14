@@ -20,8 +20,7 @@
   "title": "タイトル",
   "tags": "タグ",
   "contents": "本文",
-  "or": "もしくは",
-  "drag_n_drop_some_images_here": "画像をドロップ",
+  "drag_n_drop_some_images_here": "画像をドロップもしくは",
   "click": "クリック",
   "end": "エンド"
 }

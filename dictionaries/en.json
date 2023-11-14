@@ -20,8 +20,7 @@
   "title": "Title",
   "tags": "Tags",
   "contents": "Contents",
-  "or": "OR",
-  "drag_n_drop_some_images_here": "Drag 'n' Drop some images here",
+  "drag_n_drop_some_images_here": "Drag 'n' Drop some images here or ",
   "click": "Click",
   "end": "End"
 }

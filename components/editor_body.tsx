@@ -14,7 +14,6 @@ import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
 import { PublishBtn } from "@/components/publish_btn";
 import { UploadImgDrop } from "@/components/upload_img_drop";
-import { UploadImgBtn } from "@/components/upload_img_btn";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 
@@ -184,16 +183,10 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             alignItems: "center",
           })}
         >
-          <UploadImgDrop text={params.dict.drag_n_drop_some_images_here} />
-          <div
-            className={css({
-              fontSize: "1.4rem",
-              margin: "2rem 0 ",
-            })}
-          >
-            {params.dict.or}
-          </div>
-          <UploadImgBtn text={params.dict.click} />
+          <UploadImgDrop
+            text={params.dict.drag_n_drop_some_images_here}
+            text2={params.dict.click}
+          />
         </div>
       </>
     );
@@ -209,7 +202,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
         >
           {activeTabIndex === 1 ? params.dict.preview : params.dict.help}
         </label>
-        <div className={divPanelStyle()}>
+        <div id="markdown-preview" className={divPanelStyle()}>
           <ReactMarkdown
             remarkPlugins={[remarkBreaks]}
             components={{
@@ -287,6 +280,7 @@ const div2Style = cva({
     sm: { padding: "0 1rem" },
     md: { padding: "0 1.5rem" },
     lg: { padding: "0 2rem" },
+    maxWidth: "1024px",
   },
 });
 

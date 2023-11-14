@@ -5,12 +5,17 @@ import useLocalStorageState from "use-local-storage-state";
 import { DragEvent, useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { FiArrowDownCircle } from "react-icons/fi";
+import { UploadImgBtn } from "@/components/upload_img_btn";
 
 type UploadImgDropProps = {
   text: string;
+  text2: string;
 };
 
-export const UploadImgDrop: React.FC<UploadImgDropProps> = ({ text }) => {
+export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
+  text,
+  text2,
+}) => {
   const [contentValue, setContentValue] =
     useLocalStorageState<string>("contentValue");
   const [dragIsOver, setDragIsOver] = useState(false);
@@ -87,6 +92,14 @@ export const UploadImgDrop: React.FC<UploadImgDropProps> = ({ text }) => {
           })}
         />
         {text}
+        <div
+          className={css({
+            fontSize: "1.6rem",
+            margin: "0 0 0.6rem 0.6rem",
+          })}
+        >
+          <UploadImgBtn text={text2} />
+        </div>
       </div>
     </div>
   );
