@@ -12,7 +12,7 @@
   "welcome_to_minquill": "Welcome to MinQuill:",
   "grow_your_world_of_miniature_painting": "ミニチュアペイントの世界を広げよう！",
   "publish_your_miniature_images_posts_and_share_your_painting_knowledge": "ミニチュアの画像、記事を公開し、ペインティングの知識を共有しましょう！",
-  "help_text": "# ヘルプ \n\n ## 文章の修飾方法 \n\n ## 見出し\n\n```\n# 見出し 1\n## 見出し 2\n### 見出し 3\n#### 見出し 4\n##### 見出し 5\n###### 見出し 6\n```\n\n## 太字\n\n```\n**太字**\n```\n\n## 斜体\n\n```\n*斜体*\n```\n\n## リスト\n\n```\n- 項目 1\n- 項目 2\n  - サブ項目 2.1\n  - サブ項目 2.2\n```\n\n```\n1. 最初\n2. 次\n3. 三番\n```\n\n## リンク\n\n```\n[リンク](https://example.com)\n```\n\n## 画像\n\n```\n![Minquill Whiz](https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/f681cc34-02c1-446d-5053-ca1c29380600/w=100,h=100)\n```\n\n## 水平線\n\n```\n---\n```\n\n## ブロック引用\n\n```\n> これはブロック引用です。\n```\n\n## コード\n\n```\n`コード`\n```\n\n",
+  "help_text": "## 文章の修飾方法 \n\n ## 見出し\n\n```\n# 見出し 1\n## 見出し 2\n### 見出し 3\n#### 見出し 4\n##### 見出し 5\n###### 見出し 6\n```\n\n## 太字\n\n```\n**太字**\n```\n\n## 斜体\n\n```\n*斜体*\n```\n\n## リスト\n\n```\n- 項目 1\n- 項目 2\n  - サブ項目 2.1\n  - サブ項目 2.2\n```\n\n```\n1. 最初\n2. 次\n3. 三番\n```\n\n## リンク\n\n```\n[リンク](https://example.com)\n```\n\n## 画像\n\n```\n![Minquill Whiz](https://imagedelivery.net/90UnnMaLhWJKCNGTLdt2Bg/f681cc34-02c1-446d-5053-ca1c29380600/w=100,h=100)\n```\n\n## 水平線\n\n```\n---\n```\n\n## ブロック引用\n\n```\n> これはブロック引用です。\n```\n\n## コード\n\n```\n`コード`\n```\n\n",
   "editor": "エディタ",
   "preview": "プレビュー",
   "help": "ヘルプ",

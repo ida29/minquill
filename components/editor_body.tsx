@@ -3,8 +3,6 @@
 import { css, cva } from "@/styled-system/css";
 import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
-import MarkdownPreview from "@uiw/react-markdown-preview";
-import remarkBreaks from "remark-breaks";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
@@ -17,6 +15,8 @@ import { EditorView } from "@codemirror/view";
 import { PublishBtn } from "@/components/publish_btn";
 import { UploadImgDrop } from "@/components/upload_img_drop";
 import { UploadImgBtn } from "@/components/upload_img_btn";
+import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -210,27 +210,16 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           {activeTabIndex === 1 ? params.dict.preview : params.dict.help}
         </label>
         <div className={divPanelStyle()}>
-          <MarkdownPreview
-            source={activeTabIndex === 1 ? contentValue : params.dict.help_text}
-            pluginsFilter={(type, plugins) => {
-              if (type === "remark") {
-                return [...plugins, remarkBreaks];
-              }
-              return plugins;
+          <ReactMarkdown
+            remarkPlugins={[remarkBreaks]}
+            components={{
+              p: ({ children }) => (
+                <p style={{ marginBottom: "1em" }}>{children}</p>
+              ),
             }}
-            rehypeRewrite={(node, index, parent) => {
-              if (
-                node.type === "element" &&
-                node.tagName === "a" &&
-                parent &&
-                parent.type === "element" &&
-                /^h(1|2|3|4|5|6)/.test(parent.tagName)
-              ) {
-                parent.children = parent.children.slice(1);
-              }
-            }}
-            wrapperElement={{ "data-color-mode": "light" }}
-          />
+          >
+            {activeTabIndex === 1 ? contentValue : params.dict.help_text}
+          </ReactMarkdown>
         </div>
       </>
     );
