@@ -21,7 +21,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   return (
     <main
       className={css({
-        padding: "4.4rem",
+        paddingTop: "4.4rem",
       })}
     >
       <div className={div1Style({ color: "secondary" })}>
@@ -91,7 +91,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
 const div1Style = cva({
   base: {
     margin: "0 calc(50% - 50vw)",
-    height: "80vh",
     bg: "lightslategrey",
     display: "flex",
     justifyContent: "center",

@@ -27,7 +27,7 @@ export const UserPageBody = (params: {
   return (
     <main
       className={css({
-        padding: "4.4rem",
+        paddingTop: "4.4rem",
       })}
     >
       <div className={div1Style({ color: "secondary" })}>

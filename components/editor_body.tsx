@@ -219,7 +219,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   return (
     <main
       className={css({
-        padding: "4.4rem",
+        paddingTop: "4.4rem",
       })}
     >
       <div className={div1Style()}>
