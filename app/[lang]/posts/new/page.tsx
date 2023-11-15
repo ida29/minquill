@@ -1,6 +1,5 @@
 // app/[lang]/posts/new/page.tsx
-import { EditorHeader } from "@/components/editor_header";
-import { EditorBody } from "@/components/editor_body";
+import { EditorWrapper } from "@/components/editor_wrapper";
 import { cva } from "@/styled-system/css";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
@@ -21,8 +20,7 @@ export default async function App({
 
   return (
     <div className={mainStyle()}>
-      <EditorHeader /*dict={dict}*/ />
-      <EditorBody
+      <EditorWrapper
         dict={dict}
         username={session.user ? session.user.username : ""}
       />

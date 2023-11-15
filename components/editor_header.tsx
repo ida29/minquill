@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 //import { Dictionary } from "@/app/[lang]/dictionary";
-import { FiArrowLeftCircle } from "react-icons/fi";
 import useLocalStorageState from "use-local-storage-state";
 import {
   FiFeather,
@@ -11,9 +10,19 @@ import {
   FiImage,
   FiHelpCircle,
   FiSliders,
+  FiArrowLeftCircle,
 } from "react-icons/fi";
 
-export const EditorHeader = (/*params: { dict: Dictionary }*/) => {
+export const EditorHeader = (params: {
+  isMenuOpen: boolean;
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const { isMenuOpen, setMenuOpen } = params;
+  const handleMenuClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setMenuOpen(!isMenuOpen);
+  };
+
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
@@ -61,7 +70,7 @@ export const EditorHeader = (/*params: { dict: Dictionary }*/) => {
           borderRadius: "50%",
         })}
       >
-        <FiSliders />
+        <FiSliders onClick={handleMenuClick} />
       </div>
     </header>
   );

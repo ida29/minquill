@@ -40,8 +40,6 @@ const myTheme = createTheme({
 });
 
 export const EditorBody = (params: { dict: Dictionary; username: string }) => {
-  const initStr: string = params.dict.init_str;
-
   const [title, setTitle] = useLocalStorageState("title", {
     defaultValue: "",
   });
@@ -52,7 +50,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
     defaultValue: 0,
   });
   const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
-    defaultValue: initStr,
+    defaultValue: "",
   });
   const [editorState, setEditorState] = useLocalStorageState("editorState", {
     defaultValue: "",
