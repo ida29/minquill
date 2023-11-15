@@ -71,6 +71,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                         boxShadow: "1px 1px 0 black",
                         borderRadius: "10px",
                         width: "80vw",
+                        maxWidth: "600px",
                         height: "30vh",
                       })}
                     >
