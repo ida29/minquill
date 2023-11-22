@@ -16,6 +16,7 @@ import { PublishBtn } from "@/components/publish_btn";
 import { UploadImgDrop } from "@/components/upload_img_drop";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import { UploadImgNPreview } from "./upload_image_and_preview";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -60,6 +61,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   if (activeTabIndex === 0) {
     activeTabItem = (
       <>
+        <UploadImgNPreview text={params.dict.add_cover_image} />
         <div>
           <label
             htmlFor="title"

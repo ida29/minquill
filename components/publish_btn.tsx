@@ -21,11 +21,13 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const router = useRouter();
   const [contentValue, setContentValue] = useLocalStorageState("contentValue");
   const [titleValue, setTitleValue] = useLocalStorageState("title");
+  const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img");
   const content = contentValue as string;
   const title = titleValue as string;
   const newPost: Post = {
     title: title,
     content: content,
+    coverImg: coverImg,
   };
 
   const handlePublish = async (newPost: Post) => {
@@ -34,6 +36,7 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
       await savePost(newPost);
       setContentValue("");
       setTitleValue("");
+      setCoverImg("");
     } catch (error) {
       console.error(error);
     }

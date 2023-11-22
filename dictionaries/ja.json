@@ -19,6 +19,7 @@
   "init_str": "Input text",
   "title": "タイトル",
   "tags": "タグ",
+  "add_cover_image": "カバー画像を追加",
   "contents": "本文",
   "drag_n_drop_some_images_here": "画像をドロップもしくは",
   "click": "クリック",

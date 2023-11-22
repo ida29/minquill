@@ -57,6 +57,7 @@ export async function POST(req: NextRequest) {
       data: {
         title: req_json.title,
         content: req_json.content,
+        coverImg: req_json.coverImg,
         ulid: ulid(),
         author: {
           connect: {

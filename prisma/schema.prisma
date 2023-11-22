@@ -70,6 +70,7 @@ model Post {
   published   Boolean  @default(false)
   title       String   @db.VarChar(255)
   content     String?  @db.VarChar(2000)
+  coverImg    String?  @db.VarChar(255)
   author      User     @relation(fields: [authorId], references: [username])
   authorId    String
   comments    Comment[]
