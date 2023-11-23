@@ -5,6 +5,8 @@ export type Post = {
   authorId?: string;
   ulid?: string;
   coverImg?: string;
+  likes?: [];
+  comments?: [];
 };
 
 export async function getPost(unique: string): Promise<Post> {
@@ -69,7 +71,7 @@ export async function savePost(newPost: Post): Promise<Post> {
     body: JSON.stringify({
       title: newPost.title,
       content: newPost.content.slice(0, 2000),
-      coverImg: newPost.coverImg
+      coverImg: newPost.coverImg,
     }),
   });
 

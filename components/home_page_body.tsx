@@ -6,6 +6,8 @@ import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { getPostsByUsername, Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
+import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -56,27 +58,85 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   className={css({
                     bg: "white",
                     borderRadius: "5px",
-                    padding: "20px",
                     marginLeft: "10px",
                   })}
                 >
                   <Link href={`/${post.authorId}/posts/${post.ulid}`}>
-                    <div
+                    <article
                       className={css({
                         bg: "white",
-                        margin: "-20px -20px 20px -20px",
-                        padding: "14px",
                         fontWeight: "700",
+                        padding: "1rem",
                         border: "2px solid black",
                         boxShadow: "1px 1px 0 black",
                         borderRadius: "10px",
-                        width: "80vw",
-                        maxWidth: "600px",
-                        height: "30vh",
+                        display: "grid",
+                        gap: "1rem .5rem",
+                        gridTemplateColumns:
+                          "repeat(auto-fit, minmax(200px, 1fr))",
                       })}
                     >
-                      {post.title}
-                    </div>
+                      <div id="card-header" className={css({})}>
+                        <Image
+                          width="800"
+                          height="800"
+                          src={post.coverImg || ""}
+                          alt="Cover Image"
+                          className={css({
+                            width: "100%",
+                            borderRadius: "10px",
+                          })}
+                        />
+                      </div>
+                      <div
+                        id="card-body"
+                        className={css({
+                          display: "flex",
+                          flexDirection: "column",
+                        })}
+                      >
+                        <h2
+                          className={css({
+                            fontSize: "1rem",
+                          })}
+                        >
+                          {post.authorId?.split("-")[0]}
+                        </h2>
+                        <h1
+                          className={css({
+                            fontSize: "1.8rem",
+                          })}
+                        >
+                          {post.title}
+                        </h1>
+                        <div>
+                          <ul
+                            id="reactions"
+                            className={css({
+                              display: "flex",
+                              gap: "0.5rem",
+                            })}
+                          >
+                            <li>
+                              <FiThumbsUp
+                                className={css({
+                                  fontSize: "1.5rem",
+                                })}
+                              />
+                            </li>
+                            <li>{post.likes?.length}</li>
+                            <li>
+                              <FiMessageSquare
+                                className={css({
+                                  fontSize: "1.5rem",
+                                })}
+                              />
+                            </li>
+                            <li>{post.comments?.length}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </article>
                   </Link>
                 </div>
               </div>

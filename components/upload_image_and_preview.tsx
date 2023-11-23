@@ -5,6 +5,7 @@ import { ActionButton } from "@/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
 import React, { useRef } from "react";
 import { FiX } from "react-icons/fi";
+import Image from "next/image";
 
 type UploadImgNPreviewProps = {
   text: string;
@@ -56,8 +57,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
       }
 
       const res2_json = await res2.json();
-      console.log(res2_json);
-      setCoverImg(`${res2_json.result.variants[0].replace(/[^/]+$/, "h=200")}`);
+      setCoverImg(`${res2_json.result.variants[0]}`);
     }
   };
 
@@ -80,7 +80,12 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
             display: "flex",
           })}
         >
-          <img alt="Cover image" src={coverImg as string} />
+          <Image
+            width="200"
+            height="200"
+            alt="Cover image preview"
+            src={coverImg as string}
+          />
           <FiX
             className={css({
               fontSize: "1.5rem",
@@ -116,6 +121,9 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
           type="file"
           accept="image/*"
           onChange={handleUploadImg}
+          onClick={(e) => {
+            (e.target as HTMLInputElement).value = "";
+          }}
         />
       </div>
       {preview}
