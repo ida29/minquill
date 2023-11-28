@@ -31,6 +31,10 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
           <div
             className={css({
               width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "2rem",
             })}
           >
             <Image
@@ -39,13 +43,17 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
               src={post?.coverImg || ""}
               alt="Cover Image"
               className={css({
-                width: "100%",
-                borderRadius: "10px",
+                width: "60cqw",
+                borderRadius: "50%",
+                border: "1px solid black",
+                sm: { width: "50cqw" },
+                md: { width: "40cqw" },
+                lg: { width: "30cqw" },
               })}
             />
             <div
               className={css({
-                fontSize: "2rem",
+                fontSize: "3rem",
                 fontWeight: "700",
               })}
             >
@@ -55,6 +63,7 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
             <div
               className={css({
                 fontSize: "1.5rem",
+                margin: ".5rem 0",
               })}
             >
               {post?.authorId?.split("-")[0]}
@@ -87,6 +96,7 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
               </ul>
             </div>
           </div>
+
           <div id="markdown-preview" className={divPanelStyle()}>
             <ReactMarkdown
               remarkPlugins={[remarkBreaks]}
@@ -136,7 +146,6 @@ const div2Style = cva({
 
 const divPanelStyle = cva({
   base: {
-    padding: "16px 16px 16px",
     minHeight: "100vh",
     width: "100%",
 

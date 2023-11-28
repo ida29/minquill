@@ -2,10 +2,12 @@
 "use client";
 
 import Link from "next/link";
-import { css, cva } from "@/styled-system/css";
+import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { getPostsByUsername, Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
+import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import Image from "next/image";
 
 export const UserPageBody = (params: {
   dict: Dictionary;
@@ -30,68 +32,71 @@ export const UserPageBody = (params: {
         paddingTop: "4.4rem",
       })}
     >
-      <div className={div1Style({ color: "secondary" })}>
-        <div className={div2Style()}>
-          <div
-            className={css({
-              width: "100%",
-              height: "100%",
-            })}
-          >
-            {posts.map((post, index) => (
-              <div key={index} className={contentStyle()}>
-                <Link href={`/${post.authorId}/posts/${post.ulid}`}>
-                  {post.title}
-                </Link>
+      <div
+        className={css({
+          display: "grid",
+          gap: ".5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        })}
+      >
+        {posts.map((post, index) => (
+          <Link key={index} href={`/${post.authorId}/posts/${post.ulid}`}>
+            <article
+              className={css({
+                fontWeight: "700",
+                padding: "1rem",
+                margin: ".3rem",
+                border: "2px solid black",
+                boxShadow: "1px 1px 0 black",
+                borderRadius: "10px",
+              })}
+            >
+              <Image
+                width="200"
+                height="200"
+                src={post?.coverImg || ""}
+                alt="Cover Image"
+                className={css({
+                  borderRadius: "10px",
+                  width: "100%",
+                })}
+              />
+              <div
+                className={css({
+                  height: "100px",
+                  padding: "0.3rem 0",
+                })}
+              >
+                {post?.title}
+                <ul
+                  id="reactions"
+                  className={css({
+                    display: "flex",
+                    gap: "0.5rem",
+                  })}
+                >
+                  <li>
+                    <FiThumbsUp
+                      className={css({
+                        fontSize: "1.5rem",
+                      })}
+                    />
+                  </li>
+                  <li>{post?.likes?.length}</li>
+                  <li>
+                    <FiMessageSquare
+                      className={css({
+                        fontSize: "1.5rem",
+                      })}
+                    />
+                  </li>
+                  <li>{post?.comments?.length}</li>
+                </ul>
               </div>
-            ))}
-            <div>{params.dict.end}</div>
-          </div>
-        </div>
+            </article>
+          </Link>
+        ))}
       </div>
     </main>
   );
 };
-
-const div1Style = cva({
-  base: {
-    margin: "0 calc(50% - 50vw)",
-    height: "80vh",
-    bg: "lightslategrey",
-    display: "flex",
-    justifyContent: "center",
-  },
-  variants: {
-    color: {
-      primary: { bg: "lightslategrey" },
-      secondary: { bg: "white" },
-    },
-  },
-});
-
-const div2Style = cva({
-  base: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "100vw",
-    padding: "0 0.5rem",
-    sm: { padding: "0 1rem" },
-    md: { padding: "0 1.5rem" },
-    lg: { padding: "0 2rem" },
-  },
-});
-
-const contentStyle = cva({
-  base: {
-    height: "100%",
-    width: "100%",
-    border: "2px solid black",
-    borderRadius: "10px",
-    margin: "1rem 0",
-    display: "flex",
-    justifyContent: "center",
-    sm: { height: "10rem" },
-    md: { height: "20rem" },
-    lg: { height: "20rem" },
-  },
-});
