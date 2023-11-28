@@ -24,6 +24,11 @@ export async function GET(
     where: {
       ulid: params.unique,
     },
+    include: {
+      author: true,
+      comments: true,
+      likes: true,
+    },
   });
   return NextResponse.json(post);
 }

@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  console.log(params);
+  console.log(params.dict.dummy);
 
   useEffect(() => {
     (async () => {
@@ -35,7 +35,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               padding: "20px",
             })}
           >
-            {posts.map((post, index) => (
+            {posts?.map((post, index) => (
               <div
                 key={index}
                 className={css({
@@ -61,7 +61,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                     marginLeft: "10px",
                   })}
                 >
-                  <Link href={`/${post.authorId}/posts/${post.ulid}`}>
+                  <Link href={`/${post?.authorId}/posts/${post?.ulid}`}>
                     <article
                       className={css({
                         bg: "white",
@@ -80,7 +80,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                         <Image
                           width="800"
                           height="800"
-                          src={post.coverImg || ""}
+                          src={post?.coverImg || ""}
                           alt="Cover Image"
                           className={css({
                             width: "100%",
@@ -100,14 +100,14 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             fontSize: "1rem",
                           })}
                         >
-                          {post.authorId?.split("-")[0]}
+                          {post?.authorId?.split("-")[0]}
                         </h2>
                         <h1
                           className={css({
                             fontSize: "1.8rem",
                           })}
                         >
-                          {post.title}
+                          {post?.title}
                         </h1>
                         <div>
                           <ul
@@ -124,7 +124,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 })}
                               />
                             </li>
-                            <li>{post.likes?.length}</li>
+                            <li>{post?.likes?.length}</li>
                             <li>
                               <FiMessageSquare
                                 className={css({
@@ -132,7 +132,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 })}
                               />
                             </li>
-                            <li>{post.comments?.length}</li>
+                            <li>{post?.comments?.length}</li>
                           </ul>
                         </div>
                       </div>

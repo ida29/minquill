@@ -7,6 +7,8 @@ import { getPost, Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
+import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import Image from "next/image";
 
 export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
   const [post, setPost] = useState<Post>();
@@ -26,6 +28,65 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
     >
       <div className={div1Style()}>
         <div className={div2Style()}>
+          <div
+            className={css({
+              width: "100%",
+            })}
+          >
+            <Image
+              width="400"
+              height="400"
+              src={post?.coverImg || ""}
+              alt="Cover Image"
+              className={css({
+                width: "100%",
+                borderRadius: "10px",
+              })}
+            />
+            <div
+              className={css({
+                fontSize: "2rem",
+                fontWeight: "700",
+              })}
+            >
+              {post?.title}
+            </div>
+
+            <div
+              className={css({
+                fontSize: "1.5rem",
+              })}
+            >
+              {post?.authorId?.split("-")[0]}
+            </div>
+
+            <div>
+              <ul
+                id="reactions"
+                className={css({
+                  display: "flex",
+                  gap: "0.5rem",
+                })}
+              >
+                <li>
+                  <FiThumbsUp
+                    className={css({
+                      fontSize: "1.5rem",
+                    })}
+                  />
+                </li>
+                <li>{post?.likes?.length}</li>
+                <li>
+                  <FiMessageSquare
+                    className={css({
+                      fontSize: "1.5rem",
+                    })}
+                  />
+                </li>
+                <li>{post?.comments?.length}</li>
+              </ul>
+            </div>
+          </div>
           <div id="markdown-preview" className={divPanelStyle()}>
             <ReactMarkdown
               remarkPlugins={[remarkBreaks]}
@@ -63,7 +124,7 @@ const div1Style = cva({
 const div2Style = cva({
   base: {
     display: "flex",
-    flexWrap: "wrap",
+    flexDirection: "column",
     maxWidth: "1024px",
     width: "100vw",
     padding: "0 0.5rem",
