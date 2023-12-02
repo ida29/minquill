@@ -1,22 +1,37 @@
-// components/home_header.tsx
+// components/user_page_header.ts
+"use client";
+
 import Link from "next/link";
 import { GoogleImage } from "@/components/google_image";
 import { css, cva } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
-import { LogoutBtn } from "@/components/logout_btn";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { getServerSession } from "next-auth";
-import { auth } from "@/app/auth";
+import { useSession } from "next-auth/react";
 
-export const UserPageHeader = async (params: { dict: Dictionary }) => {
-  const session = await getServerSession(auth);
+export const UserPageHeader = (params: {
+  dict: Dictionary;
+  isMenuOpen: boolean;
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const { data: session } = useSession();
+  const { isMenuOpen, setMenuOpen } = params;
+  const handleMenuClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setMenuOpen(!isMenuOpen);
+  };
 
   let buttons;
   if (session) {
     buttons = (
       <>
-        <LogoutBtn text={params.dict.logout} />
-        <Link href={`/${session.user?.username}`}>
+        <div
+          onClick={handleMenuClick}
+          className={css({
+            fontSize: "2rem",
+            _hover: { bg: "lightgray" },
+            borderRadius: "50%",
+          })}
+        >
           <GoogleImage
             src={`${session.user?.image}`}
             alt={"User Account Image"}
@@ -31,7 +46,7 @@ export const UserPageHeader = async (params: { dict: Dictionary }) => {
               lg: { width: "2.4rem" },
             })}
           />
-        </Link>
+        </div>
       </>
     );
   } else {

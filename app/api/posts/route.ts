@@ -19,27 +19,32 @@ export async function GET(req: NextRequest) {
     const username = searchParams.get("username") as string;
     const count = Number(searchParams.get("count")) || 20;
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
+    const mode = searchParams.get("mode") || "latest";
 
-    const where = username ? { authorId: username } : {};
+    let posts: Post[] = [];
 
-    const posts: Post[] = await prisma.post.findMany({
-      where,
-      take: count,
-      orderBy: {
-        createdAt: order,
-      },
-      include: {
-        author: true,
-        comments: true,
-        likes: true,
-      },
-    });
+    if (mode === "recommended") {
+    } else {
+      const where = username ? { authorId: username } : {};
+      posts = await prisma.post.findMany({
+        where,
+        take: count,
+        orderBy: {
+          createdAt: order,
+        },
+        include: {
+          author: true,
+          comments: true,
+          likes: true,
+        },
+      });
+    }
 
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to create post" },
+      { error: "Failed to retrieve posts" },
       { status: 500 },
     );
   }

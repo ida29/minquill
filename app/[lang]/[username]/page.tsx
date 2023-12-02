@@ -1,7 +1,6 @@
 // app/[lang]/[username]/page.tsx
 import { cva } from "@/styled-system/css";
-import { UserPageHeader } from "@/components/user_page_header";
-import { UserPageBody } from "@/components/user_page_body";
+import { UserPageWrapper } from "@/components/user_page_wrapper";
 import { getDictionary } from "@/app/[lang]/dictionary";
 
 export default async function App({
@@ -13,8 +12,7 @@ export default async function App({
 
   return (
     <div className={mainStyle()}>
-      <UserPageHeader dict={dict} />
-      <UserPageBody dict={dict} username={username} />
+      <UserPageWrapper dict={dict} username={username} />
     </div>
   );
 }

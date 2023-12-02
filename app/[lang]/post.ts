@@ -82,3 +82,21 @@ export async function savePost(newPost: Post): Promise<Post> {
   const post: Post = await response.json();
   return post;
 }
+
+export async function getRecommendedPosts(count: number): Promise<Post[]> {
+  const url = new URL("/api/posts", window.location.origin);
+  url.searchParams.append("count", count.toString());
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get posts: ${response.statusText}`);
+  }
+
+  const posts: Post[] = await response.json();
+  return posts;
+}

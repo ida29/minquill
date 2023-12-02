@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Hind } from "next/font/google";
 import NextAuthProvider from "@/app/[lang]/providers/NextAuth";
+import { css } from "@/styled-system/css";
 
 export const hind = Hind({
   weight: ["400", "700"],
@@ -36,11 +37,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={css({
+        bg: "lightgrey",
+      })}
+    >
       <body className={hind.className}>
-        <div>
-          <NextAuthProvider>{children}</NextAuthProvider>
-        </div>
+        <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
   );

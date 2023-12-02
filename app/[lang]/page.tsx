@@ -1,6 +1,5 @@
 // app/page.tsx
-import { HomePageHeader } from "@/components/home_page_header";
-import { HomePageBody } from "@/components/home_page_body";
+import { HomePageWrapper } from "@/components/home_page_wrapper";
 import { LandingPageHeader } from "@/components/landing_page_header";
 import { LandingPageBody } from "@/components/landing_page_body";
 import { cva } from "@/styled-system/css";
@@ -28,8 +27,10 @@ export default async function App({
 
   return (
     <div className={mainStyle()}>
-      <HomePageHeader dict={dict} />
-      <HomePageBody dict={dict} />
+      <HomePageWrapper
+        dict={dict}
+        username={session.user ? session.user.username : ""}
+      />
     </div>
   );
 }

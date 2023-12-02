@@ -44,8 +44,9 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
               alt="Cover Image"
               className={css({
                 width: "60cqw",
-                borderRadius: "50%",
+                borderRadius: "20%",
                 border: "1px solid black",
+                marginBottom: "1rem",
                 sm: { width: "50cqw" },
                 md: { width: "40cqw" },
                 lg: { width: "30cqw" },
