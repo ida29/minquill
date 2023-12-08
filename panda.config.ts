@@ -15,12 +15,64 @@ export default defineConfig({
   exclude: [],
   jsxFramework: "react",
 
+  conditions: {
+    extend: {
+      light: "[data-color-mode=light] &",
+      dark: "[data-color-mode=dark] &",
+      normalTheme: "[data-theme=normal] &",
+    },
+  },
+
   // Useful for theme customization
   theme: {
     extend: {
       tokens: {
         fonts: {
           fira: { value: "var(--font-hind)" },
+        },
+      },
+      semanticTokens: {
+        colors: {
+          bg1: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.300}",
+                _dark: "{colors.stone.950}",
+              },
+            },
+          },
+          bg2: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.950}",
+                _dark: "{colors.stone.300}",
+              },
+            },
+          },
+          bg3: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.50}",
+                _dark: "{colors.stone.950}",
+              },
+            },
+          },
+          text1: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.950}",
+                _dark: "{colors.stone.50}",
+              },
+            },
+          },
+          text2: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.50}",
+                _dark: "{colors.stone.950}",
+              },
+            },
+          },
         },
       },
     },

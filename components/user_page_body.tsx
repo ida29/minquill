@@ -2,23 +2,40 @@
 "use client";
 
 import Link from "next/link";
-import { css, cva } from "@/styled-system/css";
+import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { getPostsByUsername, Post } from "@/app/[lang]/post";
+import { getUser, User } from "@/app/[lang]/user";
+import { Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import {
+  FiFileText,
+  FiThumbsUp,
+  FiUsers,
+  FiMessageSquare,
+} from "react-icons/fi";
 import Image from "next/image";
 
-export const UserPageBody = (params: { dict: Dictionary }) => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  console.log(params.dict.dummy);
+export const UserPageBody = (params: {
+  dict: Dictionary;
+  username: string;
+}) => {
+  const [user, setUser] = useState<User | null>(null);
+  //const [isLoading, setIsLoading] = useState(false);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    //setIsLoading(true);
     (async () => {
-      const posts: Post[] = await getPostsByUsername("", 10, "desc");
-      setPosts(posts);
+      try {
+        const user = await getUser(params.username);
+        setUser(user);
+      } catch (err) {
+        //setError("データの取得に失敗しました。");
+      } finally {
+        //setIsLoading(false);
+      }
     })();
-  }, []);
+  }, [params.username]);
 
   return (
     <main
@@ -26,152 +43,219 @@ export const UserPageBody = (params: { dict: Dictionary }) => {
         paddingTop: "4.4rem",
       })}
     >
-      <div className={div1Style({ color: "secondary" })}>
-        <div className={div2Style()}>
-          <div
+      <div
+        className={css({
+          display: "flex",
+          justifyContent: "center",
+          margin: "1rem .5rem 0 .5rem",
+          padding: ".5rem",
+          border: "3px solid black",
+          borderRadius: "10px",
+          bg: "bg3",
+        })}
+      >
+        <ul
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            margin: ".5rem",
+            gap: ".5rem",
+          })}
+        >
+          <li>
+            <Image
+              width="160"
+              height="160"
+              src={user?.image || ""}
+              alt="User Image"
+              className={css({
+                border: "3px solid black",
+                borderRadius: "50%",
+              })}
+            />
+          </li>
+          <li
             className={css({
-              borderLeft: "4px solid black",
-              position: "relative",
-              padding: "20px",
+              fontSize: "1.5rem",
+              alignSelf: "flex-start",
             })}
           >
-            {posts?.map((post, index) => (
+            {user?.name}
+          </li>
+          <li
+            className={css({
+              width: "100%",
+            })}
+          >
+            <button
+              className={css({
+                fontSize: "1.2rem",
+                width: "100%",
+                border: "2px solid black",
+                borderRadius: "10px",
+                textAlign: "center",
+              })}
+            >
+              {params.dict.edit_profile}
+            </button>
+          </li>
+          <li
+            className={css({
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              alignSelf: "flex-start",
+            })}
+          >
+            <FiFileText
+              className={css({
+                fontSize: "1.5rem",
+              })}
+            />
+            {user?.posts?.length} Posts
+          </li>
+          <li
+            className={css({
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              alignSelf: "flex-start",
+            })}
+          >
+            <FiUsers
+              className={css({
+                fontSize: "1.5rem",
+              })}
+            />
+            {user?.followers?.length} Followers {user?.followings?.length}{" "}
+            Followings
+          </li>
+        </ul>
+      </div>
+      <div
+        className={css({
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        })}
+      >
+        <div
+          className={css({
+            borderLeft: "3px solid black",
+            position: "relative",
+            padding: "20px",
+            marginLeft: "20px",
+            width: "90%",
+            sm: { width: "60%" },
+            md: { width: "55%" },
+            lg: { width: "50%" },
+          })}
+        >
+          {user?.posts?.map((post: Post, index) => (
+            <div
+              key={index}
+              className={css({
+                marginBottom: "20px",
+                position: "relative",
+              })}
+            >
               <div
-                key={index}
                 className={css({
-                  marginBottom: "20px",
-                  position: "relative",
+                  width: "20px",
+                  height: "20px",
+                  bg: "bg3",
+                  border: "3px solid black",
+                  position: "absolute",
+                  left: "-32px",
+                  top: "15px",
+                })}
+              ></div>
+              <div
+                className={css({
+                  borderRadius: "5px",
+                  marginLeft: "10px",
                 })}
               >
-                <div
-                  className={css({
-                    width: "20px",
-                    height: "20px",
-                    bg: "white",
-                    border: "4px solid black",
-                    position: "absolute",
-                    left: "-32px",
-                    top: "15px",
-                  })}
-                ></div>
-                <div
-                  className={css({
-                    bg: "white",
-                    borderRadius: "5px",
-                    marginLeft: "10px",
-                  })}
-                >
-                  <Link href={`/${post?.authorId}/posts/${post?.ulid}`}>
-                    <article
+                <Link href={`/${post.authorId}/posts/${post.ulid}`}>
+                  <article
+                    className={css({
+                      bg: "bg3",
+                      fontWeight: "700",
+                      padding: "1rem",
+                      border: "2px solid black",
+                      boxShadow: "1px 1px 0 black",
+                      borderRadius: "10px",
+                      gap: "1rem .5rem",
+                    })}
+                  >
+                    <div id="card-header" className={css({})}>
+                      <Image
+                        width="400"
+                        height="400"
+                        src={post.coverImg || ""}
+                        alt="Cover Image"
+                        className={css({
+                          width: "100%",
+                          borderRadius: "10px",
+                        })}
+                      />
+                    </div>
+                    <div
+                      id="card-body"
                       className={css({
-                        bg: "white",
-                        fontWeight: "700",
-                        padding: "1rem",
-                        border: "2px solid black",
-                        boxShadow: "1px 1px 0 black",
-                        borderRadius: "10px",
-                        display: "grid",
-                        gap: "1rem .5rem",
-                        gridTemplateColumns:
-                          "repeat(auto-fit, minmax(200px, 1fr))",
+                        display: "flex",
+                        flexDirection: "column",
                       })}
                     >
-                      <div id="card-header" className={css({})}>
-                        <Image
-                          width="800"
-                          height="800"
-                          src={post?.coverImg || ""}
-                          alt="Cover Image"
-                          className={css({
-                            width: "100%",
-                            borderRadius: "10px",
-                          })}
-                        />
-                      </div>
-                      <div
-                        id="card-body"
+                      <h2
                         className={css({
-                          display: "flex",
-                          flexDirection: "column",
+                          fontSize: "1rem",
                         })}
                       >
-                        <h2
+                        {post?.authorId?.split("-")[0]}
+                      </h2>
+                      <h1
+                        className={css({
+                          fontSize: "1.8rem",
+                        })}
+                      >
+                        {post?.title}
+                      </h1>
+                      <div>
+                        <ul
+                          id="reactions"
                           className={css({
-                            fontSize: "1rem",
+                            display: "flex",
+                            gap: "0.5rem",
                           })}
                         >
-                          {post?.authorId?.split("-")[0]}
-                        </h2>
-                        <h1
-                          className={css({
-                            fontSize: "1.8rem",
-                          })}
-                        >
-                          {post?.title}
-                        </h1>
-                        <div>
-                          <ul
-                            id="reactions"
-                            className={css({
-                              display: "flex",
-                              gap: "0.5rem",
-                            })}
-                          >
-                            <li>
-                              <FiThumbsUp
-                                className={css({
-                                  fontSize: "1.5rem",
-                                })}
-                              />
-                            </li>
-                            <li>{post?.likes?.length}</li>
-                            <li>
-                              <FiMessageSquare
-                                className={css({
-                                  fontSize: "1.5rem",
-                                })}
-                              />
-                            </li>
-                            <li>{post?.comments?.length}</li>
-                          </ul>
-                        </div>
+                          <li>
+                            <FiThumbsUp
+                              className={css({
+                                fontSize: "1.5rem",
+                              })}
+                            />
+                          </li>
+                          <li>{post?.likes?.length}</li>
+                          <li>
+                            <FiMessageSquare
+                              className={css({
+                                fontSize: "1.5rem",
+                              })}
+                            />
+                          </li>
+                          <li>{post?.comments?.length}</li>
+                        </ul>
                       </div>
-                    </article>
-                  </Link>
-                </div>
+                    </div>
+                  </article>
+                </Link>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </main>
   );
 };
-
-const div1Style = cva({
-  base: {
-    margin: "0 calc(50% - 50vw)",
-    bg: "lightslategrey",
-    display: "flex",
-    justifyContent: "center",
-  },
-  variants: {
-    color: {
-      primary: { bg: "lightslategrey" },
-      secondary: { bg: "white" },
-    },
-  },
-});
-
-const div2Style = cva({
-  base: {
-    display: "flex",
-    flexWrap: "wrap",
-    maxWidth: "1024px",
-    width: "90vw",
-    padding: "0 0.5rem",
-    sm: { padding: "0 1rem" },
-    md: { padding: "0 1.5rem" },
-    lg: { padding: "0 2rem" },
-  },
-});

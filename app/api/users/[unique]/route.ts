@@ -1,7 +1,7 @@
-// app/api/posts/route.ts
+// app/api/users/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { Post } from "@prisma/client";
+import { User } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -13,15 +13,21 @@ export async function GET(
     params: { unique: string };
   },
 ) {
-  const post: Post | null = await prisma.post.findUnique({
+  const user: User | null = await prisma.user.findUnique({
     where: {
-      ulid: params.unique,
+      username: params.unique,
     },
     include: {
-      author: true,
       comments: true,
       likes: true,
+      posts: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+      followers: true,
+      followings: true,
     },
   });
-  return NextResponse.json(post);
+  return NextResponse.json(user);
 }

@@ -10,19 +10,17 @@ export default async function App({
   params: { lang: string; username: string; unique: string };
 }) {
   const dict = await getDictionary(lang);
-  console.log(username);
 
   return (
     <div className={mainStyle()}>
       <PostPageHeader dict={dict} />
-      <PostPageBody dict={dict} unique={unique} />
+      <PostPageBody dict={dict} username={username} unique={unique} />
     </div>
   );
 }
 
 const mainStyle = cva({
   base: {
-    //bg: "yellow",
     padding: "0 0.3rem 1rem 0.3rem",
     marginRight: "auto",
     marginLeft: "auto",

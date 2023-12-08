@@ -6,7 +6,7 @@ import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { getRecommendedPosts, Post } from "@/app/[lang]/post";
 import { useState, useEffect } from "react";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import { FiThumbsUp, FiMessageSquare, FiFileText } from "react-icons/fi";
 import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
@@ -14,24 +14,68 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
 
   useEffect(() => {
     (async () => {
-      const posts: Post[] = await getRecommendedPosts(20);
+      const posts: Post[] = await getRecommendedPosts(10);
       setPosts(posts);
     })();
-  }, [params]);
+  }, []);
 
   return (
     <main
       className={css({
         paddingTop: "4.4rem",
-        bg: "lightgrey",
       })}
     >
       <div
         className={css({
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        })}
+      >
+        <Image
+          src="/lowpoly_whiz.png"
+          alt="LowPoly Mage Image"
+          width="400"
+          height="400"
+          className={css({
+            paddingRight: "2.1rem",
+          })}
+        />
+        <div
+          className={css({
+            fontWeight: "700",
+            fontSize: "4.6rem",
+          })}
+        >
+          {params.dict.minquill}
+        </div>
+      </div>
+      <div
+        className={css({
+          display: "flex",
+          alignItems: "center",
+        })}
+      >
+        <FiFileText
+          className={css({
+            fontSize: "2rem",
+            marginLeft: "1rem",
+            padding: "0 0 .4rem 0",
+          })}
+        />
+        <h2
+          className={css({
+            fontSize: "1.2rem",
+            marginLeft: ".1rem",
+          })}
+        >
+          <strong>{params.dict.painting_guide}</strong>
+        </h2>
+      </div>
+      <div
+        className={css({
           display: "grid",
-          gap: ".5rem",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          bg: "lightgrey",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
         })}
       >
         {posts.map((post, index) => (
@@ -40,7 +84,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               className={css({
                 fontWeight: "700",
                 padding: ".8rem",
-                margin: ".3rem",
+                margin: "1rem",
                 borderRadius: "10px",
                 bg: "white",
               })}

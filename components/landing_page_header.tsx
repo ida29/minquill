@@ -7,7 +7,7 @@ import { Dictionary } from "@/app/[lang]/dictionary";
 export const LandingPageHeader = async (params: { dict: Dictionary }) => {
   const buttons = (
     <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
-      <LoginBtn text={params.dict.signin} />
+      <LoginBtn text={params.dict.login} />
     </div>
   );
 

@@ -10,7 +10,11 @@ import remarkBreaks from "remark-breaks";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
-export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
+export const PostPageBody = (params: {
+  dict: Dictionary;
+  username: string;
+  unique: string;
+}) => {
   const [post, setPost] = useState<Post>();
 
   useEffect(() => {
@@ -19,6 +23,8 @@ export const PostPageBody = (params: { dict: Dictionary; unique: string }) => {
       setPost(post);
     })();
   }, [params.unique]);
+
+  console.log(params.username);
 
   return (
     <main

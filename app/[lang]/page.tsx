@@ -26,18 +26,15 @@ export default async function App({
   }
 
   return (
-    <div className={mainStyle()}>
-      <HomePageWrapper
-        dict={dict}
-        username={session.user ? session.user.username : ""}
-      />
-    </div>
+    <HomePageWrapper
+      dict={dict}
+      username={session.user ? session.user.username : ""}
+    />
   );
 }
 
 const mainStyle = cva({
   base: {
-    //bg: "yellow",
     marginRight: "auto",
     marginLeft: "auto",
     height: "100vh",

@@ -101,6 +101,7 @@ const outerMenuStyle = cva({
 
 const menuStyle = cva({
   base: {
+    borderRadius: "0 2rem 2rem 0",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
