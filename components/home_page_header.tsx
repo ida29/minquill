@@ -1,6 +1,7 @@
 // components/home_page_header.tsx
 "use client";
 
+import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { CreatePostBtn } from "@/components/create_post_btn";
@@ -21,9 +22,7 @@ export const HomePageHeader = (params: {
   };
 
   let buttons;
-  if (!session) {
-    buttons = <>Now Loading...</>;
-  } else if (status === "authenticated") {
+  if (!session || status === "authenticated") {
     buttons = (
       <>
         <div
@@ -37,7 +36,6 @@ export const HomePageHeader = (params: {
           {!isMenuOpen ? (
             <FiMenu
               className={css({
-                color: "text2",
                 marginTop: "3px",
                 width: "2rem",
                 borderRadius: "50%",
@@ -49,7 +47,6 @@ export const HomePageHeader = (params: {
           ) : (
             <FiXCircle
               className={css({
-                color: "text2",
                 marginTop: "3px",
                 width: "2rem",
                 borderRadius: "50%",
@@ -60,7 +57,6 @@ export const HomePageHeader = (params: {
             />
           )}
         </div>
-        <CreatePostBtn text={params.dict.create_post} />
       </>
     );
   } else {
@@ -87,6 +83,8 @@ export const HomePageHeader = (params: {
         <ul
           className={css({
             height: "100%",
+            display: "flex",
+            justifyContent: "space-between",
           })}
         >
           <li
@@ -94,12 +92,34 @@ export const HomePageHeader = (params: {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginLeft: "auto",
-              gap: "0.8rem",
               height: "100%",
+              color: "text2",
             })}
           >
             {buttons}
+          </li>
+          <li
+            className={css({
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "100%",
+            })}
+          >
+            <Link href={`/`}>
+              <div className={logoStyle()}>{params.dict.minquill}</div>
+            </Link>
+          </li>
+          <li
+            className={css({
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "100%",
+              color: "text1",
+            })}
+          >
+            <CreatePostBtn text={params.dict.create_post} />
           </li>
         </ul>
       </nav>
@@ -111,5 +131,18 @@ const navStyle = cva({
   base: {
     width: "100%",
     height: "4.4rem",
+  },
+});
+
+const logoStyle = cva({
+  base: {
+    margin: "0.5rem 0 0 4rem",
+    color: "text2",
+    fontWeight: "700",
+    fontSize: "1.8rem",
+    lineHeight: "1",
+    sm: { fontSize: "1.8rem" },
+    md: { fontSize: "1.9rem" },
+    lg: { fontSize: "2rem" },
   },
 });

@@ -28,17 +28,48 @@ export const UserPageWrapper = (params: {
   };
   const menuContents: React.ReactNode[] = [
     <Link key="0" href={`/${session?.user?.username}`}>
-      <div>{session?.user?.username.split("-")[0]}</div>
+      <div
+        className={css({
+          borderRadius: "0.5rem",
+          width: "100%",
+          textAlign: "center",
+          _hover: {
+            bg: "rgba(0, 0, 0, 0.2)",
+          },
+        })}
+      >
+        {session?.user?.username.split("-")[0]}
+      </div>
     </Link>,
-    <div key="1">menu 3</div>,
-    <div key="2">menu 3</div>,
     status === "authenticated" ? (
-      <Link key="3" href="javascript: void(0);" onClick={() => signOut()}>
-        {dict.logout}
+      <Link key="1" href="javascript: void(0);" onClick={() => signOut()}>
+        <div
+          className={css({
+            borderRadius: "0.5rem",
+            width: "100%",
+            textAlign: "center",
+            _hover: {
+              bg: "rgba(0, 0, 0, 0.2)",
+            },
+          })}
+        >
+          {dict.logout}
+        </div>
       </Link>
     ) : (
-      <Link key="3" href="javascript: void(0);" onClick={() => signIn()}>
-        {dict.login}
+      <Link key="1" href="javascript: void(0);" onClick={() => signIn()}>
+        <div
+          className={css({
+            borderRadius: "0.5rem",
+            width: "100%",
+            textAlign: "center",
+            _hover: {
+              bg: "rgba(0, 0, 0, 0.2)",
+            },
+          })}
+        >
+          {dict.login}
+        </div>
       </Link>
     ),
   ];
@@ -77,7 +108,11 @@ export const UserPageWrapper = (params: {
             onClick={(e) => closeWithClickOutSide(e, setMenuOpen)}
           >
             <div className={menuStyle()}>
-              <nav>
+              <nav
+                className={css({
+                  width: "80%",
+                })}
+              >
                 <ul
                   className={css({
                     fontSize: "1.5rem",
