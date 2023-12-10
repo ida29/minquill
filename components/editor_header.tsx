@@ -1,9 +1,10 @@
 // components/editor_header.tsx
 "use client";
+
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-//import { Dictionary } from "@/app/[lang]/dictionary";
-import useLocalStorageState from "use-local-storage-state";
+import { Dictionary } from "@/app/[lang]/dictionary";
+//import { useSession } from "next-auth/react";
 import {
   FiFeather,
   FiPlayCircle,
@@ -11,12 +12,16 @@ import {
   FiHelpCircle,
   FiSliders,
   FiArrowLeftCircle,
+  FiMinus,
 } from "react-icons/fi";
+import useLocalStorageState from "use-local-storage-state";
 
 export const EditorHeader = (params: {
+  dict: Dictionary;
   isMenuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  //const { data: session, status } = useSession();
   const { isMenuOpen, setMenuOpen } = params;
   const handleMenuClick = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -40,96 +45,127 @@ export const EditorHeader = (params: {
   };
 
   return (
-    <header className={headerStyle()}>
-      <Link
-        href={"/"}
+    <header
+      className={css({
+        position: "fixed",
+        top: "0",
+        left: "0",
+        zIndex: "99",
+        width: "100%",
+        height: "4.4rem",
+        padding: "0 0.5rem",
+        bg: "bg2",
+        sm: { padding: "0 1rem" },
+        md: { padding: "0 1.5rem" },
+        lg: { padding: "0 2rem" },
+      })}
+    >
+      <nav
         className={css({
-          fontSize: "2rem",
-          _hover: { bg: "lightgray" },
-          borderRadius: "50%",
+          color: "text2",
+          width: "100%",
+          height: "4.4rem",
         })}
       >
-        <FiArrowLeftCircle />
-      </Link>
-      <ul className={ulStyle()}>
-        {tabStrArr.map((tabName, index) => (
+        <ul
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            height: "100%",
+            borderRadius: "10px",
+            padding: "0 0.5rem",
+          })}
+        >
           <li
-            key={index}
-            onClick={() => handleTabClick(index)}
-            className={`${liStyle()} 
-                  ${index === activeTabIndex ? activeTab() : ""}`}
+            className={css({
+              padding: "0.2rem",
+              fontSize: "2rem",
+              _hover: {
+                bg: "stone.600",
+              },
+              borderRadius: "10px",
+            })}
           >
-            {tabName}
+            <Link
+              href={"/"}
+              className={css({
+                fontSize: "2rem",
+              })}
+            >
+              <FiArrowLeftCircle />
+            </Link>
           </li>
-        ))}
-      </ul>
-      <div
-        className={css({
-          fontSize: "2rem",
-          _hover: { bg: "lightgray" },
-          borderRadius: "50%",
-        })}
-      >
-        <FiSliders onClick={handleMenuClick} />
-      </div>
+          <li>
+            <div
+              className={css({
+                fontSize: "2rem",
+                transform: "rotate(90deg)",
+              })}
+            >
+              <FiMinus />
+            </div>
+          </li>
+          {tabStrArr.map((tabName, index) => (
+            <li
+              key={index}
+              onClick={() => handleTabClick(index)}
+              className={`${liStyle()} 
+                  ${index === activeTabIndex ? activeTab() : ""}`}
+            >
+              {tabName}
+            </li>
+          ))}
+          <li>
+            <div
+              className={css({
+                fontSize: "2rem",
+                transform: "rotate(90deg)",
+              })}
+            >
+              <FiMinus />
+            </div>
+          </li>
+          <li
+            className={css({
+              fontSize: "2rem",
+              color: "text2",
+              padding: "0.2rem",
+              _hover: {
+                bg: "stone.600",
+              },
+              borderRadius: "10px",
+            })}
+          >
+            <FiSliders onClick={handleMenuClick} />
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };
 
-const headerStyle = cva({
-  base: {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    zIndex: "99",
-
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-
-    bg: "white",
-
-    width: "100%",
-    borderBottom: "2px solid black",
-
-    height: "4.4rem",
-
-    padding: "0 0.5rem",
-    sm: { padding: "0 1rem" },
-    md: { padding: "0 1.5rem" },
-    lg: { padding: "0 2rem" },
-  },
-});
-
-const ulStyle = cva({
-  base: {
-    display: "flex",
-    alignItems: "center",
-    border: "2px solid black",
-    height: "3rem",
-    borderRadius: "10px",
-    padding: "0 0.5rem",
-  },
-});
-
 const liStyle = cva({
   base: {
     margin: "0.5rem",
+    padding: "0.2rem",
     listStyle: "none",
     display: "inline-block",
 
     fontSize: "2rem",
-    _hover: { bg: "lightgray" },
-    borderRadius: "50%",
+    _hover: {
+      bg: "stone.600",
+    },
+    borderRadius: "10px",
   },
 });
 
 const activeTab = cva({
   base: {
-    bg: "lightgreen",
+    color: "text1",
+    bg: "yellow",
 
     position: "relative",
     zIndex: "1",
-    _hover: { bg: "lightgreen !important" },
+    _hover: { bg: "yellow !important" },
   },
 });

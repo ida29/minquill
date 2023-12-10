@@ -61,7 +61,6 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   if (activeTabIndex === 0) {
     activeTabItem = (
       <>
-        <UploadImgNPreview text={params.dict.add_cover_image} />
         <div>
           <label
             htmlFor="title"
@@ -78,18 +77,30 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className={css({
-              bg: "white",
+              bg: "bg3",
               border: "2px solid black",
               boxShadow: "1px 1px 0 #000",
               textIndent: "0.8rem",
               borderRadius: "10px",
               width: "100%",
-              marginBottom: "2rem",
-              fontSize: "18px",
               fontWeight: "700",
               outline: "none",
               paddingTop: "0.2rem",
               transition: "all 0.1s",
+              fontSize: "1.4rem",
+              marginBottom: "1.4rem",
+              sm: {
+                fontSize: "1.6rem",
+                marginBottom: "1.6rem",
+              },
+              md: {
+                fontSize: "1.8rem",
+                marginBottom: "1.8rem",
+              },
+              lg: {
+                fontSize: "2rem",
+                marginBottom: "2rem",
+              },
             })}
           />
         </div>
@@ -109,20 +120,57 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             value={tag}
             onChange={(e) => setTag(e.target.value)}
             className={css({
-              bg: "white",
+              bg: "bg3",
               border: "2px solid black",
               boxShadow: "1px 1px 0 #000",
               textIndent: "1rem",
               borderRadius: "10px",
               width: "100%",
-              marginBottom: "2rem",
-              fontSize: "18px",
               fontWeight: "700",
               outline: "none",
               paddingTop: "0.2rem",
               transition: "all 0.1s",
+              fontSize: "1.4rem",
+              marginBottom: "1.4rem",
+              sm: {
+                fontSize: "1.6rem",
+                marginBottom: "1.6rem",
+              },
+              md: {
+                fontSize: "1.8rem",
+                marginBottom: "1.8rem",
+              },
+              lg: {
+                fontSize: "2rem",
+                marginBottom: "2rem",
+              },
             })}
           />
+        </div>
+        <div
+          className={css({
+            marginBottom: "1.4rem",
+            sm: {
+              marginBottom: "1.6rem",
+            },
+            md: {
+              marginBottom: "1.8rem",
+            },
+            lg: {
+              marginBottom: "2rem",
+            },
+          })}
+        >
+          <label
+            htmlFor="contents"
+            className={css({
+              fontSize: "12px",
+              fontWeight: "700",
+            })}
+          >
+            {params.dict.cover_image}
+          </label>
+          <UploadImgNPreview text={params.dict.upload_images} />
         </div>
         <label
           htmlFor="contents"
@@ -224,30 +272,44 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
         paddingTop: "4.4rem",
       })}
     >
-      <div className={div1Style()}>
-        <div className={div2Style()}>
+      <div
+        className={css({
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+        })}
+      >
+        <div
+          className={css({
+            width: "90%",
+            paddingTop: "1.4rem",
+            sm: {
+              paddingTop: "1.6rem",
+            },
+            md: {
+              paddingTop: "1.8rem",
+            },
+            lg: {
+              paddingTop: "2rem",
+            },
+          })}
+        >
+          {activeTabItem}
           <div
             className={css({
-              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              padding: "2rem",
             })}
           >
-            {activeTabItem}
-            <div
-              className={css({
-                display: "flex",
-                justifyContent: "center",
-                padding: "2rem",
-              })}
-            >
-              {activeTabIndex === 0 ? (
-                <PublishBtn
-                  text={params.dict.publish}
-                  username={params.username}
-                />
-              ) : (
-                ""
-              )}
-            </div>
+            {activeTabIndex === 0 ? (
+              <PublishBtn
+                text={params.dict.publish}
+                username={params.username}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
@@ -255,40 +317,10 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   );
 };
 
-const div1Style = cva({
-  base: {
-    margin: "0 calc(50% - 50vw)",
-    bg: "white",
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: "1rem",
-  },
-  variants: {
-    color: {
-      primary: { bg: "lightslategrey" },
-      secondary: { bg: "white" },
-    },
-  },
-});
-
-const div2Style = cva({
-  base: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "100vw",
-    padding: "0 0.5rem",
-    sm: { padding: "0 1rem" },
-    md: { padding: "0 1.5rem" },
-    lg: { padding: "0 2rem" },
-    maxWidth: "1024px",
-  },
-});
-
 const divPanelStyle = cva({
   base: {
     border: "2px solid black",
     padding: "0.8rem",
-    width: "100%",
     minHeight: "calc(100dvh - 30rem)",
 
     borderRadius: "10px",

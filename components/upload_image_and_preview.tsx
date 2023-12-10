@@ -18,7 +18,9 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
   colorVariant = "default",
   className,
 }) => {
-  const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img");
+  const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img", {
+    defaultValue: "",
+  });
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadImg = async (
@@ -72,7 +74,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
   };
 
   let preview = <></>;
-  if (coverImg != "") {
+  if (coverImg !== "") {
     preview = (
       <>
         <div

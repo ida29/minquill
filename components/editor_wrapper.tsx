@@ -1,23 +1,21 @@
 // components/editor_wrapper.tsx
 "use client";
 
+//import Link from "next/link";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { EditorHeader } from "./editor_header";
 import { EditorBody } from "./editor_body";
 import { useState } from "react";
-import { FiXCircle } from "react-icons/fi";
 import { css, cva } from "@/styled-system/css";
+//import { useSession } from "next-auth/react";
 
 export const EditorWrapper = (params: {
   dict: Dictionary;
   username: string;
 }) => {
+  //const { data: session, status } = useSession();
   const { dict, username } = params;
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const handleMenuClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    setMenuOpen(!isMenuOpen);
-  };
   const closeWithClickOutSide = (
     e: React.MouseEvent,
     setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -28,72 +26,94 @@ export const EditorWrapper = (params: {
     }
   };
   const menuContents: React.ReactNode[] = [
-    <div key="0">menu 1</div>,
-    <div key="1">menu 2</div>,
-    <div key="2">menu 3</div>,
-    <div key="3">menu 4</div>,
+    <div
+      key="0"
+      className={css({
+        borderRadius: "0.5rem",
+        width: "100%",
+        textAlign: "center",
+        _hover: {
+          bg: "rgba(0, 0, 0, 0.2)",
+        },
+      })}
+    >
+      dummy
+    </div>,
   ];
 
   return (
-    <>
-      <EditorHeader isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
-      <EditorBody dict={dict} username={username} />
+    <div
+      data-theme="normal"
+      data-color-mode="light"
+      className={css({
+        overflow: "auto",
+        bg: "bg1",
+      })}
+    >
+      <div
+        className={css({
+          marginRight: "auto",
+          marginLeft: "auto",
+          height: "100vh",
+          width: "100vw",
+          sm: { width: "100vw" },
+          md: { width: "95vw" },
+          lg: { width: "90vw" },
+        })}
+      >
+        <EditorHeader
+          dict={dict}
+          isMenuOpen={isMenuOpen}
+          setMenuOpen={setMenuOpen}
+        />
+        <EditorBody dict={dict} username={username} />
 
-      {isMenuOpen && (
-        <div
-          aria-hidden={!isMenuOpen ? "true" : "false"}
-          className={outerMenuStyle()}
-          onClick={(e) => closeWithClickOutSide(e, setMenuOpen)}
-        >
-          <div className={menuStyle()}>
-            <div
-              className={css({
-                width: "100%",
-              })}
-            >
-              <FiXCircle
-                onClick={handleMenuClick}
+        {isMenuOpen && (
+          <div
+            aria-hidden={!isMenuOpen ? "true" : "false"}
+            className={outerMenuStyle()}
+            onClick={(e) => closeWithClickOutSide(e, setMenuOpen)}
+          >
+            <div className={menuStyle()}>
+              <nav
                 className={css({
-                  marginRight: "auto",
-                  fontSize: "2rem",
-                  _hover: { bg: "lightgray" },
-                  borderRadius: "50%",
-                  margin: "14px 16px",
-                })}
-              />
-            </div>
-            <nav>
-              <ul
-                className={css({
-                  fontSize: "1.5rem",
+                  width: "80%",
                 })}
               >
-                {menuContents.map((content, index) => (
-                  <li
-                    key={index}
-                    className={css({
-                      marginBottom: "0.8rem",
-                    })}
-                  >
-                    {content}
-                  </li>
-                ))}
-              </ul>
-            </nav>
+                <ul
+                  className={css({
+                    fontSize: "1.5rem",
+                    padding: "1rem",
+                    width: "100%",
+                  })}
+                >
+                  {menuContents.map((content, index) => (
+                    <li
+                      key={index}
+                      className={css({
+                        marginBottom: "0.8rem",
+                      })}
+                    >
+                      {content}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 
 const outerMenuStyle = cva({
   base: {
-    bg: "rgba(0, 0, 0, 0.2)",
+    bg: "rgba(0, 0, 0, 0.4)",
     width: "100%",
     height: "100%",
-    top: "0",
-    right: "0",
+    top: "4.4rem",
+    left: "0",
     zIndex: "100",
     position: "fixed",
   },
@@ -102,15 +122,18 @@ const outerMenuStyle = cva({
 const menuStyle = cva({
   base: {
     borderRadius: "0 2rem 2rem 0",
+    bg: "bg1",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    bg: "white",
-    width: "80%",
     height: "100%",
-    top: "0",
-    right: "0",
+    top: "4.4rem",
+    left: "0",
     zIndex: "100",
     position: "fixed",
+    width: "60%",
+    sm: { width: "50%" },
+    md: { width: "40%" },
+    lg: { width: "30%" },
   },
 });

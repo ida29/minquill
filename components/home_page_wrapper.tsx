@@ -142,7 +142,7 @@ export const HomePageWrapper = (params: {
 
 const outerMenuStyle = cva({
   base: {
-    bg: "rgba(0, 0, 0, 0.2)",
+    bg: "rgba(0, 0, 0, 0.4)",
     width: "100%",
     height: "100%",
     top: "4.4rem",
