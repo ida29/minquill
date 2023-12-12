@@ -78,28 +78,33 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             onChange={(e) => setTitle(e.target.value)}
             className={css({
               bg: "bg3",
-              border: "2px solid black",
-              boxShadow: "1px 1px 0 #000",
               textIndent: "0.8rem",
               borderRadius: "10px",
               width: "100%",
               fontWeight: "700",
               outline: "none",
-              paddingTop: "0.2rem",
+              padding: "0.5rem",
               transition: "all 0.1s",
-              fontSize: "1.4rem",
-              marginBottom: "1.4rem",
+              fontSize: "1.2rem",
+              marginBottom: "1.2rem",
+              border: "4px solid white",
+              _focus: {
+                border: "4px solid black",
+              },
               sm: {
-                fontSize: "1.6rem",
-                marginBottom: "1.6rem",
+                fontSize: "1.4rem",
+                marginBottom: "1.4rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               md: {
-                fontSize: "1.8rem",
-                marginBottom: "1.8rem",
+                fontSize: "1.6rem",
+                marginBottom: "1.6rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               lg: {
-                fontSize: "2rem",
-                marginBottom: "2rem",
+                fontSize: "1.8rem",
+                marginBottom: "1.8rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
             })}
           />
@@ -121,8 +126,6 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             onChange={(e) => setTag(e.target.value)}
             className={css({
               bg: "bg3",
-              border: "2px solid black",
-              boxShadow: "1px 1px 0 #000",
               textIndent: "1rem",
               borderRadius: "10px",
               width: "100%",
@@ -131,18 +134,25 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
               paddingTop: "0.2rem",
               transition: "all 0.1s",
               fontSize: "1.4rem",
-              marginBottom: "1.4rem",
+              marginBottom: "1.2rem",
+              border: "4px solid white",
+              _focus: {
+                border: "4px solid black",
+              },
               sm: {
-                fontSize: "1.6rem",
-                marginBottom: "1.6rem",
+                fontSize: "1.4rem",
+                marginBottom: "1.4rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               md: {
-                fontSize: "1.8rem",
-                marginBottom: "1.8rem",
+                fontSize: "1.6rem",
+                marginBottom: "1.6rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               lg: {
-                fontSize: "2rem",
-                marginBottom: "2rem",
+                fontSize: "1.8rem",
+                marginBottom: "1.8rem",
+                padding: "0.8rem 0.4rem 0.6rem 0",
               },
             })}
           />
@@ -319,15 +329,17 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
 
 const divPanelStyle = cva({
   base: {
-    border: "2px solid black",
+    border: "4px solid white",
     padding: "0.8rem",
     minHeight: "calc(100dvh - 30rem)",
 
     borderRadius: "10px",
-    boxShadow: "1px 1px 0 #000",
     background: "white",
 
     position: "relative",
     zIndex: "0",
+    _focusWithin: {
+      border: "4px solid black",
+    },
   },
 });

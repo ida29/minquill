@@ -1,20 +1,22 @@
-// components/editor_wrapper.tsx
+// components/post_page_wrapper.tsx
 "use client";
 
-//import Link from "next/link";
+import Link from "next/link";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { EditorHeader } from "./editor_header";
-import { EditorBody } from "./editor_body";
+import { PostPageHeader } from "./post_page_header";
+import { PostPageBody } from "./post_page_body";
 import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
-//import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
-export const EditorWrapper = (params: {
+export const PostPageWrapper = (params: {
   dict: Dictionary;
   username: string;
+  unique: string;
 }) => {
-  //const { data: session, status } = useSession();
-  const { dict, username } = params;
+  const { data: session, status } = useSession();
+  const { dict, username, unique } = params;
   const [isMenuOpen, setMenuOpen] = useState(false);
   const closeWithClickOutSide = (
     e: React.MouseEvent,
@@ -26,19 +28,51 @@ export const EditorWrapper = (params: {
     }
   };
   const menuContents: React.ReactNode[] = [
-    <div
-      key="0"
-      className={css({
-        borderRadius: "0.5rem",
-        width: "100%",
-        textAlign: "center",
-        _hover: {
-          bg: "rgba(0, 0, 0, 0.2)",
-        },
-      })}
-    >
-      dummy
-    </div>,
+    <Link key="0" href={`/${session?.user?.username}`}>
+      <div
+        className={css({
+          borderRadius: "0.5rem",
+          width: "100%",
+          textAlign: "center",
+          _hover: {
+            bg: "rgba(0, 0, 0, 0.2)",
+          },
+        })}
+      >
+        {session?.user?.username.split("-")[0]}
+      </div>
+    </Link>,
+    status === "authenticated" ? (
+      <Link key="1" href="javascript: void(0);" onClick={() => signOut()}>
+        <div
+          className={css({
+            borderRadius: "0.5rem",
+            width: "100%",
+            textAlign: "center",
+            _hover: {
+              bg: "rgba(0, 0, 0, 0.2)",
+            },
+          })}
+        >
+          {dict.logout}
+        </div>
+      </Link>
+    ) : (
+      <Link key="1" href="javascript: void(0);" onClick={() => signIn()}>
+        <div
+          className={css({
+            borderRadius: "0.5rem",
+            width: "100%",
+            textAlign: "center",
+            _hover: {
+              bg: "rgba(0, 0, 0, 0.2)",
+            },
+          })}
+        >
+          {dict.login}
+        </div>
+      </Link>
+    ),
   ];
 
   return (
@@ -61,12 +95,12 @@ export const EditorWrapper = (params: {
           lg: { width: "90vw" },
         })}
       >
-        <EditorHeader
+        <PostPageHeader
           dict={dict}
           isMenuOpen={isMenuOpen}
           setMenuOpen={setMenuOpen}
         />
-        <EditorBody dict={dict} username={username} />
+        <PostPageBody dict={dict} username={username} unique={unique} />
 
         {isMenuOpen && (
           <div
@@ -84,7 +118,6 @@ export const EditorWrapper = (params: {
                   className={css({
                     fontSize: "1.5rem",
                     padding: "1rem",
-                    width: "100%",
                   })}
                 >
                   {menuContents.map((content, index) => (
@@ -110,7 +143,7 @@ export const EditorWrapper = (params: {
 const outerMenuStyle = cva({
   base: {
     bg: "rgba(0, 0, 0, 0.4)",
-    width: "100vw",
+    width: "100%",
     height: "100%",
     top: "4.4rem",
     left: "0",
@@ -121,14 +154,19 @@ const outerMenuStyle = cva({
 
 const menuStyle = cva({
   base: {
+    borderRadius: "0 2rem 2rem 0",
     bg: "bg1",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    height: "calc(60dvh - 4.4rem)",
+    height: "100%",
     top: "4.4rem",
+    left: "0",
     zIndex: "100",
     position: "fixed",
-    width: "100%",
+    width: "60%",
+    sm: { width: "50%" },
+    md: { width: "40%" },
+    lg: { width: "30%" },
   },
 });

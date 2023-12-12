@@ -117,7 +117,6 @@ export const HomePageWrapper = (params: {
                   className={css({
                     fontSize: "1.5rem",
                     padding: "1rem",
-                    width: "100%",
                   })}
                 >
                   {menuContents.map((content, index) => (

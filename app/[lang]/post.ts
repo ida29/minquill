@@ -1,4 +1,8 @@
 // app/[lang]/post.ts
+
+import { nGram } from "n-gram";
+//import moji from "moji";
+
 export type Post = {
   title: string;
   content: string;
@@ -70,7 +74,9 @@ export async function savePost(newPost: Post): Promise<Post> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title: newPost.title,
+      tokenizedTitle: nGram(3)(newPost.title.toString()).join(" "),
       content: newPost.content.slice(0, 2000),
+      tokenizedContent: nGram(3)(newPost.content.toString()).join(" "),
       coverImg: newPost.coverImg,
     }),
   });
@@ -86,6 +92,29 @@ export async function savePost(newPost: Post): Promise<Post> {
 export async function getRecommendedPosts(count: number): Promise<Post[]> {
   const url = new URL("/api/posts", window.location.origin);
   url.searchParams.append("count", count.toString());
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get posts: ${response.statusText}`);
+  }
+
+  const posts: Post[] = await response.json();
+  return posts;
+}
+
+export async function getPostsWithToken(
+  token: string,
+  count: number,
+): Promise<Post[]> {
+  const url = new URL("/api/posts", window.location.origin);
+  url.searchParams.append("token", nGram(3)(token).join("* | ") + "*");
+  url.searchParams.append("count", count.toString());
+  url.searchParams.append("mode", "fulltext");
 
   const response = await fetch(url.toString(), {
     method: "GET",

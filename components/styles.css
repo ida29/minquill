@@ -48,6 +48,10 @@
   margin-bottom: 0.2em;
 }
 
+#markdown-preview p {
+  font-size: 1.4em;
+}
+
 @media (max-width: 600px) {
   #markdown-preview h1 {
     font-size: 1.8em;
@@ -65,6 +69,9 @@
     font-size: 1.1em;
   }
   #markdown-preview h6 {
+    font-size: 1em;
+  }
+  #markdown-preview p {
     font-size: 1em;
   }
 }

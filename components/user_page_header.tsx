@@ -135,7 +135,7 @@ const navStyle = cva({
 
 const logoStyle = cva({
   base: {
-    marginTop: "0.5rem",
+    margin: "0.5rem 0 0 0.5rem",
     color: "text2",
     fontWeight: "700",
     fontSize: "1.8rem",

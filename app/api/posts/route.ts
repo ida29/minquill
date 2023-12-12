@@ -18,12 +18,34 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const username = searchParams.get("username") as string;
     const count = Number(searchParams.get("count")) || 20;
+    const token = searchParams.get("token") as string;
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
     const mode = searchParams.get("mode") || "latest";
 
     let posts: Post[] = [];
 
     if (mode === "recommended") {
+    } else if (mode === "fulltext") {
+      posts = await prisma.post.findMany({
+        where: {
+          tokenizedTitle: {
+            search: token,
+          },
+          tokenizedContent: {
+            search: token,
+          },
+        },
+        take: count,
+        orderBy: {
+          createdAt: order,
+        },
+        include: {
+          author: true,
+          comments: true,
+          likes: true,
+        },
+      });
+      console.log(posts);
     } else {
       const where = username ? { authorId: username } : {};
       posts = await prisma.post.findMany({
@@ -61,7 +83,9 @@ export async function POST(req: NextRequest) {
     const post: Post = await prisma.post.create({
       data: {
         title: req_json.title,
+        tokenizedTitle: req_json.tokenizedTitle,
         content: req_json.content,
+        tokenizedContent: req_json.tokenizedContent,
         coverImg: req_json.coverImg,
         ulid: ulid(),
         author: {

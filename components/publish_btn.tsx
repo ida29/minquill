@@ -14,7 +14,7 @@ type PublishBtnProps = {
 
 export const PublishBtn: React.FC<PublishBtnProps> = ({
   text,
-  colorVariant = "primary",
+  colorVariant = "default",
   className,
   username,
 }) => {

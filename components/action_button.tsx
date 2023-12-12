@@ -26,15 +26,16 @@ export const ActionButton: React.FC<ButtonProps> = ({
 
 const btnStyle = cva({
   base: {
-    //bg: "white",
+    color: "text1",
     textDecoration: "none",
     fontWeight: "700",
     fontSize: "0.8rem",
     lineHeight: "1",
     padding: "0.8em 1em",
-    border: "2px solid black",
+    border: "2px solid",
+    borderColor: "text2",
     borderRadius: "6px",
-    boxShadow: "2px 2px 0 #000",
+    boxShadow: "2px 2px 0",
     cursor: "pointer",
     transition: "all 0.1s",
     _hover: { bg: "lightgray" },
@@ -44,28 +45,43 @@ const btnStyle = cva({
     },
     sm: {
       fontSize: "0.8rem",
-      border: "2px solid black",
       borderRadius: "6px",
-      boxShadow: "2px 2px 0 #000",
+      borderWidth: "2px",
+      boxShadow: "2px 2px 0",
     },
     md: {
       fontSize: "0.9rem",
-      border: "2.5px solid black",
       borderRadius: "7px",
-      boxShadow: "3px 3px 0 #000",
+      borderWidth: "3px",
+      boxShadow: "3px 3px 0",
     },
     lg: {
       fontSize: "1rem",
-      border: "3px solid black",
       borderRadius: "8px",
-      boxShadow: "4px 4px 0 #000",
+      borderWidth: "3px",
+      boxShadow: "3px 4px 0",
     },
   },
   variants: {
     color: {
-      default: { bg: "white", _hover: { bg: "lightgrey" } },
-      primary: { bg: "blue.300", _hover: { bg: "blue.200" } },
-      secondary: { bg: "grey.300", _hover: { bg: "grey.200" } },
+      default: {
+        color: "text1",
+        borderColor: "text1",
+        bg: "text2",
+        _hover: { bg: "lightgrey" },
+      },
+      primary: {
+        color: "text2",
+        borderColor: "text2",
+        bg: "text1",
+        _hover: { bg: "stone.600" },
+      },
+      secondary: {
+        color: "text2",
+        borderColor: "text2",
+        bg: "text1",
+        _hover: { bg: "stone.600" },
+      },
     },
   },
   defaultVariants: {

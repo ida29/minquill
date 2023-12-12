@@ -6,7 +6,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["referentialActions"]
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model Account {
@@ -63,20 +63,23 @@ model VerificationToken {
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
-  ulid        String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  published   Boolean  @default(false)
-  title       String   @db.VarChar(255)
-  content     String?  @db.VarChar(2000)
-  coverImg    String?  @db.VarChar(255)
-  author      User     @relation(fields: [authorId], references: [username])
-  authorId    String
-  comments    Comment[]
-  likes       Like[]
+  id               Int      @id @default(autoincrement())
+  ulid             String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  published        Boolean  @default(false)
+  title            String   @db.VarChar(255)
+  tokenizedTitle   String   @db.VarChar(255)
+  content          String?  @db.Text
+  tokenizedContent String?  @db.Text
+  coverImg         String?  @db.VarChar(255)
+  author           User     @relation(fields: [authorId], references: [username])
+  authorId         String
+  comments         Comment[]
+  likes            Like[]
 
   @@index([authorId])
+  @@fulltext([tokenizedContent, tokenizedTitle])
 }
 
 model Comment {

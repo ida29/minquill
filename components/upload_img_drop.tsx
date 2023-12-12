@@ -107,24 +107,27 @@ export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
 
 const dragAreaStyle = cva({
   base: {
+    bg: "bg3",
     textDecoration: "none",
     fontSize: "1.6rem",
     lineHeight: "1",
     padding: "0.8em 1em",
-    border: "2px solid black",
+    border: "4px solid white",
     borderRadius: "10px",
-    boxShadow: "2px 2px 0 #000",
     cursor: "pointer",
     height: "30dvh",
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    _hover: {
+      border: "4px solid black",
+    },
   },
   variants: {
     dragIsOver: {
       over: { border: "4px solid black", bg: "lightgrey" },
-      leave: { border: "2px solid black" },
+      leave: { border: "4px solid white" },
     },
   },
 });
