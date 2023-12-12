@@ -112,7 +112,10 @@ export async function getPostsWithToken(
   count: number,
 ): Promise<Post[]> {
   const url = new URL("/api/posts", window.location.origin);
-  url.searchParams.append("token", nGram(3)(token).join("* | ") + "*");
+  url.searchParams.append(
+    "token",
+    token.length > 2 ? nGram(3)(token).join("* | ") + "*" : token + "*",
+  );
   url.searchParams.append("count", count.toString());
   url.searchParams.append("mode", "fulltext");
 

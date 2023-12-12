@@ -76,7 +76,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             id="full-text-search"
             name="full-text-search"
             onKeyDown={handleKeyDown}
-		    placeholder={params.dict.search_placeholder}
+            placeholder={params.dict.search_placeholder}
             className={css({
               color: "text1",
               bg: "bg3",
