@@ -153,7 +153,6 @@ const outerMenuStyle = cva({
 
 const menuStyle = cva({
   base: {
-    borderRadius: "0 2rem 2rem 0",
     bg: "bg1",
     display: "flex",
     flexDirection: "column",
@@ -163,9 +162,6 @@ const menuStyle = cva({
     left: "0",
     zIndex: "100",
     position: "fixed",
-    width: "60%",
-    sm: { width: "50%" },
-    md: { width: "40%" },
-    lg: { width: "30%" },
+    width: "250px",
   },
 });

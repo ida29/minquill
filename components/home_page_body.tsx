@@ -52,15 +52,15 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
       <div
         className={css({
           display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
+          justifyContent: "center",
+          flexWrap: "wrap",
         })}
       >
         <Image
           src="/lowpoly_whiz.png"
           alt="LowPoly Mage Image"
-          width="180"
-          height="180"
+          width="140"
+          height="140"
           className={css({
             margin: "0.5rem 1rem 0 0",
           })}
@@ -69,10 +69,11 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           className={css({
             display: "flex",
             gap: "1rem",
+            width: "100%",
           })}
         >
           <input
-            type="text"
+            type="search"
             id="full-text-search"
             name="full-text-search"
             onKeyDown={handleKeyDown}
@@ -157,7 +158,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 <Image
                   width="200"
                   height="200"
-                  src={post?.coverImg || ""}
+                  src={post.coverImg || "/lowpoly_whiz.png"}
                   alt="Cover Image"
                   className={css({
                     borderRadius: "10px 10px 0 0",

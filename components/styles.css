@@ -19,60 +19,60 @@
 }
 
 #markdown-preview h2 {
-  font-size: 1.75em;
+  font-size: 1.8em;
   color: black;
   margin-bottom: 0.4em;
 }
 
 #markdown-preview h3 {
-  font-size: 1.5em;
+  font-size: 1.6em;
   color: black;
   margin-bottom: 0.35em;
 }
 
 #markdown-preview h4 {
-  font-size: 1.25em;
+  font-size: 1.4em;
   color: black;
   margin-bottom: 0.3em;
 }
 
 #markdown-preview h5 {
-  font-size: 1.1em;
+  font-size: 1.4em;
   color: black;
   margin-bottom: 0.25em;
 }
 
 #markdown-preview h6 {
-  font-size: 1em;
+  font-size: 1.4em;
   color: black;
   margin-bottom: 0.2em;
 }
 
 #markdown-preview p {
-  font-size: 1.4em;
+  font-size: 1.8em;
 }
 
 @media (max-width: 600px) {
   #markdown-preview h1 {
-    font-size: 1.8em;
+    font-size: 2em;
   }
   #markdown-preview h2 {
-    font-size: 1.6em;
+    font-size: 1.8em;
   }
   #markdown-preview h3 {
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
   #markdown-preview h4 {
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   #markdown-preview h5 {
-    font-size: 1.1em;
+    font-size: 1.4em;
   }
   #markdown-preview h6 {
-    font-size: 1em;
+    font-size: 1.4em;
   }
   #markdown-preview p {
-    font-size: 1em;
+    font-size: 1.4em;
   }
 }
 

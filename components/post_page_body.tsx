@@ -29,7 +29,7 @@ export const PostPageBody = (params: {
   return (
     <main
       className={css({
-        paddingTop: "4.4rem",
+        marginTop: "4.4rem",
       })}
     >
       <div
@@ -45,16 +45,17 @@ export const PostPageBody = (params: {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom: "2rem",
+            marginBottom: "1rem",
           })}
         >
           <div
             className={css({
-              width: "90%",
               position: "relative",
+              width: "100%",
               paddingTop: "100%",
-              sm: { width: "80%", paddingTop: "calc(60vh - 4.4rem)" },
-              md: { width: "80%", paddingTop: "calc(60vh - 4.4rem)" },
+              bg: "bg2",
+              sm: { width: "80%", paddingTop: "calc(80vh - 4.4rem)" },
+              md: { width: "80%", paddingTop: "calc(70vh - 4.4rem)" },
               lg: { width: "80%", paddingTop: "calc(60vh - 4.4rem)" },
             })}
           >
@@ -67,12 +68,35 @@ export const PostPageBody = (params: {
                 width: "100%",
                 height: "100%",
                 position: "absolute",
+                opacity: "0.4",
+                filter: "blur(3px)",
                 top: "0",
                 left: "0",
                 objectFit: "cover",
                 objectPosition: "center",
               })}
             />
+            <div
+              className={css({
+                textAlign: "center",
+                padding: "1rem 1rem .5rem 1rem",
+                border: "2px solid",
+                color: "text2",
+                borderRadius: "0.5rem",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%,-50%)",
+                fontWeight: "700",
+                fontSize: "2.2rem",
+                width: "90%",
+                sm: { fontSize: "2.4rem", width: "auto" },
+                md: { fontSize: "2.6rem", width: "auto" },
+                lg: { fontSize: "2.8rem", width: "auto" },
+              })}
+            >
+              {post?.title}
+            </div>
           </div>
         </div>
         <div
@@ -90,18 +114,16 @@ export const PostPageBody = (params: {
           <div
             className={css({
               margin: ".5rem 0",
-              alignSelf: "flex-start",
-              fontSize: "1.4rem",
-              sm: { fontSize: "1.6rem" },
-              md: { fontSize: "1.8rem" },
-              lg: { fontSize: "2rem" },
+              fontSize: "1rem",
+              sm: { fontSize: "1.2rem" },
+              md: { fontSize: "1.4rem" },
+              lg: { fontSize: "1.6rem" },
             })}
           >
             {post?.authorId?.split("-")[0]}
           </div>
           <div
             className={css({
-              width: "100%",
               marginBottom: ".5rem",
             })}
           >
@@ -110,11 +132,10 @@ export const PostPageBody = (params: {
               className={css({
                 display: "flex",
                 gap: "1rem",
-                alignSelf: "flex-start",
-                fontSize: "1.2rem",
-                sm: { fontSize: "1.4rem" },
-                md: { fontSize: "1.6rem" },
-                lg: { fontSize: "1.8rem" },
+                fontSize: "1rem",
+                sm: { fontSize: "1.2rem" },
+                md: { fontSize: "1.4rem" },
+                lg: { fontSize: "1.6rem" },
               })}
             >
               <li>
@@ -137,22 +158,8 @@ export const PostPageBody = (params: {
           </div>
           <div
             className={css({
-              marginBottom: ".5rem",
-              alignSelf: "flex-start",
-              fontWeight: "700",
-              fontSize: "2rem",
-              sm: { fontSize: "2.1rem" },
-              md: { fontSize: "2.2rem" },
-              lg: { fontSize: "2.3rem" },
-            })}
-          >
-            {post?.title}
-          </div>
-          <div
-            className={css({
               display: "flex",
               gap: "1rem",
-              alignSelf: "flex-start",
               fontSize: "1.2rem",
               marginBottom: "2rem",
             })}
@@ -185,5 +192,6 @@ const divPanelStyle = cva({
 
     position: "relative",
     zIndex: "0",
+    alignSelf: "flex-start",
   },
 });

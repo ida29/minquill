@@ -62,8 +62,8 @@ export const UserPageBody = (params: {
             padding: ".5rem",
             width: "90%",
             sm: { width: "80%" },
-            md: { width: "70%" },
-            lg: { width: "50%" },
+            md: { width: "72%" },
+            lg: { width: "60%" },
           })}
         >
           <ul
@@ -153,12 +153,9 @@ export const UserPageBody = (params: {
             className={css({
               borderLeft: "3px solid black",
               position: "relative",
-              padding: "20px",
+              padding: "20px 0 20px 20px",
               marginLeft: "20px",
-              width: "90%",
-              sm: { width: "80%" },
-              md: { width: "70%" },
-              lg: { width: "60%" },
+              width: "calc(90% - 20px)",
             })}
           >
             {user?.posts?.map((post: Post, index) => (
@@ -202,7 +199,7 @@ export const UserPageBody = (params: {
                         <Image
                           width="400"
                           height="400"
-                          src={post.coverImg || ""}
+                          src={post.coverImg || "/lowpoly_whiz.png"}
                           alt="Cover Image"
                           className={css({
                             width: "100%",
