@@ -59,10 +59,10 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
         <Image
           src="/lowpoly_whiz.png"
           alt="LowPoly Mage Image"
-          width="400"
-          height="400"
+          width="180"
+          height="180"
           className={css({
-            paddingRight: "2.1rem",
+            margin: "0.5rem 1rem 0 0",
           })}
         />
         <div
@@ -76,7 +76,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             id="full-text-search"
             name="full-text-search"
             onKeyDown={handleKeyDown}
-            placeholder={params.dict.search_placeholder}
+            placeholder={params.dict.full_text_search_placeholder}
             className={css({
               color: "text1",
               bg: "bg3",
@@ -88,7 +88,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               paddingTop: "0.2rem",
               transition: "all 0.1s",
               fontSize: "1.4rem",
-              marginBottom: "1.2rem",
+              margin: "1.2rem",
               border: "4px solid white",
               _focus: {
                 border: "4px solid black",

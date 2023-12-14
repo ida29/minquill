@@ -74,9 +74,13 @@ export async function savePost(newPost: Post): Promise<Post> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       title: newPost.title,
-      tokenizedTitle: nGram(3)(newPost.title.toString()).join(" "),
+      tokenizedTitle: nGram(3)(
+        newPost.title.toString() + "a".repeat(3 - 1),
+      ).join(" "),
       content: newPost.content.slice(0, 2000),
-      tokenizedContent: nGram(3)(newPost.content.toString()).join(" "),
+      tokenizedContent: nGram(3)(
+        newPost.content.toString() + "a".repeat(3 - 1),
+      ).join(" "),
       coverImg: newPost.coverImg,
     }),
   });

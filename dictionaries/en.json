@@ -26,7 +26,7 @@
   "click": "Click",
   "painting_guide": "Painting Guides",
   "edit_profile": "Edit profile",
-  "search_placeholder": "Search...",
+  "full_text_search_placeholder": "Search posts",
   "dummy": "Dummy",
   "end": "End"
 }

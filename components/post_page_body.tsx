@@ -26,8 +26,6 @@ export const PostPageBody = (params: {
     })();
   }, [params.unique]);
 
-  console.log(params.username);
-
   return (
     <main
       className={css({

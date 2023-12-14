@@ -10,7 +10,7 @@ import {
   FiPlayCircle,
   FiImage,
   FiHelpCircle,
-  FiSliders,
+  //  FiSliders,
   FiArrowLeftCircle,
   FiMinus,
 } from "react-icons/fi";
@@ -115,6 +115,7 @@ export const EditorHeader = (params: {
               {tabName}
             </li>
           ))}
+          {/*}
           <li>
             <div
               className={css({
@@ -138,6 +139,7 @@ export const EditorHeader = (params: {
           >
             <FiSliders onClick={handleMenuClick} />
           </li>
+			{*/}
         </ul>
       </nav>
     </header>

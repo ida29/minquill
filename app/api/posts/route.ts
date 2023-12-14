@@ -45,7 +45,6 @@ export async function GET(req: NextRequest) {
           likes: true,
         },
       });
-      console.log(posts);
     } else {
       const where = username ? { authorId: username } : {};
       posts = await prisma.post.findMany({
