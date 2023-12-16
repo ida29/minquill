@@ -28,51 +28,15 @@ export const HomePageWrapper = (params: {
   };
   const menuContents: React.ReactNode[] = [
     <Link key="0" href={`/${session?.user?.username}`}>
-      <div
-        className={css({
-          borderRadius: "0.5rem",
-          padding: "0.5rem",
-          width: "100%",
-          textAlign: "center",
-          _hover: {
-            bg: "rgba(0, 0, 0, 0.2)",
-          },
-        })}
-      >
-        {session?.user?.username.split("-")[0]}
-      </div>
+      {session?.user?.username.split("-")[0]}
     </Link>,
     status === "authenticated" ? (
       <Link key="1" href="javascript: void(0);" onClick={() => signOut()}>
-        <div
-          className={css({
-            borderRadius: "0.5rem",
-            padding: "0.5rem",
-            width: "100%",
-            textAlign: "center",
-            _hover: {
-              bg: "rgba(0, 0, 0, 0.2)",
-            },
-          })}
-        >
-          {dict.logout}
-        </div>
+        {dict.logout}
       </Link>
     ) : (
       <Link key="1" href="javascript: void(0);" onClick={() => signIn()}>
-        <div
-          className={css({
-            borderRadius: "0.5rem",
-            padding: "0.5rem",
-            width: "100%",
-            textAlign: "center",
-            _hover: {
-              bg: "rgba(0, 0, 0, 0.2)",
-            },
-          })}
-        >
-          {dict.login}
-        </div>
+        {dict.login}
       </Link>
     ),
   ];
@@ -113,17 +77,30 @@ export const HomePageWrapper = (params: {
             <div className={menuStyle()}>
               <nav
                 className={css({
-                  width: "100%",
+                  width: "98%",
                 })}
               >
                 <ul
                   className={css({
                     fontSize: "1.5rem",
-                    padding: "0.5rem",
+                    padding: "0.5rem 1rem",
                   })}
                 >
                   {menuContents.map((content, index) => (
-                    <li key={index} className={css({})}>
+                    <li
+                      key={index}
+                      className={css({
+                        marginBottom: "0.8rem",
+                        width: "100%",
+                        padding: "0.5rem 1rem",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        borderRadius: "0.5rem",
+                        _hover: {
+                          bg: "rgba(0, 0, 0, 0.2)",
+                        },
+                      })}
+                    >
                       {content}
                     </li>
                   ))}

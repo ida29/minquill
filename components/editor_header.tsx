@@ -8,9 +8,8 @@ import { Dictionary } from "@/app/[lang]/dictionary";
 import {
   FiFeather,
   FiPlayCircle,
-  FiImage,
   FiHelpCircle,
-  //  FiSliders,
+  FiSliders,
   FiArrowLeftCircle,
   FiMinus,
 } from "react-icons/fi";
@@ -31,8 +30,7 @@ export const EditorHeader = (params: {
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
-    <FiImage key="2" />,
-    <FiHelpCircle key="3" />,
+    <FiHelpCircle key="2" />,
   ];
   const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
     "activeTab",

@@ -56,9 +56,6 @@ export const EditorWrapper = (params: {
           marginLeft: "auto",
           height: "100vh",
           width: "100vw",
-          sm: { width: "100vw" },
-          md: { width: "95vw" },
-          lg: { width: "90vw" },
         })}
       >
         <EditorHeader

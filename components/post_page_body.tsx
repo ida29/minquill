@@ -54,9 +54,9 @@ export const PostPageBody = (params: {
               width: "100%",
               paddingTop: "100%",
               bg: "bg2",
-              sm: { width: "80%", paddingTop: "calc(80vh - 4.4rem)" },
-              md: { width: "80%", paddingTop: "calc(70vh - 4.4rem)" },
-              lg: { width: "80%", paddingTop: "calc(60vh - 4.4rem)" },
+              sm: { paddingTop: "calc(80vh - 4.4rem)" },
+              md: { paddingTop: "calc(70vh - 4.4rem)" },
+              lg: { paddingTop: "calc(60vh - 4.4rem)" },
             })}
           >
             <Image

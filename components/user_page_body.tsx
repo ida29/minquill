@@ -55,15 +55,10 @@ export const UserPageBody = (params: {
           className={css({
             display: "flex",
             justifyContent: "center",
-            margin: "1rem .5rem 0 .5rem",
-            border: "3px solid black",
-            borderRadius: "10px",
+            borderBottom: "3px solid black",
             bg: "bg3",
             padding: ".5rem",
-            width: "90%",
-            sm: { width: "80%" },
-            md: { width: "72%" },
-            lg: { width: "60%" },
+            width: "100%",
           })}
         >
           <ul

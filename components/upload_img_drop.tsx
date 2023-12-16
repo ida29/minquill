@@ -109,13 +109,12 @@ const dragAreaStyle = cva({
   base: {
     bg: "bg3",
     textDecoration: "none",
-    fontSize: "1.6rem",
+    fontSize: "1rem",
     lineHeight: "1",
     padding: "0.8em 1em",
-    border: "4px solid white",
     borderRadius: "10px",
     cursor: "pointer",
-    height: "30dvh",
+    height: "20dvh",
     width: "100%",
     display: "flex",
     justifyContent: "center",
@@ -123,11 +122,20 @@ const dragAreaStyle = cva({
     _hover: {
       border: "4px solid black",
     },
+    sm: {
+      fontSize: "1.2rem",
+    },
+    md: {
+      fontSize: "1.4rem",
+    },
+    lg: {
+      fontSize: "1.6rem",
+    },
   },
   variants: {
     dragIsOver: {
       over: { border: "4px solid black", bg: "lightgrey" },
-      leave: { border: "4px solid white" },
+      leave: { border: "4px dotted lightgrey" },
     },
   },
 });
