@@ -20,6 +20,7 @@ import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import { useState, useEffect } from "react";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -47,7 +48,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   const [title, setTitle] = useLocalStorageState("title", {
     defaultValue: "",
   });
-  const [tag, setTag] = useLocalStorageState("", {
+  const [tag, setTag] = useLocalStorageState("tags", {
     defaultValue: "",
   });
   const [activeTabIndex] = useLocalStorageState("activeTab", {
@@ -60,6 +61,27 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
     defaultValue: "",
   });
   const [coverImg] = useLocalStorageState<string>("cover_img");
+
+  const options = [
+    { id: 1, text: params.dict.review },
+    { id: 2, text: params.dict.tip },
+    { id: 3, text: params.dict.painting_guide },
+  ];
+  const [filteredOptions, setFilteredOptions] = useState(options);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const handleChange = (tag: string) => {
+    const last = tag.endsWith(",")
+      ? ""
+      : tag
+          .split(",")
+          .map((part) => part.trim())
+          .slice(-1)[0];
+    const filtered = options
+      .filter((option) => option.text.toLowerCase().includes(last))
+      .slice(0, 10);
+    setFilteredOptions(filtered);
+  };
 
   let activeTabItem;
   if (activeTabIndex === 0) {
@@ -104,6 +126,8 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder={params.dict.title_placeholder}
+            autoComplete="off"
             className={css({
               bg: "bg3",
               textIndent: "0.8rem",
@@ -149,7 +173,15 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             type="text"
             id="tag"
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => {
+              setIsFocus(true);
+              setTag((e.target as HTMLInputElement).value);
+              handleChange((e.target as HTMLInputElement).value);
+            }}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            placeholder={params.dict.tags_placeholder}
+            autoComplete="off"
             className={css({
               bg: "bg3",
               textIndent: "1rem",
@@ -160,6 +192,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
               paddingTop: "0.2rem",
               transition: "all 0.1s",
               fontSize: "1.4rem",
+              minHeight: "1.4rem",
               marginBottom: "1.2rem",
               border: "4px solid white",
               _focus: {
@@ -177,11 +210,51 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
               },
               lg: {
                 fontSize: "1.8rem",
+                minHeight: "1.8rem",
                 marginBottom: "1.8rem",
                 padding: "0.8rem 0.4rem 0.6rem 0",
               },
             })}
           />
+          {isFocus && filteredOptions.length != 0 && (
+            <ul
+              className={css({
+                minWidth: "250px",
+                marginBottom: "3rem",
+                bg: "bg3",
+                border: "3px solid black",
+                borderRadius: "10px",
+                padding: ".5rem",
+              })}
+            >
+              {filteredOptions.map((option) => (
+                <li
+                  key={option.id}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    const parts = tag.split(",");
+                    const tagWithoutLast = parts.slice(0, -1).join(",");
+                    const newTag =
+                      tagWithoutLast +
+                      (parts.length > 1 ? "," : "") +
+                      option.text;
+                    setTag(newTag);
+                    setIsFocus(false);
+                  }}
+                  className={css({
+                    fontWeight: "700",
+                    padding: ".5rem",
+                    borderRadius: "0.5rem",
+                    _hover: {
+                      bg: "rgba(0, 0, 0, 0.2)",
+                    },
+                  })}
+                >
+                  {option.text}
+                </li>
+              ))}
+            </ul>
+          )}
           <div
             className={css({
               marginBottom: "1.6rem",
@@ -307,7 +380,6 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
                 padding: "1rem 1rem .5rem 1rem",
                 border: "2px solid",
                 color: "text2",
-                borderRadius: "0.5rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",

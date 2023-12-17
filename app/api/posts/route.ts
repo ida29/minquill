@@ -19,12 +19,35 @@ export async function GET(req: NextRequest) {
     const username = searchParams.get("username") as string;
     const count = Number(searchParams.get("count")) || 20;
     const token = searchParams.get("token") as string;
+    const tags = searchParams.getAll("tags") as string[];
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
     const mode = searchParams.get("mode") || "latest";
 
     let posts: Post[] = [];
 
     if (mode === "recommended") {
+    } else if (mode === "tags") {
+      posts = await prisma.post.findMany({
+        where: {
+          tags: {
+            some: {
+              name: {
+                in: tags,
+              },
+            },
+          },
+        },
+        take: count,
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          author: true,
+          comments: true,
+          likes: true,
+          tags: true,
+        },
+      });
     } else if (mode === "fulltext") {
       posts = await prisma.post.findMany({
         where: {
@@ -43,6 +66,7 @@ export async function GET(req: NextRequest) {
           author: true,
           comments: true,
           likes: true,
+          tags: true,
         },
       });
     } else {
@@ -57,6 +81,7 @@ export async function GET(req: NextRequest) {
           author: true,
           comments: true,
           likes: true,
+          tags: true,
         },
       });
     }
@@ -91,6 +116,12 @@ export async function POST(req: NextRequest) {
           connect: {
             id: session?.user?.id,
           },
+        },
+        tags: {
+          connectOrCreate: req_json.tags.map((tag: string) => ({
+            where: { name: tag },
+            create: { name: tag },
+          })),
         },
       },
     });

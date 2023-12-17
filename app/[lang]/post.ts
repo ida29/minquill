@@ -11,6 +11,7 @@ export type Post = {
   coverImg?: string;
   likes?: [];
   comments?: [];
+  tags?: [];
 };
 
 export async function getPost(unique: string): Promise<Post> {
@@ -82,6 +83,7 @@ export async function savePost(newPost: Post): Promise<Post> {
         newPost.content.toString() + "a".repeat(3 - 1),
       ).join(" "),
       coverImg: newPost.coverImg,
+      tags: newPost.tags,
     }),
   });
 
@@ -93,9 +95,16 @@ export async function savePost(newPost: Post): Promise<Post> {
   return post;
 }
 
-export async function getRecommendedPosts(count: number): Promise<Post[]> {
+export async function getRecommendedPosts(
+  count: number,
+  tags: string[],
+): Promise<Post[]> {
   const url = new URL("/api/posts", window.location.origin);
+  url.searchParams.append("mode", "tags");
   url.searchParams.append("count", count.toString());
+  tags.forEach((tag) => {
+    url.searchParams.append("tags", tag);
+  });
 
   const response = await fetch(url.toString(), {
     method: "GET",

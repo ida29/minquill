@@ -28,15 +28,29 @@ export const PostPageWrapper = (params: {
     }
   };
   const menuContents: React.ReactNode[] = [
-    <Link key="0" href={`/${session?.user?.username}`}>
+    <Link
+      key="0"
+      href={`/${session?.user?.username}`}
+      className={css({ width: "100%", height: "100%" })}
+    >
       {session?.user?.username.split("-")[0]}
     </Link>,
     status === "authenticated" ? (
-      <Link key="1" href="javascript: void(0);" onClick={() => signOut()}>
+      <Link
+        key="1"
+        href="javascript: void(0);"
+        onClick={() => signOut()}
+        className={css({ width: "100%", height: "100%" })}
+      >
         {dict.logout}
       </Link>
     ) : (
-      <Link key="1" href="javascript: void(0);" onClick={() => signIn()}>
+      <Link
+        key="1"
+        href="javascript: void(0);"
+        onClick={() => signIn()}
+        className={css({ width: "100%", height: "100%" })}
+      >
         {dict.login}
       </Link>
     ),

@@ -82,7 +82,6 @@ export const PostPageBody = (params: {
                 padding: "1rem 1rem .5rem 1rem",
                 border: "2px solid",
                 color: "text2",
-                borderRadius: "0.5rem",
                 position: "absolute",
                 top: "50%",
                 left: "50%",
@@ -164,7 +163,10 @@ export const PostPageBody = (params: {
               marginBottom: "2rem",
             })}
           >
-            <p>#tag1 #tag2 #tag3</p>
+            {post?.tags &&
+              post?.tags.map((tag: { name: string }) => (
+                <div key={tag.name}>#{tag.name}</div>
+              ))}
           </div>
           <div id="markdown-preview" className={divPanelStyle()}>
             <ReactMarkdown

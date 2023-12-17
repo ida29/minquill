@@ -21,6 +21,7 @@ export async function GET(
       author: true,
       comments: true,
       likes: true,
+      tags: true,
     },
   });
   return NextResponse.json(post);

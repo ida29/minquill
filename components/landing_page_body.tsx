@@ -11,7 +11,19 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
         paddingTop: "4.4rem",
       })}
     >
-      <div className={div1Style()}>
+      <div
+        className={css({
+          margin: "0 calc(50% - 50vw)",
+          bg: "stone.300",
+          display: "flex",
+          justifyContent: "center",
+
+          height: "85vw",
+          sm: { height: "70vw" },
+          md: { height: "65vw" },
+          lg: { height: "45vw" },
+        })}
+      >
         <div className={div2Style()}>
           <div
             className={css({
@@ -47,21 +59,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                       lg: { fontSize: "3rem" },
                     })}
                   >
-                    {params.dict.welcome_to_minquill}
-                  </div>
-                  <div
-                    className={css({
-                      width: "100%",
-                      fontWeight: "700",
-                      fontSize: "1.5rem",
-                      lineHeight: "1",
-                      margin: "0 0 2rem 0",
-                      sm: { fontSize: "2rem" },
-                      md: { fontSize: "2.5rem" },
-                      lg: { fontSize: "3rem" },
-                    })}
-                  >
-                    {params.dict.grow_your_world_of_miniature_painting}
+                    {params.dict.lp_text0}
                   </div>
                 </h1>
                 <h2
@@ -74,10 +72,8 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
                     lg: { fontSize: "1.6rem" },
                   })}
                 >
-                  {
-                    params.dict
-                      .publish_your_miniature_images_posts_and_share_your_painting_knowledge
-                  }
+                  {params.dict.lp_text1}
+                  {params.dict.lp_text2}
                   <br />
                 </h2>
                 <div
@@ -110,46 +106,9 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
           />
         </div>
       </div>
-      <div className={div1Style({ color: "secondary" })}>
-        <ul>
-          <li>
-            <strong>投稿 & シェア</strong>:
-            画像や記事を投稿し、知識を共有しましょう。
-          </li>
-          <li>
-            <strong>価格設定</strong>:
-            記事に任意の価格を設定して、収益を得ることもできます。
-          </li>
-          <li>
-            <strong>コミュニティ参加</strong>:
-            同じ興味を持つアーティストと繋がり、インスピレーションを得ましょう。
-          </li>
-        </ul>
-      </div>
-      <div className={div1Style()}></div>
     </main>
   );
 };
-
-const div1Style = cva({
-  base: {
-    margin: "0 calc(50% - 50vw)",
-    bg: "lightslategrey",
-    display: "flex",
-    justifyContent: "center",
-
-    height: "85vw",
-    sm: { height: "70vw" },
-    md: { height: "65vw" },
-    lg: { height: "45vw" },
-  },
-  variants: {
-    color: {
-      primary: { bg: "lightslategrey" },
-      secondary: { bg: "white" },
-    },
-  },
-});
 
 const div2Style = cva({
   base: {

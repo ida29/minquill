@@ -80,6 +80,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
         <div
           className={css({
             display: "flex",
+            marginBottom: "1.6rem",
           })}
         >
           <Image
