@@ -7,15 +7,14 @@ import { PostPageHeader } from "./post_page_header";
 import { PostPageBody } from "./post_page_body";
 import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
-import { useSession } from "next-auth/react";
-import { signIn, signOut } from "next-auth/react";
+//import { useSession } from "next-auth/react";
 
 export const PostPageWrapper = (params: {
   dict: Dictionary;
   username: string;
   unique: string;
 }) => {
-  const { data: session, status } = useSession();
+  //const { data: session, status } = useSession();
   const { dict, username, unique } = params;
   const [isMenuOpen, setMenuOpen] = useState(false);
   const closeWithClickOutSide = (
@@ -28,32 +27,19 @@ export const PostPageWrapper = (params: {
     }
   };
   const menuContents: React.ReactNode[] = [
-    <Link
+    <div
       key="0"
-      href={`/${session?.user?.username}`}
-      className={css({ width: "100%", height: "100%" })}
+      className={css({
+        borderRadius: "0.5rem",
+        width: "100%",
+        textAlign: "center",
+        _hover: {
+          bg: "rgba(0, 0, 0, 0.2)",
+        },
+      })}
     >
-      {session?.user?.username.split("-")[0]}
-    </Link>,
-    status === "authenticated" ? (
-      <Link
-        key="1"
-        href="javascript: void(0);"
-        onClick={() => signOut()}
-        className={css({ width: "100%", height: "100%" })}
-      >
-        {dict.logout}
-      </Link>
-    ) : (
-      <Link
-        key="1"
-        href="javascript: void(0);"
-        onClick={() => signIn()}
-        className={css({ width: "100%", height: "100%" })}
-      >
-        {dict.login}
-      </Link>
-    ),
+      dummy
+    </div>,
   ];
 
   return (
@@ -89,13 +75,14 @@ export const PostPageWrapper = (params: {
             <div className={menuStyle()}>
               <nav
                 className={css({
-                  width: "98%",
+                  width: "80%",
                 })}
               >
                 <ul
                   className={css({
                     fontSize: "1.5rem",
-                    padding: "0.5rem 1rem",
+                    padding: "1rem",
+                    width: "100%",
                   })}
                 >
                   {menuContents.map((content, index) => (
@@ -103,14 +90,6 @@ export const PostPageWrapper = (params: {
                       key={index}
                       className={css({
                         marginBottom: "0.8rem",
-                        width: "100%",
-                        padding: "0.5rem 1rem",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        borderRadius: "0.5rem",
-                        _hover: {
-                          bg: "rgba(0, 0, 0, 0.2)",
-                        },
                       })}
                     >
                       {content}
@@ -129,7 +108,7 @@ export const PostPageWrapper = (params: {
 const outerMenuStyle = cva({
   base: {
     bg: "rgba(0, 0, 0, 0.4)",
-    width: "100%",
+    width: "100vw",
     height: "100%",
     top: "4.4rem",
     left: "0",
@@ -144,11 +123,10 @@ const menuStyle = cva({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    height: "100%",
+    height: "calc(60dvh - 4.4rem)",
     top: "4.4rem",
-    left: "0",
     zIndex: "100",
     position: "fixed",
-    width: "250px",
+    width: "100%",
   },
 });

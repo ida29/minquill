@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { css, cva } from "@/styled-system/css";
+import { css } from "@/styled-system/css";
 import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
@@ -20,7 +20,8 @@ import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { TwitterTweetEmbed } from "react-twitter-embed";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -48,7 +49,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
   const [title, setTitle] = useLocalStorageState("title", {
     defaultValue: "",
   });
-  const [tag, setTag] = useLocalStorageState("tags", {
+  const [tags, setTags] = useLocalStorageState("tags", {
     defaultValue: "",
   });
   const [activeTabIndex] = useLocalStorageState("activeTab", {
@@ -161,7 +162,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             })}
           />
           <label
-            htmlFor="tag"
+            htmlFor="tags"
             className={css({
               fontSize: "12px",
               fontWeight: "700",
@@ -171,11 +172,11 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           </label>
           <input
             type="text"
-            id="tag"
-            value={tag}
+            id="tags"
+            value={tags}
             onChange={(e) => {
               setIsFocus(true);
-              setTag((e.target as HTMLInputElement).value);
+              setTags((e.target as HTMLInputElement).value);
               handleChange((e.target as HTMLInputElement).value);
             }}
             onFocus={() => setIsFocus(true)}
@@ -232,13 +233,13 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
                   key={option.id}
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => {
-                    const parts = tag.split(",");
-                    const tagWithoutLast = parts.slice(0, -1).join(",");
-                    const newTag =
-                      tagWithoutLast +
+                    const parts = tags.split(",");
+                    const tagsWithoutLast = parts.slice(0, -1).join(",");
+                    const newTags =
+                      tagsWithoutLast +
                       (parts.length > 1 ? "," : "") +
                       option.text;
-                    setTag(newTag);
+                    setTags(newTags);
                     setIsFocus(false);
                   }}
                   className={css({
@@ -269,7 +270,23 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
             >
               {params.dict.contents}
             </label>
-            <div className={divPanelStyle()}>
+            <div
+              className={css({
+                border: "4px solid",
+                borderColor: "bg3",
+                padding: "0.8rem",
+                minHeight: "calc(100dvh - 10rem)",
+
+                borderRadius: "10px",
+                bg: "bg3",
+
+                position: "relative",
+                zIndex: "0",
+                _focusWithin: {
+                  border: "4px solid black",
+                },
+              })}
+            >
               <CodeMirror
                 value={contentValue}
                 initialState={
@@ -461,19 +478,52 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
               marginBottom: "2rem",
             })}
           >
-            <p>#tag1 #tag2 #tag3</p>
+            {tags &&
+              tags
+                .split(",")
+                .map((tagName: string) => <div key={tagName}>#{tagName}</div>)}
           </div>
-          <div id="markdown-preview" className={divPanelStyle2()}>
-            <ReactMarkdown
-              remarkPlugins={[remarkBreaks]}
-              components={{
-                p: ({ children }) => (
-                  <p style={{ marginBottom: "1em" }}>{children}</p>
-                ),
-              }}
+          <div
+            className={css({
+              width: "100%",
+            })}
+          >
+            <div
+              id="markdown-preview2"
+              className={css({
+                padding: "0.8rem",
+                minHeight: "calc(100dvh - 10rem)",
+
+                borderRadius: "10px",
+                bg: "bg1",
+
+                position: "relative",
+                zIndex: "0",
+              })}
             >
-              {contentValue}
-            </ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[remarkBreaks]}
+                components={{
+                  code(props) {
+                    const { className, children } = props;
+                    const value = String(children).replace(/\n$/, "");
+                    const match = /language-(\w+)/.exec(className || "");
+                    const language = match ? match[1] : "";
+
+                    if (language === "X" || language === "x") {
+                      return <TwitterTweetEmbed tweetId={value} />;
+                    }
+
+                    return <code>{value}</code>;
+                  },
+                  p: ({ children }) => (
+                    <p style={{ marginBottom: "1em" }}>{children}</p>
+                  ),
+                }}
+              >
+                {contentValue}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
       </>
@@ -497,15 +547,32 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           })}
         >
           <label
-            htmlFor={activeTabIndex === 1 ? "preview" : "help"}
+            htmlFor="help"
             className={css({
               fontSize: "12px",
               fontWeight: "700",
             })}
           >
-            {activeTabIndex === 1 ? params.dict.preview : params.dict.help}
+            {params.dict.help}
           </label>
-          <div id="markdown-preview" className={divPanelStyle()}>
+          <div
+            id="markdown-preview"
+            className={css({
+              border: "4px solid",
+              borderColor: "bg3",
+              padding: "0.8rem",
+              minHeight: "calc(100dvh - 10rem)",
+
+              borderRadius: "10px",
+              bg: "bg3",
+
+              position: "relative",
+              zIndex: "0",
+              _focusWithin: {
+                border: "4px solid black",
+              },
+            })}
+          >
             <ReactMarkdown
               remarkPlugins={[remarkBreaks]}
               components={{
@@ -540,32 +607,3 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
     </main>
   );
 };
-
-const divPanelStyle = cva({
-  base: {
-    border: "4px solid white",
-    padding: "0.8rem",
-    minHeight: "calc(100dvh - 10rem)",
-
-    borderRadius: "10px",
-    background: "white",
-
-    position: "relative",
-    zIndex: "0",
-    _focusWithin: {
-      border: "4px solid black",
-    },
-  },
-});
-
-const divPanelStyle2 = cva({
-  base: {
-    minHeight: "100vh",
-
-    bg: "bg1",
-
-    position: "relative",
-    zIndex: "0",
-    alignSelf: "flex-start",
-  },
-});

@@ -22,10 +22,10 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const [contentValue, setContentValue] = useLocalStorageState("contentValue");
   const [titleValue, setTitleValue] = useLocalStorageState("title");
   const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img");
-  const [tag, setTag] = useLocalStorageState("tags");
+  const [tagsValue, setTags] = useLocalStorageState("tags");
   const content = contentValue as string;
   const title = titleValue as string;
-  const tags = (tag as string).split(",").map((part) => part.trim());
+  const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
   const newPost: Post = {
     title: title,
     content: content,
@@ -40,7 +40,7 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
       setContentValue("");
       setTitleValue("");
       setCoverImg("");
-      setTag("");
+      setTags("");
     } catch (error) {
       console.error(error);
     }

@@ -3,64 +3,39 @@
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
 import { Dictionary } from "@/app/[lang]/dictionary";
-import { useSession } from "next-auth/react";
-import { FiMenu, FiXCircle } from "react-icons/fi";
+//import { useSession } from "next-auth/react";
+import {
+  FiFeather,
+  FiPlayCircle,
+  FiHelpCircle,
+  FiSliders,
+  FiArrowLeftCircle,
+  FiMinus,
+} from "react-icons/fi";
+import useLocalStorageState from "use-local-storage-state";
 
 export const PostPageHeader = (params: {
   dict: Dictionary;
   isMenuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const { data: session, status } = useSession();
+  //const { data: session, status } = useSession();
   const { isMenuOpen, setMenuOpen } = params;
   const handleMenuClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setMenuOpen(!isMenuOpen);
   };
 
-  let buttons;
-  if (!session || status === "authenticated") {
-    buttons = (
-      <>
-        <div
-          onClick={handleMenuClick}
-          className={css({
-            fontSize: "2rem",
-            _hover: {},
-            borderRadius: "50%",
-          })}
-        >
-          {!isMenuOpen ? (
-            <FiMenu
-              className={css({
-                marginTop: "3px",
-                width: "2rem",
-                borderRadius: "50%",
-                sm: { width: "2.2rem" },
-                md: { width: "2.3rem" },
-                lg: { width: "2.4rem" },
-              })}
-            />
-          ) : (
-            <FiXCircle
-              className={css({
-                marginTop: "3px",
-                width: "2rem",
-                borderRadius: "50%",
-                sm: { width: "2.2rem" },
-                md: { width: "2.3rem" },
-                lg: { width: "2.4rem" },
-              })}
-            />
-          )}
-        </div>
-      </>
-    );
-  } else {
-    buttons = <SigninWithGoogleBtn text={params.dict.login} />;
-  }
+  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
+    "activeTab",
+    {
+      defaultValue: 0,
+    },
+  );
+  const handleTabClick = (index: number) => {
+    setActiveTabIndex(index);
+  };
 
   return (
     <header
@@ -78,70 +53,94 @@ export const PostPageHeader = (params: {
         lg: { padding: "0 2rem" },
       })}
     >
-      <nav className={navStyle()}>
+      <nav
+        className={css({
+          color: "text2",
+          width: "100%",
+          height: "4.4rem",
+        })}
+      >
         <ul
           className={css({
-            height: "100%",
             display: "flex",
-            justifyContent: "space-between",
+            alignItems: "center",
+            height: "100%",
+            borderRadius: "10px",
+            padding: "0 0.5rem",
           })}
         >
           <li
             className={css({
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              height: "100%",
-              color: "text2",
+              padding: "0.2rem",
+              fontSize: "2rem",
+              _hover: {
+                bg: "stone.600",
+              },
+              borderRadius: "10px",
             })}
           >
-            {buttons}
-          </li>
-          <li
-            className={css({
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              height: "100%",
-            })}
-          >
-            <Link href={`/`}>
-              <div className={logoStyle()}>{params.dict.minquill}</div>
+            <Link
+              href={"/"}
+              className={css({
+                fontSize: "2rem",
+              })}
+            >
+              <FiArrowLeftCircle />
             </Link>
           </li>
+          {/*}
+          <li>
+            <div
+              className={css({
+                fontSize: "2rem",
+                transform: "rotate(90deg)",
+              })}
+            >
+              <FiMinus />
+            </div>
+          </li>
           <li
             className={css({
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              height: "100%",
-              color: "text1",
+              fontSize: "2rem",
+              color: "text2",
+              padding: "0.2rem",
+              _hover: {
+                bg: "stone.600",
+              },
+              borderRadius: "10px",
             })}
           >
-            {buttons}
+            <FiSliders onClick={handleMenuClick} />
           </li>
+			{*/}
         </ul>
       </nav>
     </header>
   );
 };
 
-const navStyle = cva({
+const liStyle = cva({
   base: {
-    width: "100%",
-    height: "4.4rem",
+    margin: "0.5rem",
+    padding: "0.2rem",
+    listStyle: "none",
+    display: "inline-block",
+
+    fontSize: "2rem",
+    _hover: {
+      bg: "stone.600",
+    },
+    borderRadius: "10px",
   },
 });
 
-const logoStyle = cva({
+const activeTab = cva({
   base: {
-    margin: "0.5rem 0 0 0.5rem",
-    color: "text2",
-    fontWeight: "700",
-    fontSize: "1.8rem",
-    lineHeight: "1",
-    sm: { fontSize: "1.8rem" },
-    md: { fontSize: "1.9rem" },
-    lg: { fontSize: "2rem" },
+    color: "text1",
+    bg: "yellow",
+
+    position: "relative",
+    zIndex: "1",
+    _hover: { bg: "yellow !important" },
   },
 });
