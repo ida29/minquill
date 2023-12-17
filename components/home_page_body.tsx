@@ -117,63 +117,155 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           />
         </div>
       </div>
-      {tags.map((tagName) => (
-        <div key={tagName}>
-          {posts.filter(
-            (post) => post.tags?.some((tag: {name: string}) => tag.name === tagName),
-          ).length > 0 && (
-            <div
-              className={css({
-                display: "flex",
-                alignItems: "center",
-                marginTop: "1.6rem",
-              })}
-            >
-              <FiFileText
-                className={css({
-                  fontSize: "2rem",
-                  marginLeft: "1rem",
-                  padding: "0 0 .4rem 0",
-                })}
-              />
-              <h2
-                className={css({
-                  fontSize: "1.2rem",
-                  marginLeft: ".1rem",
-                })}
-              >
-                <strong>{tagName}</strong>
-              </h2>
-            </div>
-          )}
-          <div
-            className={css({
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            })}
-          >
-            {isLoading ? (
+      {posts.length > 0
+        ? tags.map((tagName) => (
+            <div key={tagName}>
+              {posts.filter(
+                (post) =>
+                  post.tags?.some(
+                    (tag: { name: string }) => tag.name === tagName,
+                  ),
+              ).length > 0 && (
+                <div
+                  className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "1.6rem",
+                  })}
+                >
+                  <FiFileText
+                    className={css({
+                      fontSize: "2rem",
+                      marginLeft: "1rem",
+                      padding: "0 0 .4rem 0",
+                    })}
+                  />
+                  <h2
+                    className={css({
+                      fontSize: "1.2rem",
+                      marginLeft: ".1rem",
+                    })}
+                  >
+                    <strong>{tagName}</strong>
+                  </h2>
+                </div>
+              )}
               <div
                 className={css({
-                  padding: ".8rem",
-                  margin: "1rem",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
                 })}
               >
-                Loading...
+                {posts
+                  .filter(
+                    (post) =>
+                      post.tags?.some(
+                        (tag: { name: string }) => tag.name === tagName,
+                      ),
+                  )
+                  .concat([...Array(5)])
+                  .slice(0, 5)
+                  .map((post, index) =>
+                    post ? (
+                      <Link
+                        key={index}
+                        href={`/${post.authorId}/posts/${post.ulid}`}
+                      >
+                        <article
+                          className={css({
+                            fontWeight: "700",
+                            padding: ".8rem",
+                            margin: "1rem",
+                            borderRadius: "10px",
+                            bg: "white",
+                          })}
+                        >
+                          <Image
+                            width="200"
+                            height="200"
+                            src={post.coverImg || "/lowpoly_whiz.png"}
+                            alt="Cover Image"
+                            className={css({
+                              borderRadius: "10px 10px 0 0",
+                              width: "100%",
+                            })}
+                          />
+                          <div
+                            className={css({
+                              height: "100px",
+                              padding: "0.3rem 0",
+                            })}
+                          >
+                            {post?.title}
+                            <ul
+                              id="reactions"
+                              className={css({
+                                display: "flex",
+                                gap: "0.5rem",
+                              })}
+                            >
+                              <li>
+                                <FiThumbsUp
+                                  className={css({
+                                    fontSize: "1.5rem",
+                                  })}
+                                />
+                              </li>
+                              <li>{post?.likes?.length}</li>
+                              <li>
+                                <FiMessageSquare
+                                  className={css({
+                                    fontSize: "1.5rem",
+                                  })}
+                                />
+                              </li>
+                              <li>{post?.comments?.length}</li>
+                            </ul>
+                          </div>
+                        </article>
+                      </Link>
+                    ) : (
+                      <div key={`dummy-${index}`}></div>
+                    ),
+                  )}
               </div>
-            ) : (
-              posts
-                .filter(
-                  (post) => post.tags?.some((tag: {name: string}) => tag.name === tagName),
-                )
-                .concat([...Array(5)])
-                .slice(0, 5)
-                .map((post, index) =>
-                  post ? (
-                    <Link
-                      key={index}
-                      href={`/${post.authorId}/posts/${post.ulid}`}
-                    >
+            </div>
+          ))
+        : tags.map((tagName) => (
+            <div key={tagName}>
+              <div
+                className={css({
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "1.6rem",
+                })}
+              >
+                <FiFileText
+                  className={css({
+                    fontSize: "2rem",
+                    marginLeft: "1rem",
+                    padding: "0 0 .4rem 0",
+                  })}
+                />
+                <h2
+                  className={css({
+                    fontSize: "1.2rem",
+                    marginLeft: ".1rem",
+                  })}
+                >
+                  <strong>Loading...</strong>
+                </h2>
+              </div>
+              <div
+                className={css({
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                })}
+              >
+                {
+                  // skelton screen
+                  [...Array(5)].map((_, index) => (
+                    <Link key={index} href="javascript:void(0)">
                       <article
                         className={css({
                           fontWeight: "700",
@@ -183,23 +275,35 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                           bg: "white",
                         })}
                       >
-                        <Image
-                          width="200"
-                          height="200"
-                          src={post.coverImg || "/lowpoly_whiz.png"}
-                          alt="Cover Image"
+                        <div
+                          className={css({
+                            borderRadius: "10px 10px 0 0",
+                            width: "200px",
+                            height: "200px",
+                            bg: "rgba(0, 0, 0, 0.1)",
+                          })}
+                        ></div>
+                        <div
                           className={css({
                             borderRadius: "10px 10px 0 0",
                             width: "100%",
                           })}
-                        />
+                        ></div>
                         <div
                           className={css({
                             height: "100px",
                             padding: "0.3rem 0",
                           })}
                         >
-                          {post?.title}
+                          <div
+                            className={css({
+                              borderRadius: "10px",
+                              width: "50%",
+                              height: "1rem",
+                              margin: "0.3rem 0",
+                              bg: "rgba(0, 0, 0, 0.1)",
+                            })}
+                          ></div>
                           <ul
                             id="reactions"
                             className={css({
@@ -214,7 +318,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 })}
                               />
                             </li>
-                            <li>{post?.likes?.length}</li>
+                            <li>0</li>
                             <li>
                               <FiMessageSquare
                                 className={css({
@@ -222,19 +326,16 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 })}
                               />
                             </li>
-                            <li>{post?.comments?.length}</li>
+                            <li>0</li>
                           </ul>
                         </div>
                       </article>
                     </Link>
-                  ) : (
-                    <div key={`dummy-${index}`}></div>
-                  ),
-                )
-            )}
-          </div>
-        </div>
-      ))}
+                  ))
+                }
+              </div>
+            </div>
+          ))}
       <div
         className={css({
           display: "flex",

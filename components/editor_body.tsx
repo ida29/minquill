@@ -89,7 +89,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
       <>
         <div
           className={css({
-            width: "90%",
+            width: "95%",
             marginBottom: "1.4rem",
             sm: {
               width: "80%",
@@ -323,7 +323,7 @@ export const EditorBody = (params: { dict: Dictionary; username: string }) => {
           </div>
           <div
             className={css({
-              width: "90%",
+              width: "95%",
               display: "flex",
               justifyContent: "space-between",
               marginBottom: "1.6rem",
