@@ -1,4 +1,4 @@
-// components/editor_header.tsx
+// components/edit_post_header.tsx
 "use client";
 
 import Link from "next/link";
@@ -14,14 +14,14 @@ import {
 } from "react-icons/fi";
 import useLocalStorageState from "use-local-storage-state";
 
-export const EditorHeader = (params: { dict: Dictionary }) => {
+export const EditPostHeader = (params: { dict: Dictionary }) => {
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
     <FiHelpCircle key="2" />,
   ];
   const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
-    "activeTab",
+    "activeTab2",
     {
       defaultValue: 0,
     },

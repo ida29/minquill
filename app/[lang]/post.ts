@@ -68,7 +68,34 @@ export async function getPostsByUsername(
   return posts;
 }
 
-export async function savePost(newPost: Post): Promise<Post> {
+export async function updatePost(newPost: Post, unique: string): Promise<Post> {
+  const response = await fetch(`/api/posts/${unique}`, {
+    method: "POST",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: newPost.title,
+      tokenizedTitle: nGram(3)(
+        newPost.title.toString() + "a".repeat(3 - 1),
+      ).join(" "),
+      content: newPost.content.slice(0, 2000),
+      tokenizedContent: nGram(3)(
+        newPost.content.toString() + "a".repeat(3 - 1),
+      ).join(" "),
+      coverImg: newPost.coverImg,
+      tags: newPost.tags,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to save post: ${response.statusText}`);
+  }
+
+  const post: Post = await response.json();
+  return post;
+}
+
+export async function createPost(newPost: Post): Promise<Post> {
   const response = await fetch("/api/posts", {
     method: "POST",
     cache: "no-cache",

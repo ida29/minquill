@@ -174,26 +174,38 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                         <article
                           className={css({
                             fontWeight: "700",
-                            padding: ".8rem",
                             margin: "1rem",
                             borderRadius: "10px",
                             bg: "white",
                           })}
                         >
-                          <Image
-                            width="200"
-                            height="200"
-                            src={post.coverImg || "/lowpoly_whiz.png"}
-                            alt="Cover Image"
-                            className={css({
-                              borderRadius: "10px 10px 0 0",
-                              width: "100%",
-                            })}
-                          />
                           <div
                             className={css({
-                              height: "100px",
-                              padding: "0.3rem 0",
+                              position: "relative",
+                              width: "100%",
+                              paddingTop: "50%",
+                            })}
+                          >
+                            <Image
+                              width="200"
+                              height="200"
+                              src={post.coverImg || "/lowpoly_whiz.png"}
+                              alt="Cover Image"
+                              className={css({
+                                borderRadius: "10px 10px 0 0",
+                                width: "100%",
+                                height: "100%",
+                                position: "absolute",
+                                top: "0",
+                                left: "0",
+                                objectFit: "cover",
+                                objectPosition: "center",
+                              })}
+                            />
+                          </div>
+                          <div
+                            className={css({
+                              padding: ".8rem",
                             })}
                           >
                             {post?.title}
@@ -269,7 +281,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                       <article
                         className={css({
                           fontWeight: "700",
-                          padding: ".8rem",
                           margin: "1rem",
                           borderRadius: "10px",
                           bg: "white",
@@ -277,12 +288,25 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                       >
                         <div
                           className={css({
-                            borderRadius: "10px 10px 0 0",
-                            width: "200px",
-                            height: "200px",
-                            bg: "rgba(0, 0, 0, 0.1)",
+                            position: "relative",
+                            width: "100%",
+                            paddingTop: "50%",
                           })}
-                        ></div>
+                        >
+                          <div
+                            className={css({
+                              bg: "rgba(0, 0, 0, 0.1)",
+                              borderRadius: "10px 10px 0 0",
+                              width: "100%",
+                              height: "100%",
+                              position: "absolute",
+                              top: "0",
+                              left: "0",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            })}
+                          ></div>
+                        </div>
                         <div
                           className={css({
                             borderRadius: "10px 10px 0 0",
@@ -291,8 +315,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                         ></div>
                         <div
                           className={css({
-                            height: "100px",
-                            padding: "0.3rem 0",
+                            padding: ".8rem",
                           })}
                         >
                           <div

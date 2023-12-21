@@ -1,7 +1,7 @@
 "use client";
 import { ActionButton } from "@/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
-import { savePost } from "@/app/[lang]/post";
+import { createPost } from "@/app/[lang]/post";
 import { Post } from "@/app/[lang]/post";
 import { useRouter } from "next/navigation";
 
@@ -19,8 +19,8 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   username,
 }) => {
   const router = useRouter();
-  const [contentValue, setContentValue] = useLocalStorageState("contentValue");
-  const [titleValue, setTitleValue] = useLocalStorageState("title");
+  const [contentValue, setContent] = useLocalStorageState("contentValue");
+  const [titleValue, setTitle] = useLocalStorageState("title");
   const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img");
   const [tagsValue, setTags] = useLocalStorageState("tags");
   const content = contentValue as string;
@@ -36,9 +36,9 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const handlePublish = async (newPost: Post) => {
     try {
       router.push(`/${username}`);
-      await savePost(newPost);
-      setContentValue("");
-      setTitleValue("");
+      await createPost(newPost);
+      setContent("");
+      setTitle("");
       setCoverImg("");
       setTags("");
     } catch (error) {

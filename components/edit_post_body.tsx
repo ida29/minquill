@@ -1,4 +1,4 @@
-// components/home_page_body.tsx
+// components/edit_post_body.tsx
 "use client";
 
 import Image from "next/image";
@@ -9,19 +9,20 @@ import { BasicSetupOptions } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { historyField } from "@codemirror/commands";
-import useLocalStorageState from "use-local-storage-state";
 import "./styles.css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
-import { PublishBtn } from "@/components/publish_btn";
 import { UploadImgDrop } from "@/components/upload_img_drop";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
-import { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
+import { useState, useEffect, useMemo } from "react";
+import useLocalStorageState from "use-local-storage-state";
+import { getPost, updatePost, Post } from "@/app/[lang]/post";
+import { ActionButton } from "@/components/action_button";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -45,29 +46,58 @@ const myTheme = createTheme({
   styles: [],
 });
 
-export const EditorBody = (params: {
+export const EditPostBody = (params: {
   dict: Dictionary;
   username: string;
-  unique?: string;
+  unique: string;
 }) => {
-  const [titleValue, setTitle] = useLocalStorageState("title", {
+  const [editorState, setEditorState] = useLocalStorageState("editorState2", {
     defaultValue: "",
   });
-  const [tagsValue, setTags] = useLocalStorageState("tags", {
-    defaultValue: "",
-  });
-  const [activeTabIndex] = useLocalStorageState("activeTab", {
+  const [activeTabIndex] = useLocalStorageState("activeTab2", {
     defaultValue: 0,
   });
-  const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
-    defaultValue: "",
-  });
-  const [editorState, setEditorState] = useLocalStorageState("editorState", {
-    defaultValue: "",
-  });
-  const [coverImg] = useLocalStorageState<string>("cover_img", {
-    defaultValue: "",
-  });
+
+  const [titleValue, setTitle] = useState("");
+  const [tagsValue, setTags] = useState("");
+  const [contentValue, setContentValue] = useState("");
+  const [coverImg, setCoverImg] = useState("");
+
+  const unique = useMemo(() => {
+    return params.unique;
+  }, [params.unique]);
+
+  useEffect(() => {
+    (async () => {
+      const post: Post = await getPost(unique);
+      setTitle(post?.title);
+      setTags(
+        post?.tags
+          ? post.tags.map((tag: { name: string }) => tag.name).join(",")
+          : "",
+      );
+      setContentValue(post?.content);
+      setCoverImg(post.coverImg ? post.coverImg : "");
+    })();
+  }, [unique]);
+
+  const handleSave = async () => {
+    try {
+      const content = contentValue as string;
+      const title = titleValue as string;
+      const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
+      const newPost: Post = {
+        title: title,
+        content: content,
+        coverImg: coverImg,
+        tags: tags as [],
+      };
+
+      await updatePost(newPost, unique);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const options = [
     { id: 1, text: params.dict.review },
@@ -352,7 +382,10 @@ export const EditorBody = (params: {
               marginBottom: "1.6rem",
             })}
           >
-            <PublishBtn text={params.dict.publish} username={params.username} />
+            <ActionButton
+              text={params.dict.save_changes}
+              onClick={() => handleSave()}
+            />
           </div>
         </div>
       </>

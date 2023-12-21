@@ -2,18 +2,10 @@
 "use client";
 
 import Link from "next/link";
-import { css, cva } from "@/styled-system/css";
+import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 //import { useSession } from "next-auth/react";
-import {
-  FiFeather,
-  FiPlayCircle,
-  FiHelpCircle,
-  FiSliders,
-  FiArrowLeftCircle,
-  FiMinus,
-} from "react-icons/fi";
-import useLocalStorageState from "use-local-storage-state";
+import { FiArrowLeftCircle } from "react-icons/fi";
 
 export const PostPageHeader = (params: {
   dict: Dictionary;
@@ -25,16 +17,6 @@ export const PostPageHeader = (params: {
   const handleMenuClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     setMenuOpen(!isMenuOpen);
-  };
-
-  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
-    "activeTab",
-    {
-      defaultValue: 0,
-    },
-  );
-  const handleTabClick = (index: number) => {
-    setActiveTabIndex(index);
   };
 
   return (
@@ -88,59 +70,8 @@ export const PostPageHeader = (params: {
               <FiArrowLeftCircle />
             </Link>
           </li>
-          {/*}
-          <li>
-            <div
-              className={css({
-                fontSize: "2rem",
-                transform: "rotate(90deg)",
-              })}
-            >
-              <FiMinus />
-            </div>
-          </li>
-          <li
-            className={css({
-              fontSize: "2rem",
-              color: "text2",
-              padding: "0.2rem",
-              _hover: {
-                bg: "stone.600",
-              },
-              borderRadius: "10px",
-            })}
-          >
-            <FiSliders onClick={handleMenuClick} />
-          </li>
-			{*/}
         </ul>
       </nav>
     </header>
   );
 };
-
-const liStyle = cva({
-  base: {
-    margin: "0.5rem",
-    padding: "0.2rem",
-    listStyle: "none",
-    display: "inline-block",
-
-    fontSize: "2rem",
-    _hover: {
-      bg: "stone.600",
-    },
-    borderRadius: "10px",
-  },
-});
-
-const activeTab = cva({
-  base: {
-    color: "text1",
-    bg: "yellow",
-
-    position: "relative",
-    zIndex: "1",
-    _hover: { bg: "yellow !important" },
-  },
-});

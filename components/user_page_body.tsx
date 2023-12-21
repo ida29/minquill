@@ -142,6 +142,16 @@ export const UserPageBody = (params: {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
+            width: "calc(90% - 40px)",
+            sm: {
+              width: "calc(80% - 40px)",
+            },
+            md: {
+              width: "calc(70% - 40px)",
+            },
+            lg: {
+              width: "calc(60% - 40px)",
+            },
           })}
         >
           <div
@@ -149,8 +159,7 @@ export const UserPageBody = (params: {
               borderLeft: "3px solid black",
               position: "relative",
               padding: "20px 0 20px 20px",
-              marginLeft: "20px",
-              width: "calc(90% - 20px)",
+              width: "100%",
             })}
           >
             {user?.posts?.map((post: Post, index) => (
@@ -176,6 +185,7 @@ export const UserPageBody = (params: {
                   className={css({
                     borderRadius: "5px",
                     marginLeft: "10px",
+                    width: "100%",
                   })}
                 >
                   <Link href={`/${post.authorId}/posts/${post.ulid}`}>
@@ -183,22 +193,32 @@ export const UserPageBody = (params: {
                       className={css({
                         bg: "bg3",
                         fontWeight: "700",
-                        padding: "1rem",
-                        border: "2px solid black",
-                        boxShadow: "1px 1px 0 black",
                         borderRadius: "10px",
                         gap: "1rem .5rem",
+                        width: "100%",
                       })}
                     >
-                      <div id="card-header" className={css({})}>
+                      <div
+                        id="card-header"
+                        className={css({
+                          position: "relative",
+                          paddingTop: "70%",
+                        })}
+                      >
                         <Image
                           width="400"
                           height="400"
                           src={post.coverImg || "/lowpoly_whiz.png"}
                           alt="Cover Image"
                           className={css({
+                            borderRadius: "10px 10px 0 0",
                             width: "100%",
-                            borderRadius: "10px",
+                            height: "100%",
+                            position: "absolute",
+                            top: "0",
+                            left: "0",
+                            objectFit: "cover",
+                            objectPosition: "center",
                           })}
                         />
                       </div>
@@ -209,21 +229,12 @@ export const UserPageBody = (params: {
                           flexDirection: "column",
                         })}
                       >
-                        <h2
+                        <div
                           className={css({
-                            fontSize: "1rem",
-                          })}
-                        >
-                          {post?.authorId?.split("-")[0]}
-                        </h2>
-                        <h1
-                          className={css({
-                            fontSize: "1.8rem",
+                            padding: ".8rem",
                           })}
                         >
                           {post?.title}
-                        </h1>
-                        <div>
                           <ul
                             id="reactions"
                             className={css({
@@ -238,7 +249,7 @@ export const UserPageBody = (params: {
                                 })}
                               />
                             </li>
-                            <li>{post?.likes?.length}</li>
+                            <li>{post.likes?.length}</li>
                             <li>
                               <FiMessageSquare
                                 className={css({
@@ -246,7 +257,7 @@ export const UserPageBody = (params: {
                                 })}
                               />
                             </li>
-                            <li>{post?.comments?.length}</li>
+                            <li>{post.comments?.length}</li>
                           </ul>
                         </div>
                       </div>

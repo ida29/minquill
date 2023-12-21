@@ -38,7 +38,7 @@ export const auth = {
           id: user.id,
         },
         data: {
-          username: user.name + "-" + uuidv4().slice(0, 6),
+          username: "user-" + uuidv4().slice(0, 6),
         },
       });
     },

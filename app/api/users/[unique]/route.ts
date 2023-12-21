@@ -24,6 +24,10 @@ export async function GET(
         orderBy: {
           createdAt: "desc",
         },
+        include: {
+          comments: true,
+          likes: true,
+        },
       },
       followers: true,
       followings: true,

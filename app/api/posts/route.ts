@@ -9,11 +9,6 @@ import { ulid } from "ulid";
 const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(auth);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   try {
     const { searchParams } = new URL(req.url);
     const username = searchParams.get("username") as string;
