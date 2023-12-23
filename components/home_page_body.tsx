@@ -70,6 +70,22 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
       >
         <div
           className={css({
+            color: "text1",
+            fontWeight: "700",
+            fontSize: "1.5rem",
+            lineHeight: "1",
+            marginTop: "2rem",
+            marginRight: "auto",
+            padding: "0 1rem",
+            sm: { fontSize: "1.6rem" },
+            md: { fontSize: "1.7rem" },
+            lg: { fontSize: "1.8rem" },
+          })}
+        >
+          {params.dict.explore}
+        </div>
+        <div
+          className={css({
             display: "flex",
             gap: "1rem",
             width: "100%",
@@ -183,7 +199,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             className={css({
                               position: "relative",
                               width: "100%",
-                              paddingTop: "50%",
+                              paddingTop: "60%",
                             })}
                           >
                             <Image
@@ -208,7 +224,14 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                               padding: ".8rem",
                             })}
                           >
-                            {post?.title}
+                            <div
+                              className={css({
+                                height: "6rem",
+                                fontSize: "1.6rem",
+                              })}
+                            >
+                              {post?.title}
+                            </div>
                             <ul
                               id="reactions"
                               className={css({

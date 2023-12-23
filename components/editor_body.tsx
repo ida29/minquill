@@ -65,7 +65,7 @@ export const EditorBody = (params: {
   const [editorState, setEditorState] = useLocalStorageState("editorState", {
     defaultValue: "",
   });
-  const [coverImg] = useLocalStorageState<string>("cover_img", {
+  const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img", {
     defaultValue: "",
   });
 
@@ -117,7 +117,11 @@ export const EditorBody = (params: {
               marginTop: "1.6rem",
             })}
           >
-            <UploadImgNPreview text={params.dict.upload_a_cover_image} />
+            <UploadImgNPreview
+              text={params.dict.upload_a_cover_image}
+              coverImg={coverImg}
+              setCoverImg={setCoverImg}
+            />
           </div>
           <label
             htmlFor="title"

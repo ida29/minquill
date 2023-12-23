@@ -1,6 +1,5 @@
 // components/edit_post_header.tsx
 "use client";
-
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";

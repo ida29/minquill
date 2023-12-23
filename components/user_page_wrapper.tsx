@@ -62,6 +62,7 @@ export const UserPageWrapper = (params: {
       className={css({
         overflow: "auto",
         bg: "bg1",
+        color: "text3",
       })}
     >
       <div
@@ -93,7 +94,7 @@ export const UserPageWrapper = (params: {
               >
                 <ul
                   className={css({
-                    fontSize: "1.5rem",
+                    fontSize: "1.2rem",
                     padding: "0.5rem 1rem",
                   })}
                 >
@@ -108,7 +109,7 @@ export const UserPageWrapper = (params: {
                         justifyContent: "space-between",
                         borderRadius: "0.5rem",
                         _hover: {
-                          bg: "rgba(0, 0, 0, 0.2)",
+                          color: "text2",
                         },
                       })}
                     >
@@ -139,7 +140,7 @@ const outerMenuStyle = cva({
 
 const menuStyle = cva({
   base: {
-    bg: "bg1",
+    bg: "bg2",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

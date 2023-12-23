@@ -73,6 +73,22 @@ export default defineConfig({
               },
             },
           },
+          text3: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.400}",
+                _dark: "{colors.stone.950}",
+              },
+            },
+          },
+          border1: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.700}",
+                _dark: "{colors.stone.950}",
+              },
+            },
+          },
         },
       },
     },

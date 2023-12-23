@@ -74,6 +74,8 @@ export const HomePageHeader = (params: {
         height: "4.4rem",
         padding: "0 0.5rem",
         bg: "bg2",
+        borderBottom: "1px solid",
+        borderColor: "border1",
         sm: { padding: "0 1rem" },
         md: { padding: "0 1.5rem" },
         lg: { padding: "0 2rem" },

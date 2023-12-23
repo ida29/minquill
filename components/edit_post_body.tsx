@@ -147,7 +147,11 @@ export const EditPostBody = (params: {
               marginTop: "1.6rem",
             })}
           >
-            <UploadImgNPreview text={params.dict.upload_a_cover_image} />
+            <UploadImgNPreview
+              text={params.dict.upload_a_cover_image}
+              coverImg={coverImg}
+              setCoverImg={setCoverImg}
+            />
           </div>
           <label
             htmlFor="title"

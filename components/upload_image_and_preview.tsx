@@ -2,25 +2,25 @@
 
 import { css } from "@/styled-system/css";
 import { ActionButton } from "@/components/action_button";
-import useLocalStorageState from "use-local-storage-state";
 import React, { useRef } from "react";
 import { FiX } from "react-icons/fi";
 import Image from "next/image";
 
 type UploadImgNPreviewProps = {
   text: string;
+  coverImg: string;
+  setCoverImg: (coverImg: string) => void;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
 };
 
 export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
   text,
+  coverImg,
+  setCoverImg,
   colorVariant = "default",
   className,
 }) => {
-  const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img", {
-    defaultValue: "",
-  });
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadImg = async (

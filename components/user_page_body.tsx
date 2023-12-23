@@ -195,7 +195,6 @@ export const UserPageBody = (params: {
                         fontWeight: "700",
                         borderRadius: "10px",
                         gap: "1rem .5rem",
-                        width: "100%",
                       })}
                     >
                       <div
@@ -227,6 +226,7 @@ export const UserPageBody = (params: {
                         className={css({
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "center",
                         })}
                       >
                         <div
@@ -260,6 +260,24 @@ export const UserPageBody = (params: {
                             <li>{post.comments?.length}</li>
                           </ul>
                         </div>
+                        <Link
+                          href={`/${post.authorId}/posts/${post.ulid}/edit`}
+                        >
+                          <div
+                            className={css({
+                              fontSize: "1.5rem",
+                              border: "4px solid black",
+                              borderRadius: "10px",
+                              padding: "0.5rem",
+                              margin: "0.5rem",
+                              _hover: {
+                                bg: "stone.300",
+                              },
+                            })}
+                          >
+                            {params.dict.edit_post}
+                          </div>
+                        </Link>
                       </div>
                     </article>
                   </Link>
