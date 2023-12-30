@@ -13,7 +13,10 @@ import {
 } from "react-icons/fi";
 import useLocalStorageState from "use-local-storage-state";
 
-export const EditPostHeader = (params: { dict: Dictionary }) => {
+export const EditPostHeader = (params: {
+  dict: Dictionary;
+  username: string;
+}) => {
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
@@ -72,7 +75,7 @@ export const EditPostHeader = (params: { dict: Dictionary }) => {
             })}
           >
             <Link
-              href={"/"}
+              href={`/${params.username}`}
               className={css({
                 fontSize: "2rem",
               })}

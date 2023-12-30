@@ -62,7 +62,6 @@ export const HomePageWrapper = (params: {
       className={css({
         overflow: "auto",
         bg: "bg1",
-        color: "text3",
       })}
     >
       <div
@@ -71,9 +70,7 @@ export const HomePageWrapper = (params: {
           marginLeft: "auto",
           height: "100vh",
           width: "100vw",
-          sm: { width: "100vw" },
-          md: { width: "95vw" },
-          lg: { width: "90vw" },
+          sm: { width: "90vw" },
         })}
       >
         <HomePageHeader
@@ -144,6 +141,7 @@ const outerMenuStyle = cva({
 const menuStyle = cva({
   base: {
     bg: "bg2",
+    color: "text3",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

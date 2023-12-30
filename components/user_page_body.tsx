@@ -91,23 +91,6 @@ export const UserPageBody = (params: {
             </li>
             <li
               className={css({
-                width: "100%",
-              })}
-            >
-              <button
-                className={css({
-                  fontSize: "1.2rem",
-                  width: "100%",
-                  border: "2px solid black",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                })}
-              >
-                {params.dict.edit_profile}
-              </button>
-            </li>
-            <li
-              className={css({
                 display: "flex",
                 alignItems: "center",
                 gap: "0.5rem",
@@ -265,14 +248,12 @@ export const UserPageBody = (params: {
                         >
                           <div
                             className={css({
-                              fontSize: "1.5rem",
+                              fontSize: "1rem",
                               border: "4px solid black",
-                              borderRadius: "10px",
-                              padding: "0.5rem",
-                              margin: "0.5rem",
-                              _hover: {
-                                bg: "stone.300",
-                              },
+                              borderRadius: "9999px",
+                              padding: ".5rem 1.5rem",
+                              marginTop: "3rem",
+                              marginBottom: "2rem",
                             })}
                           >
                             {params.dict.edit_post}

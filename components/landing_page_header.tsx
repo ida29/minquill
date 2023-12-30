@@ -53,11 +53,8 @@ const headerStyle = cva({
 const logoStyle = cva({
   base: {
     fontWeight: "700",
-    fontSize: "1.8rem",
+    fontSize: "1.4rem",
     lineHeight: "1",
-    sm: { fontSize: "1.8rem" },
-    md: { fontSize: "1.9rem" },
-    lg: { fontSize: "2rem" },
   },
 });
 

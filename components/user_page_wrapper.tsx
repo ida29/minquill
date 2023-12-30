@@ -62,7 +62,6 @@ export const UserPageWrapper = (params: {
       className={css({
         overflow: "auto",
         bg: "bg1",
-        color: "text3",
       })}
     >
       <div
@@ -141,6 +140,7 @@ const outerMenuStyle = cva({
 const menuStyle = cva({
   base: {
     bg: "bg2",
+    color: "text3",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

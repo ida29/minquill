@@ -41,7 +41,7 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <EditPostHeader dict={dict} />
+        <EditPostHeader dict={dict} username={username} />
         <EditPostBody dict={dict} username={username} unique={unique} />
       </div>
     </div>

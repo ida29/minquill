@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { css } from "@/styled-system/css";
+import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/dictionary";
 import {
   getPostsWithToken,
@@ -16,6 +16,7 @@ import Image from "next/image";
 export const HomePageBody = (params: { dict: Dictionary }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [index, setIndex] = useState(0);
   const tags = useMemo(
     () => [params.dict.painting_guide, params.dict.tip, params.dict.review],
     [params.dict.painting_guide, params.dict.tip, params.dict.review],
@@ -68,22 +69,55 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           flexWrap: "wrap",
         })}
       >
-        <div
+        <ul
           className={css({
+            display: "flex",
             color: "text1",
             fontWeight: "700",
-            fontSize: "1.5rem",
+            fontSize: "1rem",
             lineHeight: "1",
-            marginTop: "2rem",
-            marginRight: "auto",
+            marginTop: "3rem",
+
             padding: "0 1rem",
-            sm: { fontSize: "1.6rem" },
-            md: { fontSize: "1.7rem" },
-            lg: { fontSize: "1.8rem" },
+            gap: "0 2rem",
+            sm: { fontSize: "1.2rem", gap: "0 4rem" },
+            md: { fontSize: "1.4rem", gap: "0 6rem" },
+            lg: { fontSize: "1.6rem", gap: "0 8rem" },
           })}
         >
-          {params.dict.explore}
-        </div>
+          <Link href="javascript:void(0)">
+            <li
+              className={`${liStyle()} ${index === 0 ? activeTab() : ""}`}
+              onClick={() => setIndex(0)}
+            >
+              Relevant
+            </li>
+          </Link>
+          <Link href="javascript:void(0)">
+            <li
+              className={`${liStyle()} ${index === 1 ? activeTab() : ""}`}
+              onClick={() => setIndex(1)}
+            >
+              Latest
+            </li>
+          </Link>
+          <Link href="javascript:void(0)">
+            <li
+              className={`${liStyle()} ${index === 2 ? activeTab() : ""}`}
+              onClick={() => setIndex(2)}
+            >
+              Following
+            </li>
+          </Link>
+          <Link href="javascript:void(0)">
+            <li
+              className={`${liStyle()} ${index === 3 ? activeTab() : ""}`}
+              onClick={() => setIndex(3)}
+            >
+              Explore
+            </li>
+          </Link>
+        </ul>
         <div
           className={css({
             display: "flex",
@@ -106,10 +140,10 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               width: "100%",
               fontWeight: "700",
               outline: "none",
-              paddingTop: "0.2rem",
+              padding: "0.8rem 0.4rem 0.6rem 0",
               transition: "all 0.1s",
               fontSize: "1.4rem",
-              margin: "1.2rem 1.2rem 0 1.2rem",
+              margin: "1.2rem .5rem",
               border: "4px solid white",
               _focus: {
                 border: "4px solid black",
@@ -117,17 +151,14 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               sm: {
                 fontSize: "1.4rem",
                 marginBottom: "1.4rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               md: {
                 fontSize: "1.6rem",
                 marginBottom: "1.6rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
               },
               lg: {
                 fontSize: "1.8rem",
                 marginBottom: "1.8rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
               },
             })}
           />
@@ -169,7 +200,12 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               <div
                 className={css({
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  margin: "0 .2rem",
+                  gap: ".2rem",
+                  sm: { gap: ".3rem" },
+                  md: { gap: ".4rem" },
+                  lg: { gap: ".5rem" },
                 })}
               >
                 {posts
@@ -190,7 +226,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                         <article
                           className={css({
                             fontWeight: "700",
-                            margin: "1rem",
+                            margin: ".4rem",
                             borderRadius: "10px",
                             bg: "white",
                           })}
@@ -402,3 +438,17 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
     </main>
   );
 };
+
+const liStyle = cva({
+  base: {
+    paddingBottom: "0.8rem",
+    listStyle: "none",
+  },
+});
+
+const activeTab = cva({
+  base: {
+    borderBottom: "4px solid",
+    color: "text1",
+  },
+});

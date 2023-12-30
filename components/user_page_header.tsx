@@ -140,10 +140,7 @@ const logoStyle = cva({
     margin: "0.5rem 0 0 0.5rem",
     color: "text2",
     fontWeight: "700",
-    fontSize: "1.8rem",
+    fontSize: "1.4rem",
     lineHeight: "1",
-    sm: { fontSize: "1.8rem" },
-    md: { fontSize: "1.9rem" },
-    lg: { fontSize: "2rem" },
   },
 });
