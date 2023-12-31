@@ -84,10 +84,17 @@ export const UserPageBody = (params: {
             </li>
             <li
               className={css({
-                fontSize: "1.5rem",
+                fontSize: "1.6rem",
               })}
             >
               {user?.name}
+            </li>
+            <li
+              className={css({
+                fontSize: "1.2rem",
+              })}
+            >
+              {user?.username}
             </li>
             <li
               className={css({
