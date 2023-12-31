@@ -12,6 +12,7 @@ import remarkBreaks from "remark-breaks";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 import { TwitterTweetEmbed } from "react-twitter-embed";
+import { YouTubeEmbed } from "@next/third-parties/google";
 
 export const PostPageBody = (params: {
   dict: Dictionary;
@@ -112,7 +113,7 @@ export const PostPageBody = (params: {
             lg: { fontSize: "1.6rem" },
           })}
         >
-          {params.username.split("-")[0]}
+          {params.username}
         </div>
         <div
           className={css({
@@ -190,6 +191,10 @@ export const PostPageBody = (params: {
 
                   if (language === "X" || language === "x") {
                     return <TwitterTweetEmbed tweetId={value} />;
+                  }
+
+                  if (language === "Youtube" || language === "youtube") {
+                    return <YouTubeEmbed videoid={value} />;
                   }
 
                   return <code>{value}</code>;

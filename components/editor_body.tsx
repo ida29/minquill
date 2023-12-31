@@ -22,6 +22,8 @@ import { UploadImgNPreview } from "./upload_image_and_preview";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
+import { YouTubeEmbed } from "@next/third-parties/google";
+import rehypeRaw from "rehype-raw";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -70,9 +72,9 @@ export const EditorBody = (params: {
   });
 
   const options = [
-    { id: 1, text: params.dict.review },
-    { id: 2, text: params.dict.tip },
-    { id: 3, text: params.dict.painting_guide },
+    { id: 1, text: "Tip" },
+    { id: 2, text: "Review" },
+    { id: 3, text: "Painting Guide" },
   ];
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isFocus, setIsFocus] = useState(false);
@@ -85,7 +87,9 @@ export const EditorBody = (params: {
           .map((part) => part.trim())
           .slice(-1)[0];
     const filtered = options
-      .filter((option) => option.text.toLowerCase().includes(last))
+      .filter((option) =>
+        option.text.toLowerCase().includes(last.toLowerCase()),
+      )
       .slice(0, 10);
     setFilteredOptions(filtered);
   };
@@ -432,7 +436,7 @@ export const EditorBody = (params: {
               lg: { fontSize: "1.6rem" },
             })}
           >
-            {params.username.split("-")[0]}
+            {params.username}
           </div>
           <div
             className={css({
@@ -512,6 +516,10 @@ export const EditorBody = (params: {
                       return <TwitterTweetEmbed tweetId={value} />;
                     }
 
+                    if (language === "Youtube" || language === "youtube") {
+                      return <YouTubeEmbed videoid={value} />;
+                    }
+
                     return <code>{value}</code>;
                   },
                   p: ({ children }) => (
@@ -578,8 +586,9 @@ export const EditorBody = (params: {
                   <p style={{ marginBottom: "1em" }}>{children}</p>
                 ),
               }}
+              rehypePlugins={[rehypeRaw]}
             >
-              {activeTabIndex === 1 ? contentValue : params.dict.help_text}
+              {params.dict.help_text}
             </ReactMarkdown>
           </div>
         </div>

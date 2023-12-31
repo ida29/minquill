@@ -32,7 +32,7 @@ export const UserPageWrapper = (params: {
       href={`/${session?.user?.username}`}
       className={css({ width: "100%", height: "100%" })}
     >
-      {session?.user?.username.split("-")[0]}
+      {session?.user?.username}
     </Link>,
     status === "authenticated" ? (
       <Link

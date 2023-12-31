@@ -16,7 +16,7 @@
   "lp_text0": "Grow Your World of Miniature Painting!!",
   "lp_text1": "Post articles about miniature painting, and",
   "lp_text2": "Expand the world of painting!",
-  "help_text": "## How to mark up text \n\n ## Headers\n\n```\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n```\n\n## Bold\n\n```\n**Bold**\n```\n\n## Italic\n\n```\n*Italic*\n```\n\n## Lists\n\n```\n- Item 1\n- Item 2\n  - Subitem 2.1\n  - Subitem 2.2\n```\n\n```\n1. First\n2. Second\n3. Third\n```\n\n## Links\n\n```\n[example url](https://example.com)\n```\n\n## Images\n\n```\n![example image](https://picsum.photos/200/300/?blur)\n```\n\n## Horizontal Rule\n\n```\n---\n```\n\n## Blockquotes\n\n```\n> This is a blockquote.\n```\n\n",
+  "help_text": "## How to mark up text \n\n ## Headers\n\n```\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n```\n\n## Bold\n\n```\n**Bold**\n```\n\n## Italic\n\n```\n*Italic*\n```\n\n## Lists\n\n```\n- Item 1\n- Item 2\n  - Subitem 2.1\n  - Subitem 2.2\n```\n\n```\n1. First\n2. Second\n3. Third\n```\n\n## Links\n\n```\n[example url](https://example.com)\n```\n\n## Images\n\n```\n![example image](https://picsum.photos/200/300/?blur)\n```\n\n## Horizontal Rule\n\n```\n---\n```\n\n## Blockquotes\n\n```\n> This is a blockquote.\n```\n## X(Twitter) Embed\n<pre>```X</br>1674806403922546688</br>```</br></pre>\n## Youtube Embed\n<pre>```Youtube</br>l0QbTQiCbhE</br>```</br></pre>",
   "editor": "Editor",
   "preview": "Preview",
   "help": "Help",

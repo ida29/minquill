@@ -19,10 +19,12 @@ import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { TwitterTweetEmbed } from "react-twitter-embed";
+import { YouTubeEmbed } from "@next/third-parties/google";
 import { useState, useEffect, useMemo } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getPost, updatePost, Post } from "@/app/[lang]/post";
 import { ActionButton } from "@/components/action_button";
+import rehypeRaw from "rehype-raw";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -100,9 +102,9 @@ export const EditPostBody = (params: {
   };
 
   const options = [
-    { id: 1, text: params.dict.review },
-    { id: 2, text: params.dict.tip },
-    { id: 3, text: params.dict.painting_guide },
+    { id: 1, text: "Review" },
+    { id: 2, text: "Tip" },
+    { id: 3, text: "Painting Guide" },
   ];
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isFocus, setIsFocus] = useState(false);
@@ -477,7 +479,7 @@ export const EditPostBody = (params: {
               lg: { fontSize: "1.6rem" },
             })}
           >
-            {params.username.split("-")[0]}
+            {params.username}
           </div>
           <div
             className={css({
@@ -557,6 +559,10 @@ export const EditPostBody = (params: {
                       return <TwitterTweetEmbed tweetId={value} />;
                     }
 
+                    if (language === "Youtube" || language === "youtube") {
+                      return <YouTubeEmbed videoid={value} />;
+                    }
+
                     return <code>{value}</code>;
                   },
                   p: ({ children }) => (
@@ -623,8 +629,9 @@ export const EditPostBody = (params: {
                   <p style={{ marginBottom: "1em" }}>{children}</p>
                 ),
               }}
+              rehypePlugins={[rehypeRaw]}
             >
-              {activeTabIndex === 1 ? contentValue : params.dict.help_text}
+              {params.dict.help_text}
             </ReactMarkdown>
           </div>
         </div>

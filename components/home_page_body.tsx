@@ -17,10 +17,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [index, setIndex] = useState(0);
-  const tags = useMemo(
-    () => [params.dict.painting_guide, params.dict.tip, params.dict.review],
-    [params.dict.painting_guide, params.dict.tip, params.dict.review],
-  );
+  const tags = useMemo(() => ["Tip", "Review", "Painting Guide"], []);
 
   useEffect(() => {
     (async () => {
