@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { css } from "@/styled-system/css";
+import { css, cva } from "@/styled-system/css";
 import CodeMirror from "@uiw/react-codemirror";
 import { createTheme } from "@uiw/codemirror-themes";
 import { BasicSetupOptions } from "@uiw/react-codemirror";
@@ -102,8 +102,8 @@ export const EditPostBody = (params: {
   };
 
   const options = [
-    { id: 1, text: "Review" },
-    { id: 2, text: "Tip" },
+    { id: 1, text: "Tip" },
+    { id: 2, text: "Review" },
     { id: 3, text: "Painting Guide" },
   ];
   const [filteredOptions, setFilteredOptions] = useState(options);
@@ -117,7 +117,9 @@ export const EditPostBody = (params: {
           .map((part) => part.trim())
           .slice(-1)[0];
     const filtered = options
-      .filter((option) => option.text.toLowerCase().includes(last))
+      .filter((option) =>
+        option.text.toLowerCase().includes(last.toLowerCase()),
+      )
       .slice(0, 10);
     setFilteredOptions(filtered);
   };
@@ -225,81 +227,69 @@ export const EditPostBody = (params: {
             onBlur={() => setIsFocus(false)}
             placeholder={params.dict.tags_placeholder}
             autoComplete="off"
-            className={css({
-              bg: "bg3",
-              textIndent: "1rem",
-              borderRadius: "10px",
-              width: "100%",
-              fontWeight: "700",
-              outline: "none",
-              paddingTop: "0.2rem",
-              transition: "all 0.1s",
-              fontSize: "1.4rem",
-              minHeight: "1.4rem",
-              marginBottom: "1.2rem",
-              border: "4px solid white",
-              _focus: {
-                border: "4px solid black",
-              },
-              sm: {
-                fontSize: "1.4rem",
-                marginBottom: "1.4rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
-              },
-              md: {
-                fontSize: "1.6rem",
-                marginBottom: "1.6rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
-              },
-              lg: {
-                fontSize: "1.8rem",
-                minHeight: "1.8rem",
-                marginBottom: "1.8rem",
-                padding: "0.8rem 0.4rem 0.6rem 0",
-              },
-            })}
+            className={`${ulStyle()} ${
+              isFocus && filteredOptions.length != 0 ? isForcusStyle() : ""
+            }`}
           />
           {isFocus && filteredOptions.length != 0 && (
-            <ul
-              className={css({
-                minWidth: "250px",
-                marginBottom: "3rem",
-                bg: "bg3",
-                border: "3px solid black",
-                borderRadius: "10px",
-                padding: ".5rem",
-              })}
-            >
-              {filteredOptions.map((option) => (
-                <li
-                  key={option.id}
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    const parts = tagsValue.split(",");
-                    const tagsWithoutLast = parts.slice(0, -1).join(",");
-                    const newTags =
-                      tagsWithoutLast +
-                      (parts.length > 1 ? "," : "") +
-                      option.text;
-                    setTags(newTags);
-                    setIsFocus(false);
-                  }}
-                  className={css({
-                    fontWeight: "700",
-                    padding: ".5rem",
-                    borderRadius: "0.5rem",
-                    _hover: {
-                      bg: "rgba(0, 0, 0, 0.2)",
-                    },
-                  })}
-                >
-                  {option.text}
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul
+                className={css({
+                  fontWeight: "700",
+                  bg: "bg3",
+                  borderTop: "none",
+                  borderLeft: "4px solid black",
+                  borderRight: "4px solid black",
+                  borderBottom: "4px solid black",
+                  borderRadius: "0 0 10px 10px",
+                  textIndent: "0.4rem",
+                  sm: {
+                    fontSize: "1.4rem",
+                    padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  },
+                  md: {
+                    fontSize: "1.6rem",
+                    padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  },
+                  lg: {
+                    fontSize: "1.8rem",
+                    minHeight: "1.8rem",
+                    padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  },
+                })}
+              >
+                {filteredOptions.map((option) => (
+                  <li
+                    key={option.id}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => {
+                      const parts = tagsValue.split(",");
+                      const tagsWithoutLast = parts.slice(0, -1).join(",");
+                      const newTags =
+                        tagsWithoutLast +
+                        (parts.length > 1 ? "," : "") +
+                        option.text;
+                      setTags(newTags);
+                      setIsFocus(false);
+                    }}
+                    className={css({
+                      fontWeight: "700",
+                      padding: ".5rem",
+                      borderRadius: "0.5rem",
+                      _hover: {
+                        bg: "rgba(0, 0, 0, 0.2)",
+                      },
+                    })}
+                  >
+                    {option.text}
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
           <div
             className={css({
+              marginTop: "1.6rem",
               marginBottom: "1.6rem",
             })}
           >
@@ -657,3 +647,48 @@ export const EditPostBody = (params: {
     </main>
   );
 };
+
+const ulStyle = cva({
+  base: {
+    bg: "bg3",
+    textIndent: "1rem",
+    borderRadius: "10px",
+    width: "100%",
+    fontWeight: "700",
+    outline: "none",
+    paddingTop: "0.2rem",
+    transition: "all 0.1s",
+    fontSize: "1.4rem",
+    minHeight: "1.4rem",
+    border: "4px solid white",
+    sm: {
+      fontSize: "1.4rem",
+      padding: "0.8rem 0.4rem 0.4rem 0.4rem",
+    },
+    md: {
+      fontSize: "1.6rem",
+      padding: "0.8rem 0.4rem 0.4rem 0.4rem",
+    },
+    lg: {
+      fontSize: "1.8rem",
+      minHeight: "1.8rem",
+      padding: "0.8rem 0.4rem 0.4rem 0.4rem",
+    },
+    _focus: {
+      borderTop: "4px solid black",
+      borderLeft: "4px solid black",
+      borderRight: "4px solid black",
+      borderBottom: "4px solid black",
+    },
+  },
+});
+
+const isForcusStyle = cva({
+  base: {
+    borderTop: "4px solid black",
+    borderLeft: "4px solid black",
+    borderRight: "4px solid black",
+    borderBottom: "4px solid black",
+    borderRadius: "10px 10px 0 0",
+  },
+});
