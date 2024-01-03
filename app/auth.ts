@@ -1,11 +1,9 @@
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
 import type { Session, User } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 import Stripe from "stripe";
-
-const prisma = new PrismaClient();
+import prisma from "../prisma/prisma";
 
 export const auth = {
   adapter: PrismaAdapter(prisma),
@@ -48,18 +46,10 @@ export const auth = {
             where: { id: user.id },
             data: {
               stripeCustomerId: customer.id,
+              username: "user-" + uuidv4().slice(0, 6),
             },
           });
         });
-
-      await prisma.user.update({
-        where: {
-          id: user.id,
-        },
-        data: {
-          username: "user-" + uuidv4().slice(0, 6),
-        },
-      });
     },
   },
 };
