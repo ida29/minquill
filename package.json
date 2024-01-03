@@ -20,6 +20,7 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@next/third-parties": "^14.0.5-canary.32",
     "@prisma/client": "^5.7.0",
+    "@stripe/stripe-js": "^2.2.2",
     "@uiw/codemirror-themes": "^4.21.20",
     "@uiw/react-codemirror": "^4.21.20",
     "dotenv-cli": "^7.3.0",
@@ -37,6 +38,7 @@
     "react-twitter-embed": "^4.0.4",
     "rehype-raw": "^7.0.0",
     "remark-breaks": "^4.0.0",
+    "stripe": "^14.10.0",
     "ulid": "^2.3.0",
     "use-local-storage-state": "^19.1.0",
     "uuid": "^9.0.1"

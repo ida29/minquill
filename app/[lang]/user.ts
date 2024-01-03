@@ -1,4 +1,5 @@
 // app/[lang]/user.ts
+
 export type User = {
   username: string;
   name: string;

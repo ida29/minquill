@@ -5,9 +5,13 @@ declare module "next-auth" {
     user?: {
       id: string;
       username: string;
+      stripeCustomerId: string;
+      isActive: boolean;
     } & DefaultSession["user"];
   }
   interface User {
     username: string;
+    stripeCustomerId: string;
+    isActive: boolean;
   }
 }

@@ -1,8 +1,5 @@
 // app/[lang]/[username]/posts/[unique]/page.tsx
 
-import { getServerSession } from "next-auth";
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
 import { getDictionary } from "@/app/[lang]/dictionary";
 import { css } from "@/styled-system/css";
 import { EditPostHeader } from "@/components/edit_post_header";
@@ -13,16 +10,7 @@ export default async function App({
 }: {
   params: { lang: string; username: string; unique: string };
 }) {
-  const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
-
-  if (!session) {
-    return redirect("/auth/signin");
-  }
-
-  if (session.user?.username !== username) {
-    return redirect("/");
-  }
 
   return (
     <div

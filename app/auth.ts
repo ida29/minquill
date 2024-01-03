@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import type { Session, User } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
+import Stripe from "stripe";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,8 @@ export const auth = {
     async session({ session, user }: { session: Session; user: User }) {
       if (session?.user) {
         session.user.id = user.id;
+        session.user.stripeCustomerId = user.stripeCustomerId;
+        session.user.isActive = user.isActive;
         session.user.username = user.username;
       }
       return session;
@@ -33,6 +36,22 @@ export const auth = {
   },
   events: {
     createUser: async ({ user }: { user: User }) => {
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+      await stripe.customers
+        .create({
+          email: user.email!,
+          name: user.name!,
+        })
+        .then(async (customer) => {
+          return prisma.user.update({
+            where: { id: user.id },
+            data: {
+              stripeCustomerId: customer.id,
+            },
+          });
+        });
+
       await prisma.user.update({
         where: {
           id: user.id,
