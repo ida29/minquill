@@ -3,12 +3,12 @@
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import {
   getPostsWithToken,
   getRecommendedPosts,
   Post,
-} from "@/app/[lang]/post";
+} from "@/app/[lang]/utils/post";
 import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare, FiFileText } from "react-icons/fi";
 import Image from "next/image";

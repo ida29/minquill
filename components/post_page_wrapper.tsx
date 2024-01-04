@@ -1,8 +1,7 @@
 // components/post_page_wrapper.tsx
 "use client";
 
-import Link from "next/link";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { PostPageHeader } from "./post_page_header";
 import { PostPageBody } from "./post_page_body";
 import { useState } from "react";

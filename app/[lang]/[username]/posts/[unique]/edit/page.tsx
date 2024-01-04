@@ -1,6 +1,6 @@
 // app/[lang]/[username]/posts/[unique]/page.tsx
 
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { getDictionary } from "@/app/[lang]/utils/dictionary";
 import { css } from "@/styled-system/css";
 import { EditPostHeader } from "@/components/edit_post_header";
 import { EditPostBody } from "@/components/edit_post_body";

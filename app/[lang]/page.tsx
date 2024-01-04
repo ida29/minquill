@@ -6,7 +6,7 @@ import { cva } from "@/styled-system/css";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { getDictionary } from "@/app/[lang]/utils/dictionary";
 
 export default async function App({
   params: { lang },

@@ -10,7 +10,7 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { historyField } from "@codemirror/commands";
 import "./styles.css";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
 import { UploadImgDrop } from "@/components/upload_img_drop";
@@ -22,7 +22,7 @@ import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { useState, useEffect, useMemo } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { getPost, updatePost, Post } from "@/app/[lang]/post";
+import { getPost, updatePost, Post } from "@/app/[lang]/utils/post";
 import { ActionButton } from "@/components/action_button";
 import rehypeRaw from "rehype-raw";
 

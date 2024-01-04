@@ -1,6 +1,6 @@
 // components/landing_page_body.tsx
 import { css, cva } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import Image from "next/image";
 import { LoginBtn } from "@/components/login_btn";
 

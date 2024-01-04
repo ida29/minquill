@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { UserPageHeader } from "./user_page_header";
 import { UserPageBody } from "./user_page_body";
 import { useState } from "react";

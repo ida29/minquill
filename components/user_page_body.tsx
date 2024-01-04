@@ -3,9 +3,9 @@
 
 import Link from "next/link";
 import { css } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/dictionary";
-import { getUser, User } from "@/app/[lang]/user";
-import { Post } from "@/app/[lang]/post";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
+import { getUser, User } from "@/app/[lang]/utils/user";
+import { Post } from "@/app/[lang]/utils/post";
 import { useState, useEffect } from "react";
 import {
   FiFileText,

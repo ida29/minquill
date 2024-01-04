@@ -5,7 +5,7 @@ import { EditorBody } from "@/components/editor_body";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
-import { getDictionary } from "@/app/[lang]/dictionary";
+import { getDictionary } from "@/app/[lang]/utils/dictionary";
 import { css } from "@/styled-system/css";
 
 export default async function App({

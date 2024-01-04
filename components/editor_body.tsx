@@ -11,7 +11,7 @@ import { languages } from "@codemirror/language-data";
 import { historyField } from "@codemirror/commands";
 import useLocalStorageState from "use-local-storage-state";
 import "./styles.css";
-import { Dictionary } from "@/app/[lang]/dictionary";
+import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
 import { PublishBtn } from "@/components/publish_btn";
