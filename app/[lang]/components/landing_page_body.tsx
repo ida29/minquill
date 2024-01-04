@@ -2,7 +2,7 @@
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import Image from "next/image";
-import { LoginBtn } from "@/components/login_btn";
+import { LoginBtn } from "@/app/[lang]/components/login_btn";
 
 export const LandingPageBody = async (params: { dict: Dictionary }) => {
   return (

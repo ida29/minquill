@@ -1,7 +1,7 @@
 "use client";
 
 import { css } from "@/styled-system/css";
-import { ActionButton } from "@/components/action_button";
+import { ActionButton } from "@/app/[lang]/components/action_button";
 import React, { useRef } from "react";
 import { FiX } from "react-icons/fi";
 import Image from "next/image";

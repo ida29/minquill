@@ -1,5 +1,5 @@
 // app/[lang]/[username]/page.tsx
-import { UserPageWrapper } from "@/components/user_page_wrapper";
+import { UserPageWrapper } from "@/app/[lang]/components/user_page_wrapper";
 import { getDictionary } from "@/app/[lang]/utils/dictionary";
 
 export default async function App({

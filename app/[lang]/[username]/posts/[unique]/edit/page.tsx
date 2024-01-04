@@ -2,8 +2,8 @@
 
 import { getDictionary } from "@/app/[lang]/utils/dictionary";
 import { css } from "@/styled-system/css";
-import { EditPostHeader } from "@/components/edit_post_header";
-import { EditPostBody } from "@/components/edit_post_body";
+import { EditPostHeader } from "@/app/[lang]/components/edit_post_header";
+import { EditPostBody } from "@/app/[lang]/components/edit_post_body";
 
 export default async function App({
   params: { lang, username, unique },

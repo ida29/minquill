@@ -1,7 +1,7 @@
 // components/back_btn.tsx
 "use client";
 
-import { ActionButton } from "@/components/action_button";
+import { ActionButton } from "@/app/[lang]/components/action_button";
 import { useRouter } from "next/navigation";
 
 type BackBtnProps = {

@@ -1,7 +1,7 @@
 // app/[lang]/posts/new/page.tsx
 
-import { EditorHeader } from "@/components/editor_header";
-import { EditorBody } from "@/components/editor_body";
+import { EditorHeader } from "@/app/[lang]/components/editor_header";
+import { EditorBody } from "@/app/[lang]/components/editor_body";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";

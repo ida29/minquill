@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { SigninWithGoogleBtn } from "@/components/sign_in_with_google_btn";
+import { SigninWithGoogleBtn } from "@/app/[lang]/components/sign_in_with_google_btn";
 import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { useSession } from "next-auth/react";
 import { FiMenu, FiXCircle } from "react-icons/fi";

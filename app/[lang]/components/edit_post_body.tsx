@@ -13,7 +13,7 @@ import "./styles.css";
 import { Dictionary } from "@/app/[lang]/utils/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
-import { UploadImgDrop } from "@/components/upload_img_drop";
+import { UploadImgDrop } from "@/app/[lang]/components/upload_img_drop";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
@@ -23,7 +23,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { useState, useEffect, useMemo } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { getPost, updatePost, Post } from "@/app/[lang]/utils/post";
-import { ActionButton } from "@/components/action_button";
+import { ActionButton } from "@/app/[lang]/components/action_button";
 import rehypeRaw from "rehype-raw";
 
 const stateFields = { history: historyField };

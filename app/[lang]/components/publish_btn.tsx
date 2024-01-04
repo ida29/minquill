@@ -1,5 +1,5 @@
 "use client";
-import { ActionButton } from "@/components/action_button";
+import { ActionButton } from "@/app/[lang]/components/action_button";
 import useLocalStorageState from "use-local-storage-state";
 import { createPost } from "@/app/[lang]/utils/post";
 import { Post } from "@/app/[lang]/utils/post";

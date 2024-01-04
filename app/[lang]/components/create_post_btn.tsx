@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ActionButton } from "@/components/action_button";
+import { ActionButton } from "@/app/[lang]/components/action_button";
 //import { css, cva } from "@/styled-system/css";
 
 type CreatePostBtnProps = {

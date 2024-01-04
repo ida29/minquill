@@ -1,7 +1,7 @@
 // app/page.tsx
-import { HomePageWrapper } from "@/components/home_page_wrapper";
-import { LandingPageHeader } from "@/components/landing_page_header";
-import { LandingPageBody } from "@/components/landing_page_body";
+import { HomePageWrapper } from "@/app/[lang]/components/home_page_wrapper";
+import { LandingPageHeader } from "@/app/[lang]/components/landing_page_header";
+import { LandingPageBody } from "@/app/[lang]/components/landing_page_body";
 import { cva } from "@/styled-system/css";
 import React from "react";
 import { getServerSession } from "next-auth";
