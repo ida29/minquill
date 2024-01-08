@@ -173,8 +173,9 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 <div
                   className={css({
                     display: "flex",
+                    justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "1.6rem",
+                    marginTop: "6rem",
                   })}
                 >
                   <FiFileText
@@ -186,7 +187,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   />
                   <h2
                     className={css({
-                      fontSize: "1.2rem",
+                      fontSize: "2rem",
                       marginLeft: ".1rem",
                     })}
                   >
@@ -304,8 +305,9 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               <div
                 className={css({
                   display: "flex",
+                  justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "1.6rem",
+                  marginTop: "6rem",
                 })}
               >
                 <FiFileText
@@ -317,7 +319,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 />
                 <h2
                   className={css({
-                    fontSize: "1.2rem",
+                    fontSize: "2rem",
                     marginLeft: ".1rem",
                   })}
                 >

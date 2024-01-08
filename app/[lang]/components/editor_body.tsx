@@ -385,7 +385,7 @@ export const EditorBody = (params: {
                 width: "100%",
                 height: "100%",
                 position: "absolute",
-                opacity: "0.4",
+                opacity: "0.8",
                 filter: "blur(3px)",
                 top: "0",
                 left: "0",
