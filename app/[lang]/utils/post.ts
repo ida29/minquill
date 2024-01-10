@@ -1,5 +1,6 @@
 // app/[lang]/post.ts
 
+import { User } from "@/app/[lang]/utils/user";
 import { nGram } from "n-gram";
 //import moji from "moji";
 
@@ -7,6 +8,7 @@ export type Post = {
   title: string;
   content: string;
   authorId?: string;
+  author: User;
   ulid?: string;
   coverImg?: string;
   likes?: [];

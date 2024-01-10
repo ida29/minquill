@@ -10,7 +10,7 @@ import {
   Post,
 } from "@/app/[lang]/utils/post";
 import { useState, useEffect, useMemo } from "react";
-import { FiThumbsUp, FiMessageSquare, FiFileText } from "react-icons/fi";
+import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
@@ -178,13 +178,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                     marginTop: "6rem",
                   })}
                 >
-                  <FiFileText
-                    className={css({
-                      fontSize: "2rem",
-                      marginLeft: "1rem",
-                      padding: "0 0 .4rem 0",
-                    })}
-                  />
                   <h2
                     className={css({
                       fontSize: "2rem",
@@ -226,7 +219,12 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             fontWeight: "700",
                             margin: ".4rem",
                             borderRadius: "10px",
-                            bg: "white",
+                            bg: "bg3",
+                            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+                            transition: "transform 0.3s",
+                            _hover: {
+                              transform: "scale(1.05)",
+                            },
                           })}
                         >
                           <div
@@ -260,36 +258,101 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                           >
                             <div
                               className={css({
-                                height: "6rem",
-                                fontSize: "1.6rem",
+                                height: "2rem",
+                                fontSize: "1rem",
                               })}
                             >
                               {post?.title}
                             </div>
-                            <ul
-                              id="reactions"
+                            <div
                               className={css({
-                                display: "flex",
-                                gap: "0.5rem",
+                                display: "-webkit-box",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: "3",
+                                overflow: "hidden",
+                                height: "3.6rem",
+                                fontSize: ".8rem",
+                                marginBottom: ".5rem",
+                                color: "text3",
                               })}
                             >
-                              <li>
-                                <FiThumbsUp
-                                  className={css({
-                                    fontSize: "1.5rem",
-                                  })}
-                                />
-                              </li>
-                              <li>{post?.likes?.length}</li>
-                              <li>
-                                <FiMessageSquare
-                                  className={css({
-                                    fontSize: "1.5rem",
-                                  })}
-                                />
-                              </li>
-                              <li>{post?.comments?.length}</li>
-                            </ul>
+                              {post?.content}
+                            </div>
+                            <div
+                              className={css({
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+                              })}
+                            >
+                              <ul
+                                id="reactions"
+                                className={css({
+                                  display: "flex",
+                                  gap: "1rem",
+                                  padding: ".5rem 0",
+                                })}
+                              >
+                                <li>
+                                  <div
+                                    className={css({
+                                      display: "flex",
+                                      gap: ".2rem",
+                                    })}
+                                  >
+                                    <FiThumbsUp
+                                      className={css({
+                                        fontSize: "1.5rem",
+                                      })}
+                                    />
+                                    {post?.likes?.length}
+                                  </div>
+                                </li>
+                                <li>
+                                  <div
+                                    className={css({
+                                      display: "flex",
+                                      gap: ".2rem",
+                                    })}
+                                  >
+                                    <FiMessageSquare
+                                      className={css({
+                                        fontSize: "1.5rem",
+                                      })}
+                                    />
+                                    {post?.comments?.length}
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div
+                              className={css({
+                                display: "flex",
+                                borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+                                paddingTop: ".5rem",
+                                alignItems: "center",
+                              })}
+                            >
+                              <Image
+                                width="40"
+                                height="40"
+                                src={post.author?.image || ""}
+                                alt="User Image"
+                                className={css({
+                                  borderRadius: "50%",
+                                  marginRight: ".5rem",
+                                })}
+                              />
+                              <div
+                                className={css({
+                                  display: "flex",
+                                  flexDirection: "column",
+                                })}
+                              >
+                                <p>{post?.author?.name}</p>
+                                <p>{post?.author?.username}</p>
+                              </div>
+                            </div>
                           </div>
                         </article>
                       </Link>
@@ -310,13 +373,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   marginTop: "6rem",
                 })}
               >
-                <FiFileText
-                  className={css({
-                    fontSize: "2rem",
-                    marginLeft: "1rem",
-                    padding: "0 0 .4rem 0",
-                  })}
-                />
                 <h2
                   className={css({
                     fontSize: "2rem",
