@@ -8,7 +8,7 @@ export type Post = {
   title: string;
   content: string;
   authorId?: string;
-  author: User;
+  author?: User;
   ulid?: string;
   coverImg?: string;
   likes?: [];
