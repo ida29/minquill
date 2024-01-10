@@ -119,9 +119,6 @@ const dragAreaStyle = cva({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    _hover: {
-      border: "4px solid black",
-    },
     sm: {
       fontSize: "1.2rem",
     },

@@ -14,7 +14,7 @@ import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [postsValue, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [index, setIndex] = useState(0);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
@@ -36,7 +36,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
     try {
-      const posts: Post[] =
+      const osts: Post[] =
         token === ""
           ? await getRecommendedPosts(20, tags)
           : await getPostsWithToken(token, 30);
@@ -161,10 +161,10 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           />
         </div>
       </div>
-      {posts.length > 0
+      {postsValue.length > 0 && !isLoading
         ? tags.map((tagName) => (
             <div key={tagName}>
-              {posts.filter(
+              {postsValue.filter(
                 (post) =>
                   post.tags?.some(
                     (tag: { name: string }) => tag.name === tagName,
@@ -175,7 +175,16 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "6rem",
+                    marginTop: "3rem",
+                    sm: {
+                      marginTop: "4rem",
+                    },
+                    md: {
+                      marginTop: "5rem",
+                    },
+                    lg: {
+                      marginTop: "6rem",
+                    },
                   })}
                 >
                   <h2
@@ -184,7 +193,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                       marginLeft: ".1rem",
                     })}
                   >
-                    <strong>{tagName}</strong>
+                    <strong>#{tagName}</strong>
                   </h2>
                 </div>
               )}
@@ -199,7 +208,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   lg: { gap: ".5rem" },
                 })}
               >
-                {posts
+                {postsValue
                   .filter(
                     (post) =>
                       post.tags?.some(
@@ -237,7 +246,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             <Image
                               width="200"
                               height="200"
-                              src={post.coverImg || "/lowpoly_whiz.png"}
+                              src={post.coverImg || ""}
                               alt="Cover Image"
                               className={css({
                                 borderRadius: "10px 10px 0 0",
@@ -370,7 +379,16 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "6rem",
+                  marginTop: "3rem",
+                  sm: {
+                    marginTop: "4rem",
+                  },
+                  md: {
+                    marginTop: "5rem",
+                  },
+                  lg: {
+                    marginTop: "6rem",
+                  },
                 })}
               >
                 <h2

@@ -123,6 +123,7 @@ export const EditorBody = (params: {
           >
             <UploadImgNPreview
               text={params.dict.upload_a_cover_image}
+              text2={params.dict.uploading}
               coverImg={coverImg}
               setCoverImg={setCoverImg}
             />

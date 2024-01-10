@@ -5,9 +5,11 @@ import { ActionButton } from "@/app/[lang]/components/action_button";
 import React, { useRef } from "react";
 import { FiX } from "react-icons/fi";
 import Image from "next/image";
+import { useState } from "react";
 
 type UploadImgNPreviewProps = {
   text: string;
+  text2: string;
   coverImg: string;
   setCoverImg: (coverImg: string) => void;
   colorVariant?: "default" | "primary" | "secondary";
@@ -16,17 +18,23 @@ type UploadImgNPreviewProps = {
 
 export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
   text,
+  text2,
   coverImg,
   setCoverImg,
   colorVariant = "default",
   className,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleUploadImg = async (
     event: React.ChangeEvent<HTMLInputElement>,
+    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
+    console.log(text2);
+    setIsUploading(true);
     if (!event.target.files || event.target.files.length === 0) {
+      setIsUploading(false);
       return;
     }
 
@@ -41,6 +49,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
 
       if (!res.ok) {
         console.error("Failed to get the upload URL");
+        setIsUploading(false);
         return;
       }
       const res_json = await res.json();
@@ -55,11 +64,13 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
 
       if (!res2.ok) {
         console.error("Failed to get the upload URL");
+        setIsUploading(false);
         return;
       }
 
       const res2_json = await res2.json();
       setCoverImg(`${res2_json.result.variants[0]}`);
+      setIsUploading(false);
     }
   };
 
@@ -113,7 +124,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
         })}
       >
         <ActionButton
-          text={text}
+          text={isUploading ? text2 : text}
           colorVariant={colorVariant}
           className={className}
           onClick={btnClick}
@@ -123,7 +134,9 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
           ref={inputRef}
           type="file"
           accept="image/*"
-          onChange={handleUploadImg}
+          onChange={(e) => {
+            handleUploadImg(e, setIsUploading);
+          }}
           onClick={(e) => {
             (e.target as HTMLInputElement).value = "";
           }}
