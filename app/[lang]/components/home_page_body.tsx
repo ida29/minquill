@@ -36,7 +36,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
     try {
-      const osts: Post[] =
+      const posts: Post[] =
         token === ""
           ? await getRecommendedPosts(20, tags)
           : await getPostsWithToken(token, 30);
@@ -276,7 +276,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             <div
                               className={css({
                                 display: "-webkit-box",
-                                WebkitBoxOrient: "vertical",
+                                boxOrient: "vertical",
                                 WebkitLineClamp: "3",
                                 overflow: "hidden",
                                 height: "3.6rem",
