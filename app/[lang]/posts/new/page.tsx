@@ -38,7 +38,7 @@ export default async function App({
         })}
       >
         <EditorHeader dict={dict} />
-        <EditorBody dict={dict} user={session.user ? session.user : null} e />
+        <EditorBody dict={dict} user={session.user ? session.user : null} />
       </div>
     </div>
   );
