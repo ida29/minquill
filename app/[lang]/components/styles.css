@@ -72,7 +72,7 @@
     font-size: 1.4em;
   }
   #markdown-preview p {
-    font-size: 1.4em;
+    font-size: 1em;
   }
 }
 
@@ -196,7 +196,7 @@
 }
 
 #markdown-preview2 p {
-  font-size: 1.8em;
+  font-size: 1em;
 }
 
 @media (max-width: 600px) {
@@ -219,7 +219,7 @@
     font-size: 1.4em;
   }
   #markdown-preview2 p {
-    font-size: 1.4em;
+    font-size: 1em;
   }
 }
 
