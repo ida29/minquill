@@ -64,7 +64,7 @@ export const UserPageBody = (params: {
           <ul
             className={css({
               display: "flex",
-              alignItems: "center",
+              alignItems: "flex-start",
               flexDirection: "column",
               margin: ".5rem",
               gap: ".5rem",
@@ -72,8 +72,8 @@ export const UserPageBody = (params: {
           >
             <li>
               <Image
-                width="160"
-                height="160"
+                width="180"
+                height="180"
                 src={user?.image || ""}
                 alt="User Image"
                 className={css({
@@ -87,14 +87,15 @@ export const UserPageBody = (params: {
                 fontSize: "1.6rem",
               })}
             >
-              {user?.name}
-            </li>
-            <li
-              className={css({
-                fontSize: "1.2rem",
-              })}
-            >
-              {user?.username}
+              <div
+                className={css({
+                  display: "flex",
+                  flexDirection: "column",
+                })}
+              >
+                <strong>{user?.name}</strong>
+                {user?.username}
+              </div>
             </li>
             <li
               className={css({

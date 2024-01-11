@@ -7,17 +7,8 @@ import { Dictionary } from "@/app/[lang]/utils/dictionary";
 //import { useSession } from "next-auth/react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 
-export const PostPageHeader = (params: {
-  dict: Dictionary;
-  isMenuOpen: boolean;
-  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const PostPageHeader = (params: { dict: Dictionary }) => {
   //const { data: session, status } = useSession();
-  const { isMenuOpen, setMenuOpen } = params;
-  const handleMenuClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    setMenuOpen(!isMenuOpen);
-  };
 
   return (
     <header

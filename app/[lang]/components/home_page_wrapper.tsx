@@ -9,6 +9,7 @@ import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 export const HomePageWrapper = (params: {
   dict: Dictionary;
@@ -32,7 +33,32 @@ export const HomePageWrapper = (params: {
       href={`/${session?.user?.username}`}
       className={css({ width: "100%", height: "100%" })}
     >
-      {session?.user?.username}
+      <div
+        className={css({
+          display: "flex",
+          alignItems: "center",
+        })}
+      >
+        <Image
+          width="48"
+          height="48"
+          src={session?.user?.image || ""}
+          alt="User Image"
+          className={css({
+            borderRadius: "50%",
+            marginRight: ".5rem",
+          })}
+        />
+        <div
+          className={css({
+            display: "flex",
+            flexDirection: "column",
+          })}
+        >
+          <p>{session?.user?.name}</p>
+          <p>{session?.user?.username}</p>
+        </div>
+      </div>
     </Link>,
     status === "authenticated" ? (
       <Link

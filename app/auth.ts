@@ -24,7 +24,9 @@ export const auth = {
         session.user.id = user.id;
         session.user.stripeCustomerId = user.stripeCustomerId;
         session.user.isActive = user.isActive;
+        session.user.name = user.name;
         session.user.username = user.username;
+        session.user.image = user.image;
       }
       return session;
     },

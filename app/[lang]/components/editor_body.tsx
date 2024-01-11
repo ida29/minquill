@@ -19,11 +19,11 @@ import { UploadImgDrop } from "@/app/[lang]/components/upload_img_drop";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import rehypeRaw from "rehype-raw";
+import type { User } from "next-auth";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -49,7 +49,7 @@ const myTheme = createTheme({
 
 export const EditorBody = (params: {
   dict: Dictionary;
-  username: string;
+  user: User | null;
   unique?: string;
 }) => {
   const [titleValue, setTitle] = useLocalStorageState("title", {
@@ -349,7 +349,10 @@ export const EditorBody = (params: {
               marginBottom: "1.6rem",
             })}
           >
-            <PublishBtn text={params.dict.publish} username={params.username} />
+            <PublishBtn
+              text={params.dict.publish}
+              username={params?.user?.username}
+            />
           </div>
         </div>
       </>
@@ -398,7 +401,7 @@ export const EditorBody = (params: {
               className={css({
                 textAlign: "center",
                 padding: "1rem 1rem .5rem 1rem",
-                border: "2px solid",
+                border: "6px solid",
                 color: "text2",
                 position: "absolute",
                 top: "50%",
@@ -420,7 +423,7 @@ export const EditorBody = (params: {
           className={css({
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
             marginBottom: ".5rem",
             width: "90%",
             sm: { width: "70%" },
@@ -430,55 +433,40 @@ export const EditorBody = (params: {
         >
           <div
             className={css({
-              margin: ".5rem 0",
+              display: "flex",
+              paddingTop: ".5rem",
+              alignItems: "center",
               fontSize: "1rem",
               sm: { fontSize: "1.2rem" },
-              md: { fontSize: "1.4rem" },
-              lg: { fontSize: "1.6rem" },
             })}
           >
-            {params.username}
-          </div>
-          <div
-            className={css({
-              marginBottom: ".5rem",
-            })}
-          >
-            <ul
-              id="reactions"
+            <Image
+              width="48"
+              height="48"
+              src={params?.user?.image || ""}
+              alt="User Image"
+              className={css({
+                borderRadius: "50%",
+                marginRight: ".5rem",
+              })}
+            />
+            <div
               className={css({
                 display: "flex",
-                gap: "1rem",
-                fontSize: "1rem",
-                sm: { fontSize: "1.2rem" },
-                md: { fontSize: "1.4rem" },
-                lg: { fontSize: "1.6rem" },
+                flexDirection: "column",
+                fontWeight: "700",
               })}
             >
-              <li>
-                <FiThumbsUp
-                  className={css({
-                    marginTop: "0.2rem",
-                  })}
-                />
-              </li>
-              <li>0</li>
-              <li>
-                <FiMessageSquare
-                  className={css({
-                    marginTop: "0.2rem",
-                  })}
-                />
-              </li>
-              <li>0</li>
-            </ul>
+              <p>{params?.user?.name}</p>
+              <p>{params?.user?.username}</p>
+            </div>
           </div>
           <div
             className={css({
               display: "flex",
               gap: "1rem",
               fontSize: "1.2rem",
-              marginBottom: "2rem",
+              margin: "2rem 0",
             })}
           >
             {tagsValue &&
@@ -494,7 +482,6 @@ export const EditorBody = (params: {
             <div
               id="markdown-preview2"
               className={css({
-                padding: "0.8rem",
                 minHeight: "calc(100dvh - 10rem)",
 
                 borderRadius: "10px",

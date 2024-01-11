@@ -74,7 +74,7 @@ export const PostPageBody = (params: {
             className={css({
               textAlign: "center",
               padding: "1rem 1rem .5rem 1rem",
-              border: "2px solid",
+              border: "6px solid",
               color: "text2",
               position: "absolute",
               top: "50%",
@@ -96,7 +96,7 @@ export const PostPageBody = (params: {
         className={css({
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "flex-start",
           marginBottom: ".5rem",
           width: "90%",
           sm: { width: "70%" },
@@ -106,55 +106,40 @@ export const PostPageBody = (params: {
       >
         <div
           className={css({
-            margin: ".5rem 0",
+            display: "flex",
+            paddingTop: ".5rem",
+            alignItems: "center",
             fontSize: "1rem",
             sm: { fontSize: "1.2rem" },
-            md: { fontSize: "1.4rem" },
-            lg: { fontSize: "1.6rem" },
           })}
         >
-          {params.username}
-        </div>
-        <div
-          className={css({
-            marginBottom: ".5rem",
-          })}
-        >
-          <ul
-            id="reactions"
+          <Image
+            width="48"
+            height="48"
+            src={post?.author?.image || ""}
+            alt="User Image"
+            className={css({
+              borderRadius: "50%",
+              marginRight: ".5rem",
+            })}
+          />
+          <div
             className={css({
               display: "flex",
-              gap: "1rem",
-              fontSize: "1rem",
-              sm: { fontSize: "1.2rem" },
-              md: { fontSize: "1.4rem" },
-              lg: { fontSize: "1.6rem" },
+              flexDirection: "column",
+              fontWeight: "700",
             })}
           >
-            <li>
-              <FiThumbsUp
-                className={css({
-                  marginTop: "0.2rem",
-                })}
-              />
-            </li>
-            <li>0</li>
-            <li>
-              <FiMessageSquare
-                className={css({
-                  marginTop: "0.2rem",
-                })}
-              />
-            </li>
-            <li>0</li>
-          </ul>
+            <p>{post?.author?.name}</p>
+            <p>{post?.author?.username}</p>
+          </div>
         </div>
         <div
           className={css({
             display: "flex",
             gap: "1rem",
             fontSize: "1.2rem",
-            marginBottom: "2rem",
+            margin: "2rem 0",
           })}
         >
           {post?.tags &&
@@ -170,7 +155,6 @@ export const PostPageBody = (params: {
           <div
             id="markdown-preview2"
             className={css({
-              padding: "0.8rem",
               minHeight: "calc(100dvh - 10rem)",
 
               borderRadius: "10px",
