@@ -1,11 +1,11 @@
-// app/[lang]/top/page.tsx
+// app/[lang]/(home)/images/page.tsx
 
 "use client";
 
 import React from "react";
 import { useEffect, useState } from "react";
 import { getDictionary, Dictionary } from "@/app/_utils/dictionary";
-import { HomePageBody } from "@/app/_components/home_page_body";
+import { HomePageBody2 } from "@/app/_components/home_page_body2";
 
 export default function App({
   params: { lang },
@@ -21,5 +21,5 @@ export default function App({
     })();
   }, [lang]);
 
-  return <HomePageBody dict={dict} />;
+  return <HomePageBody2 dict={dict} />;
 }

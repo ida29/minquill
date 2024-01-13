@@ -81,10 +81,10 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             lg: { fontSize: "1.6rem", gap: "0 8rem" },
           })}
         >
-          <Link href={`/explore/posts`}>
+          <Link href={`/posts`}>
             <li className={`${liStyle()} ${activeTab()}`}>Posts</li>
           </Link>
-          <Link href={`/explore/images`}>
+          <Link href={`/images`}>
             <li className={`${liStyle()}`}>Images</li>
           </Link>
         </ul>

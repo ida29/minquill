@@ -18,7 +18,7 @@ export default async function App({
   const dict = await getDictionary(lang);
 
   if (session) {
-    return redirect("/explore/posts");
+    return redirect("/posts");
   }
 
   return (
