@@ -16,7 +16,7 @@ import Image from "next/image";
 export const HomePageBody = (params: { dict: Dictionary }) => {
   const [postsValue, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
@@ -82,36 +82,28 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             lg: { fontSize: "1.6rem", gap: "0 8rem" },
           })}
         >
-          <Link href="javascript:void(0)">
+          <Link href={`/`}>
             <li
-              className={`${liStyle()} ${index === 0 ? activeTab() : ""}`}
-              onClick={() => setIndex(0)}
-            >
-              Relevant
-            </li>
-          </Link>
-          <Link href="javascript:void(0)">
-            <li
-              className={`${liStyle()} ${index === 1 ? activeTab() : ""}`}
-              onClick={() => setIndex(1)}
-            >
-              Latest
-            </li>
-          </Link>
-          <Link href="javascript:void(0)">
-            <li
-              className={`${liStyle()} ${index === 2 ? activeTab() : ""}`}
-              onClick={() => setIndex(2)}
-            >
-              Following
-            </li>
-          </Link>
-          <Link href="javascript:void(0)">
-            <li
-              className={`${liStyle()} ${index === 3 ? activeTab() : ""}`}
-              onClick={() => setIndex(3)}
+              className={`${liStyle()} ${tabIndex === 0 ? activeTab() : ""}`}
+              onClick={() => setTabIndex(0)}
             >
               Explore
+            </li>
+          </Link>
+          <Link href={`/images`}>
+            <li
+              className={`${liStyle()} ${tabIndex === 1 ? activeTab() : ""}`}
+              onClick={() => setTabIndex(1)}
+            >
+              Posts
+            </li>
+          </Link>
+          <Link href={`/images`}>
+            <li
+              className={`${liStyle()} ${tabIndex === 2 ? activeTab() : ""}`}
+              onClick={() => setTabIndex(2)}
+            >
+              Images
             </li>
           </Link>
         </ul>
@@ -137,25 +129,22 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               width: "100%",
               fontWeight: "700",
               outline: "none",
-              padding: "0.8rem 0.4rem 0.6rem 0",
+              padding: "1rem 0.4rem 0.6rem 0",
               transition: "all 0.1s",
               fontSize: "1.4rem",
-              margin: "1.2rem .5rem",
+              margin: "3rem .5rem 1rem .5rem",
               border: "4px solid white",
               _focus: {
                 border: "4px solid black",
               },
               sm: {
                 fontSize: "1.4rem",
-                marginBottom: "1.4rem",
               },
               md: {
                 fontSize: "1.6rem",
-                marginBottom: "1.6rem",
               },
               lg: {
                 fontSize: "1.8rem",
-                marginBottom: "1.8rem",
               },
             })}
           />
@@ -176,15 +165,6 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                     justifyContent: "center",
                     alignItems: "center",
                     marginTop: "3rem",
-                    sm: {
-                      marginTop: "4rem",
-                    },
-                    md: {
-                      marginTop: "5rem",
-                    },
-                    lg: {
-                      marginTop: "6rem",
-                    },
                   })}
                 >
                   <h2
