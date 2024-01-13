@@ -4,12 +4,11 @@
 //import Link from "next/link";
 import { css } from "@/styled-system/css";
 import "./styles.css";
-import { Dictionary } from "@/app/[lang]/utils/dictionary";
-import { getPost, Post } from "@/app/[lang]/utils/post";
+import { Dictionary } from "@/app/[lang]/_utils/dictionary";
+import { getPost, Post } from "@/app/[lang]/_utils/post";
 import { useState, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";

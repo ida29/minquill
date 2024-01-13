@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import getStripe from "../utils/getStripe";
+import getStripe from "@/app/[lang]/_utils/getStripe";
 
 export default function Page() {
   const [plan, setPlan] = useState<string>("price_1OUPd3I8Qz2P8OvlWRAyNXco");

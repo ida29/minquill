@@ -1,7 +1,7 @@
 // app/[lang]/[username]/posts/[unique]/page.tsx
 
-import { getDictionary } from "@/app/[lang]/utils/dictionary";
-import { PostPageWrapper } from "@/app/[lang]/components/post_page_wrapper";
+import { getDictionary } from "@/app/[lang]/_utils/dictionary";
+import { PostPageWrapper } from "@/app/[lang]/_components/post_page_wrapper";
 
 export default async function App({
   params: { lang, username, unique },

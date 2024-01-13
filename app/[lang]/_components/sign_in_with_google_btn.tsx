@@ -1,6 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { ActionButton } from "@/app/[lang]/components/action_button";
+import { ActionButton } from "@/app/[lang]/_components/action_button";
 //import { css, cva } from "@/styled-system/css";
 
 type SigninWithGoogleBtnProps = {

@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/utils/dictionary";
+import { Dictionary } from "@/app/[lang]/_utils/dictionary";
 //import { useSession } from "next-auth/react";
 import {
   FiFeather,

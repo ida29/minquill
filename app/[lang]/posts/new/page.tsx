@@ -1,11 +1,11 @@
 // app/[lang]/posts/new/page.tsx
 
-import { EditorHeader } from "@/app/[lang]/components/editor_header";
-import { EditorBody } from "@/app/[lang]/components/editor_body";
+import { EditorHeader } from "@/app/[lang]/_components/editor_header";
+import { EditorBody } from "@/app/[lang]/_components/editor_body";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
-import { getDictionary } from "@/app/[lang]/utils/dictionary";
+import { getDictionary } from "@/app/[lang]/_utils/dictionary";
 import { css } from "@/styled-system/css";
 
 export default async function App({

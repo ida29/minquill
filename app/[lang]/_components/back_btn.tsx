@@ -1,25 +1,28 @@
+// components/back_btn.tsx
 "use client";
-import { signIn } from "next-auth/react";
-import { ActionButton } from "@/app/[lang]/components/action_button";
-//import { css, cva } from "@/styled-system/css";
 
-type LoginBtnProps = {
+import { ActionButton } from "@/app/[lang]/_components/action_button";
+import { useRouter } from "next/navigation";
+
+type BackBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
 };
 
-export const LoginBtn: React.FC<LoginBtnProps> = ({
+export const BackBtn: React.FC<BackBtnProps> = ({
   text,
   colorVariant = "default",
   className,
 }) => {
+  const router = useRouter();
+
   return (
     <ActionButton
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => signIn()}
+      onClick={() => router.push("/")}
     />
   );
 };

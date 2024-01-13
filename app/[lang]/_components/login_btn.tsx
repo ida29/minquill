@@ -1,15 +1,15 @@
 "use client";
-import { signOut } from "next-auth/react";
-import { ActionButton } from "@/app/[lang]/components/action_button";
+import { signIn } from "next-auth/react";
+import { ActionButton } from "@/app/[lang]/_components/action_button";
 //import { css, cva } from "@/styled-system/css";
 
-type LogoutBtnProps = {
+type LoginBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
 };
 
-export const LogoutBtn: React.FC<LogoutBtnProps> = ({
+export const LoginBtn: React.FC<LoginBtnProps> = ({
   text,
   colorVariant = "default",
   className,
@@ -19,7 +19,7 @@ export const LogoutBtn: React.FC<LogoutBtnProps> = ({
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => signOut()}
+      onClick={() => signIn()}
     />
   );
 };

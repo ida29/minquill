@@ -1,14 +1,15 @@
-// components/user_page_header.ts
+// components/home_page_header.tsx
 "use client";
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { SigninWithGoogleBtn } from "@/app/[lang]/components/sign_in_with_google_btn";
-import { Dictionary } from "@/app/[lang]/utils/dictionary";
+import { SigninWithGoogleBtn } from "@/app/[lang]/_components/sign_in_with_google_btn";
+import { CreatePostBtn } from "@/app/[lang]/_components/create_post_btn";
+import { Dictionary } from "@/app/[lang]/_utils/dictionary";
 import { useSession } from "next-auth/react";
 import { FiMenu, FiXCircle } from "react-icons/fi";
 
-export const UserPageHeader = (params: {
+export const HomePageHeader = (params: {
   dict: Dictionary;
   isMenuOpen: boolean;
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -120,7 +121,7 @@ export const UserPageHeader = (params: {
               color: "text1",
             })}
           >
-            {buttons}
+            <CreatePostBtn text={params.dict.create_post} />
           </li>
         </ul>
       </nav>
@@ -137,7 +138,7 @@ const navStyle = cva({
 
 const logoStyle = cva({
   base: {
-    margin: "0.5rem 0 0 0.5rem",
+    margin: "0.5rem 0 0 4rem",
     color: "text2",
     fontWeight: "700",
     fontSize: "1.4rem",

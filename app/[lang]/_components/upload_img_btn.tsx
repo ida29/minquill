@@ -1,7 +1,7 @@
 "use client";
 
 //import { css } from "@/styled-system/css";
-import { ActionButton } from "@/app/[lang]/components/action_button";
+import { ActionButton } from "@/app/[lang]/_components/action_button";
 import useLocalStorageState from "use-local-storage-state";
 import React, { useRef } from "react";
 

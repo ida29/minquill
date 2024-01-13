@@ -5,7 +5,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { DragEvent, useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { FiArrowDownCircle } from "react-icons/fi";
-import { UploadImgBtn } from "@/app/[lang]/components/upload_img_btn";
+import { UploadImgBtn } from "@/app/[lang]/_components/upload_img_btn";
 
 type UploadImgDropProps = {
   text: string;

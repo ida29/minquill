@@ -1,8 +1,8 @@
 // components/landing_page_header.tsx
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { LoginBtn } from "@/app/[lang]/components/login_btn";
-import { Dictionary } from "@/app/[lang]/utils/dictionary";
+import { LoginBtn } from "@/app/[lang]/_components/login_btn";
+import { Dictionary } from "@/app/[lang]/_utils/dictionary";
 
 export const LandingPageHeader = async (params: { dict: Dictionary }) => {
   const buttons = (
