@@ -1,26 +1,14 @@
 // components/landing_page_header.tsx
 import Link from "next/link";
-import { css, cva } from "@/styled-system/css";
-import { LoginBtn } from "@/app/_components/login_btn";
+import { cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 
 export const LandingPageHeader = async (params: { dict: Dictionary }) => {
-  const buttons = (
-    <div className={css({ display: "flex", gap: "16px", marginLeft: "auto" })}>
-      <LoginBtn text={params.dict.login} />
-    </div>
-  );
-
   return (
     <header className={headerStyle()}>
       <Link href="/" className={logoStyle()}>
         {params.dict.minquill}
       </Link>
-      <nav className={navStyle()}>
-        <ul className={css({ display: "flex", marginLeft: "auto" })}>
-          <li>{buttons}</li>
-        </ul>
-      </nav>
     </header>
   );
 };

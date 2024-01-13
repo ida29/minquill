@@ -13,10 +13,13 @@ import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
-export const HomePageBody = (params: { dict: Dictionary }) => {
+export const HomePageBody = (params: {
+  dict: Dictionary;
+  tabIndex: number;
+  setTabIndex: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const [postsValue, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [tabIndex, setTabIndex] = useState(0);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
@@ -84,24 +87,30 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
         >
           <Link href={`/`}>
             <li
-              className={`${liStyle()} ${tabIndex === 0 ? activeTab() : ""}`}
-              onClick={() => setTabIndex(0)}
+              className={`${liStyle()} ${
+                params.tabIndex === 0 ? activeTab() : ""
+              }`}
+              onClick={() => params.setTabIndex(0)}
             >
               Explore
             </li>
           </Link>
           <Link href={`/images`}>
             <li
-              className={`${liStyle()} ${tabIndex === 1 ? activeTab() : ""}`}
-              onClick={() => setTabIndex(1)}
+              className={`${liStyle()} ${
+                params.tabIndex === 1 ? activeTab() : ""
+              }`}
+              onClick={() => params.setTabIndex(1)}
             >
               Posts
             </li>
           </Link>
           <Link href={`/images`}>
             <li
-              className={`${liStyle()} ${tabIndex === 2 ? activeTab() : ""}`}
-              onClick={() => setTabIndex(2)}
+              className={`${liStyle()} ${
+                params.tabIndex === 2 ? activeTab() : ""
+              }`}
+              onClick={() => params.setTabIndex(2)}
             >
               Images
             </li>
