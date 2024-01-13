@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Hind } from "next/font/google";
-import NextAuthProvider from "@/app/[lang]/providers/NextAuth";
+import NextAuthProvider from "@/app/_providers/NextAuth";
 import { css } from "@/styled-system/css";
 
 export const hind = Hind({
