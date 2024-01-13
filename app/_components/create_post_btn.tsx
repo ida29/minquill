@@ -23,7 +23,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => router.push("/posts/new")}
+      onClick={() => router.push("/articles/new")}
     />
   );
 };

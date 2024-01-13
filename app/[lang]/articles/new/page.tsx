@@ -1,4 +1,4 @@
-// app/[lang]/posts/new/page.tsx
+// app/[lang]/articles/new/page.tsx
 
 import { EditorHeader } from "@/app/_components/editor_header";
 import { EditorBody } from "@/app/_components/editor_body";

@@ -18,7 +18,7 @@ export async function GET(
     include: {
       comments: true,
       likes: true,
-      posts: {
+      articles: {
         orderBy: {
           createdAt: "desc",
         },

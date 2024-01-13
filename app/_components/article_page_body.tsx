@@ -1,11 +1,11 @@
-// components/post_page_body.tsx
+// components/article_page_body.tsx
 "use client";
 
 //import Link from "next/link";
 import { css } from "@/styled-system/css";
 import "./styles.css";
 import { Dictionary } from "@/app/_utils/dictionary";
-import { getPost, Post } from "@/app/_utils/post";
+import { getArticle, Article } from "@/app/_utils/article";
 import { useState, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
@@ -13,20 +13,20 @@ import Image from "next/image";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
-export const PostPageBody = (params: {
+export const ArticlePageBody = (params: {
   dict: Dictionary;
   username: string;
   unique: string;
 }) => {
-  const [post, setPost] = useState<Post>();
+  const [article, setArticle] = useState<Article>();
   const unique = useMemo(() => {
     return params.unique;
   }, [params.unique]);
 
   useEffect(() => {
     (async () => {
-      const post: Post = await getPost(unique);
-      setPost(post);
+      const article: Article = await getArticle(unique);
+      setArticle(article);
     })();
   }, [unique]);
 
@@ -55,7 +55,7 @@ export const PostPageBody = (params: {
           <Image
             width="400"
             height="400"
-            src={post?.coverImg || ""}
+            src={article?.coverImg || ""}
             alt="Cover Image"
             className={css({
               width: "100%",
@@ -87,7 +87,7 @@ export const PostPageBody = (params: {
               lg: { fontSize: "2.8rem", width: "auto" },
             })}
           >
-            {post?.title}
+            {article?.title}
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@ export const PostPageBody = (params: {
           <Image
             width="48"
             height="48"
-            src={post?.author?.image || ""}
+            src={article?.author?.image || ""}
             alt="User Image"
             className={css({
               borderRadius: "50%",
@@ -129,8 +129,8 @@ export const PostPageBody = (params: {
               fontWeight: "700",
             })}
           >
-            <p>{post?.author?.name}</p>
-            <p>{post?.author?.username}</p>
+            <p>{article?.author?.name}</p>
+            <p>{article?.author?.username}</p>
           </div>
         </div>
         <div
@@ -141,8 +141,8 @@ export const PostPageBody = (params: {
             margin: "2rem 0",
           })}
         >
-          {post?.tags &&
-            post?.tags.map((tag: { name: string }) => (
+          {article?.tags &&
+            article?.tags.map((tag: { name: string }) => (
               <div key={tag.name}>#{tag.name}</div>
             ))}
         </div>
@@ -187,7 +187,7 @@ export const PostPageBody = (params: {
                 ),
               }}
             >
-              {post?.content}
+              {article?.content}
             </ReactMarkdown>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import { getUser, User } from "@/app/_utils/user";
-import { Post } from "@/app/_utils/post";
+import { Article } from "@/app/_utils/article";
 import { useState, useEffect } from "react";
 import {
   FiFileText,
@@ -109,7 +109,7 @@ export const UserPageBody = (params: {
                   fontSize: "1.5rem",
                 })}
               />
-              {user?.posts?.length} Posts
+              {user?.articles?.length} Articles
             </li>
             <li
               className={css({
@@ -153,7 +153,7 @@ export const UserPageBody = (params: {
               width: "100%",
             })}
           >
-            {user?.posts?.map((post: Post, index) => (
+            {user?.articles?.map((article: Article, index) => (
               <div
                 key={index}
                 className={css({
@@ -179,7 +179,7 @@ export const UserPageBody = (params: {
                     width: "100%",
                   })}
                 >
-                  <Link href={`/${post.authorId}/posts/${post.ulid}`}>
+                  <Link href={`/${article.authorId}/articles/${article.ulid}`}>
                     <article
                       className={css({
                         bg: "bg3",
@@ -198,7 +198,7 @@ export const UserPageBody = (params: {
                         <Image
                           width="400"
                           height="400"
-                          src={post.coverImg || "/lowpoly_whiz.png"}
+                          src={article.coverImg || "/lowpoly_whiz.png"}
                           alt="Cover Image"
                           className={css({
                             borderRadius: "10px 10px 0 0",
@@ -225,7 +225,7 @@ export const UserPageBody = (params: {
                             padding: ".8rem",
                           })}
                         >
-                          {post?.title}
+                          {article?.title}
                           <ul
                             id="reactions"
                             className={css({
@@ -240,7 +240,7 @@ export const UserPageBody = (params: {
                                 })}
                               />
                             </li>
-                            <li>{post.likes?.length}</li>
+                            <li>{article.likes?.length}</li>
                             <li>
                               <FiMessageSquare
                                 className={css({
@@ -248,11 +248,11 @@ export const UserPageBody = (params: {
                                 })}
                               />
                             </li>
-                            <li>{post.comments?.length}</li>
+                            <li>{article.comments?.length}</li>
                           </ul>
                         </div>
                         <Link
-                          href={`/${post.authorId}/posts/${post.ulid}/edit`}
+                          href={`/${article.authorId}/articles/${article.ulid}/edit`}
                         >
                           <div
                             className={css({
@@ -264,7 +264,7 @@ export const UserPageBody = (params: {
                               marginBottom: "2rem",
                             })}
                           >
-                            {params.dict.edit_post}
+                            {params.dict.edit_article}
                           </div>
                         </Link>
                       </div>

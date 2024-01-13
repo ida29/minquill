@@ -1,8 +1,8 @@
-// app/api/posts/[unique]/route.ts
+// app/api/articles/[unique]/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/prisma";
-import { Post } from "@prisma/client";
+import { Article } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 
@@ -14,7 +14,7 @@ export async function GET(
     params: { unique: string };
   },
 ) {
-  const post: Post | null = await prisma.post.findUnique({
+  const article: Article | null = await prisma.article.findUnique({
     where: {
       ulid: params.unique,
     },
@@ -25,7 +25,7 @@ export async function GET(
       tags: true,
     },
   });
-  return NextResponse.json(post);
+  return NextResponse.json(article);
 }
 
 export async function POST(
@@ -43,7 +43,7 @@ export async function POST(
 
   try {
     const req_json = await req.json();
-    const post: Post = await prisma.post.update({
+    const article: Article = await prisma.article.update({
       where: {
         ulid: params.unique,
       },
@@ -66,11 +66,11 @@ export async function POST(
         },
       },
     });
-    return new NextResponse(`${post.id}`, { status: 200 });
+    return new NextResponse(`${article.id}`, { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to create post" },
+      { error: "Failed to create article" },
       { status: 500 },
     );
   }

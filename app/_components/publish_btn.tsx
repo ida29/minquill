@@ -1,8 +1,8 @@
 "use client";
 import { ActionButton } from "@/app/_components/action_button";
 import useLocalStorageState from "use-local-storage-state";
-import { createPost } from "@/app/_utils/post";
-import { Post } from "@/app/_utils/post";
+import { createArticle } from "@/app/_utils/article";
+import { Article } from "@/app/_utils/article";
 import { useRouter } from "next/navigation";
 
 type PublishBtnProps = {
@@ -26,17 +26,17 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   const content = contentValue as string;
   const title = titleValue as string;
   const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
-  const newPost: Post = {
+  const newArticle: Article = {
     title: title,
     content: content,
     coverImg: coverImg,
     tags: tags as [],
   };
 
-  const handlePublish = async (newPost: Post) => {
+  const handlePublish = async (newArticle: Article) => {
     try {
       router.push(`/${username}`);
-      await createPost(newPost);
+      await createArticle(newArticle);
       setContent("");
       setTitle("");
       setCoverImg("");
@@ -51,7 +51,7 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => handlePublish(newPost)}
+      onClick={() => handlePublish(newArticle)}
     />
   );
 };

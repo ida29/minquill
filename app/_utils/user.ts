@@ -5,7 +5,7 @@ export type User = {
   name: string;
   email: string;
   image: string;
-  posts: [];
+  articles: [];
   comments: [];
   likes: [];
   followers: [];
@@ -20,7 +20,7 @@ export async function getUser(unique: string): Promise<User> {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to get posts: ${response.statusText}`);
+    throw new Error(`Failed to get user: ${response.statusText}`);
   }
 
   const user: User = await response.json();

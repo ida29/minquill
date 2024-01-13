@@ -1,14 +1,14 @@
-// components/post_page_wrapper.tsx
+// components/article_page_wrapper.tsx
 "use client";
 
 import { Dictionary } from "@/app/_utils/dictionary";
-import { PostPageHeader } from "./post_page_header";
-import { PostPageBody } from "./post_page_body";
+import { ArticlePageHeader } from "@/app/_components/article_page_header";
+import { ArticlePageBody } from "@/app/_components/article_page_body";
 import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
 //import { useSession } from "next-auth/react";
 
-export const PostPageWrapper = (params: {
+export const ArticlePageWrapper = (params: {
   dict: Dictionary;
   username: string;
   unique: string;
@@ -33,8 +33,8 @@ export const PostPageWrapper = (params: {
           width: "100vw",
         })}
       >
-        <PostPageHeader dict={dict} />
-        <PostPageBody dict={dict} username={username} unique={unique} />
+        <ArticlePageHeader dict={dict} />
+        <ArticlePageBody dict={dict} username={username} unique={unique} />
       </div>
     </div>
   );

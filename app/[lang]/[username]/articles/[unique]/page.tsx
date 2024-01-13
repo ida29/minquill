@@ -1,7 +1,7 @@
-// app/[lang]/[username]/posts/[unique]/page.tsx
+// app/[lang]/[username]/articles/[unique]/page.tsx
 
 import { getDictionary } from "@/app/_utils/dictionary";
-import { PostPageWrapper } from "@/app/_components/post_page_wrapper";
+import { ArticlePageWrapper } from "@/app/_components/article_page_wrapper";
 
 export default async function App({
   params: { lang, username, unique },
@@ -10,5 +10,5 @@ export default async function App({
 }) {
   const dict = await getDictionary(lang);
 
-  return <PostPageWrapper dict={dict} username={username} unique={unique} />;
+  return <ArticlePageWrapper dict={dict} username={username} unique={unique} />;
 }

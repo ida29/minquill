@@ -5,16 +5,16 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import {
-  getPostsWithToken,
-  getRecommendedPosts,
-  Post,
-} from "@/app/_utils/post";
+  getArticlesWithToken,
+  getRecommendedArticles,
+  Article,
+} from "@/app/_utils/article";
 import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
 export const HomePageBody = (params: { dict: Dictionary }) => {
-  const [postsValue, setPosts] = useState<Post[]>([]);
+  const [articlesValue, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
@@ -22,8 +22,8 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
     (async () => {
       setIsLoading(true);
       try {
-        const posts: Post[] = await getRecommendedPosts(20, tags);
-        setPosts(posts);
+        const articles: Article[] = await getRecommendedArticles(20, tags);
+        setArticles(articles);
       } catch (err) {
         console.error(err);
       } finally {
@@ -35,11 +35,11 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
     try {
-      const posts: Post[] =
+      const articles: Article[] =
         token === ""
-          ? await getRecommendedPosts(20, tags)
-          : await getPostsWithToken(token, 30);
-      setPosts(posts);
+          ? await getRecommendedArticles(20, tags)
+          : await getArticlesWithToken(token, 30);
+      setArticles(articles);
     } catch (err) {
       console.error(err);
     } finally {
@@ -81,8 +81,8 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             lg: { fontSize: "1.6rem", gap: "0 8rem" },
           })}
         >
-          <Link href={`/posts`}>
-            <li className={`${liStyle()} ${activeTab()}`}>Posts</li>
+          <Link href={`/articles`}>
+            <li className={`${liStyle()} ${activeTab()}`}>Articles</li>
           </Link>
           <Link href={`/images`}>
             <li className={`${liStyle()}`}>Images</li>
@@ -131,12 +131,12 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           />
         </div>
       </div>
-      {postsValue.length > 0 && !isLoading
+      {articlesValue.length > 0 && !isLoading
         ? tags.map((tagName) => (
             <div key={tagName}>
-              {postsValue.filter(
-                (post) =>
-                  post.tags?.some(
+              {articlesValue.filter(
+                (article) =>
+                  article.tags?.some(
                     (tag: { name: string }) => tag.name === tagName,
                   ),
               ).length > 0 && (
@@ -169,20 +169,20 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                   lg: { gap: ".5rem" },
                 })}
               >
-                {postsValue
+                {articlesValue
                   .filter(
-                    (post) =>
-                      post.tags?.some(
+                    (article) =>
+                      article.tags?.some(
                         (tag: { name: string }) => tag.name === tagName,
                       ),
                   )
                   .concat([...Array(5)])
                   .slice(0, 5)
-                  .map((post, index) =>
-                    post ? (
+                  .map((article, index) =>
+                    article ? (
                       <Link
                         key={index}
-                        href={`/${post.authorId}/posts/${post.ulid}`}
+                        href={`/${article.authorId}/articles/${article.ulid}`}
                       >
                         <article
                           className={css({
@@ -207,7 +207,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             <Image
                               width="200"
                               height="200"
-                              src={post.coverImg || ""}
+                              src={article.coverImg || ""}
                               alt="Cover Image"
                               className={css({
                                 borderRadius: "10px 10px 0 0",
@@ -232,7 +232,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 fontSize: "1rem",
                               })}
                             >
-                              {post?.title}
+                              {article?.title}
                             </div>
                             <div
                               className={css({
@@ -246,7 +246,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 color: "text3",
                               })}
                             >
-                              {post?.content}
+                              {article?.content}
                             </div>
                             <div
                               className={css({
@@ -275,7 +275,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                         fontSize: "1.5rem",
                                       })}
                                     />
-                                    {post?.likes?.length}
+                                    {article?.likes?.length}
                                   </div>
                                 </li>
                                 <li>
@@ -290,7 +290,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                         fontSize: "1.5rem",
                                       })}
                                     />
-                                    {post?.comments?.length}
+                                    {article?.comments?.length}
                                   </div>
                                 </li>
                               </ul>
@@ -306,7 +306,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                               <Image
                                 width="40"
                                 height="40"
-                                src={post.author?.image || ""}
+                                src={article.author?.image || ""}
                                 alt="User Image"
                                 className={css({
                                   borderRadius: "50%",
@@ -319,8 +319,8 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                   flexDirection: "column",
                                 })}
                               >
-                                <p>{post?.author?.name}</p>
-                                <p>{post?.author?.username}</p>
+                                <p>{article?.author?.name}</p>
+                                <p>{article?.author?.username}</p>
                               </div>
                             </div>
                           </div>

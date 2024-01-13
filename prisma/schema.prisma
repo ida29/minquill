@@ -47,7 +47,7 @@ model User {
   stripeCustomerId String?    @unique
   isActive         Boolean    @default(false)
   role             Role       @default(USER)
-  posts            Post[]
+  articles            Article[]
   comments         Comment[]
   likes            Like[]
   followers        Follow[]   @relation("Follower")
@@ -67,12 +67,12 @@ model VerificationToken {
 model Tag {
   id        Int    @id @default(autoincrement())
   name      String @unique @map("name")
-  posts     Post[] @relation("post_tag")
+  articles     Article[] @relation("article_tag")
 
   @@map("tags")
 }
 
-model Post {
+model Article {
   id               Int      @id @default(autoincrement())
   ulid             String   @unique
   createdAt        DateTime @default(now())
@@ -87,37 +87,37 @@ model Post {
   authorId         String
   comments         Comment[]
   likes            Like[]
-  tags             Tag[]    @relation("post_tag")
+  tags             Tag[]    @relation("article_tag")
 
   @@index([authorId])
   @@fulltext([tokenizedContent, tokenizedTitle])
-  @@map("posts")
+  @@map("articles")
 }
 
 model Comment {
   id              Int            @id @default(autoincrement())
   userId          String
-  postId          Int?
+  articleId          Int?
   serviceId       Int?
   commentText     String
   createdAt       DateTime       @default(now())
   user            User           @relation(fields: [userId], references: [id])
-  post            Post?          @relation(fields: [postId], references: [id])
+  article            Article?          @relation(fields: [articleId], references: [id])
 
-  @@index([userId, postId])
+  @@index([userId, articleId])
   @@index([userId, serviceId])
 }
 
 model Like {
   id             Int     @id @default(autoincrement())
   userId         String
-  postId         Int?
+  articleId         Int?
   serviceId      Int?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
-  post           Post?    @relation(fields: [postId], references: [id])
+  article           Article?    @relation(fields: [articleId], references: [id])
 
-  @@index([userId, postId])
+  @@index([userId, articleId])
   @@index([userId, serviceId])
 }
 

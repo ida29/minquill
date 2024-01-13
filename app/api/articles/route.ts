@@ -1,7 +1,7 @@
-// app/api/posts/route.ts
+// app/api/articles/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../prisma/prisma";
-import { Post } from "@prisma/client";
+import { Article } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { ulid } from "ulid";
@@ -16,11 +16,11 @@ export async function GET(req: NextRequest) {
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
     const mode = searchParams.get("mode") || "latest";
 
-    let posts: Post[] = [];
+    let articles: Article[] = [];
 
     if (mode === "recommended") {
     } else if (mode === "tags") {
-      posts = await prisma.post.findMany({
+      articles = await prisma.article.findMany({
         where: {
           tags: {
             some: {
@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         },
       });
     } else if (mode === "fulltext") {
-      posts = await prisma.post.findMany({
+      articles = await prisma.article.findMany({
         where: {
           tokenizedTitle: {
             search: token,
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
       });
     } else {
       const where = username ? { authorId: username } : {};
-      posts = await prisma.post.findMany({
+      articles = await prisma.article.findMany({
         where,
         take: count,
         orderBy: {
@@ -79,11 +79,11 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return new NextResponse(JSON.stringify(posts), { status: 200 });
+    return new NextResponse(JSON.stringify(articles), { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to retrieve posts" },
+      { error: "Failed to retrieve articles" },
       { status: 500 },
     );
   }
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const req_json = await req.json();
-    const post: Post = await prisma.post.create({
+    const article: Article = await prisma.article.create({
       data: {
         title: req_json.title,
         tokenizedTitle: req_json.tokenizedTitle,
@@ -118,11 +118,11 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-    return new NextResponse(`${post.id}`, { status: 200 });
+    return new NextResponse(`${article.id}`, { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to create post" },
+      { error: "Failed to create article" },
       { status: 500 },
     );
   }

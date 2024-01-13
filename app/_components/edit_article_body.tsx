@@ -1,4 +1,4 @@
-// components/edit_post_body.tsx
+// components/edit_article_body.tsx
 "use client";
 
 import Image from "next/image";
@@ -21,7 +21,7 @@ import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { useState, useEffect, useMemo } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { getPost, updatePost, Post } from "@/app/_utils/post";
+import { getArticle, updateArticle, Article } from "@/app/_utils/article";
 import { User } from "@/app/_utils/user";
 import { ActionButton } from "@/app/_components/action_button";
 import rehypeRaw from "rehype-raw";
@@ -48,7 +48,7 @@ const myTheme = createTheme({
   styles: [],
 });
 
-export const EditPostBody = (params: {
+export const EditArticleBody = (params: {
   dict: Dictionary;
   username: string;
   unique: string;
@@ -72,16 +72,16 @@ export const EditPostBody = (params: {
 
   useEffect(() => {
     (async () => {
-      const post: Post = await getPost(unique);
-      setTitle(post?.title);
-      setUser(post?.author);
+      const article: Article = await getArticle(unique);
+      setTitle(article?.title);
+      setUser(article?.author);
       setTags(
-        post?.tags
-          ? post.tags.map((tag: { name: string }) => tag.name).join(",")
+        article?.tags
+          ? article.tags.map((tag: { name: string }) => tag.name).join(",")
           : "",
       );
-      setContentValue(post?.content);
-      setCoverImg(post.coverImg ? post.coverImg : "");
+      setContentValue(article?.content);
+      setCoverImg(article.coverImg ? article.coverImg : "");
     })();
   }, [unique]);
 
@@ -90,14 +90,14 @@ export const EditPostBody = (params: {
       const content = contentValue as string;
       const title = titleValue as string;
       const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
-      const newPost: Post = {
+      const newArticle: Article = {
         title: title,
         content: content,
         coverImg: coverImg,
         tags: tags as [],
       };
 
-      await updatePost(newPost, unique);
+      await updateArticle(newArticle, unique);
     } catch (error) {
       console.error(error);
     }

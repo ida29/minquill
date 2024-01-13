@@ -1,4 +1,4 @@
-// components/edit_post_header.tsx
+// components/edit_article_header.tsx
 "use client";
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
@@ -13,7 +13,7 @@ import {
 } from "react-icons/fi";
 import useLocalStorageState from "use-local-storage-state";
 
-export const EditPostHeader = (params: {
+export const EditArticleHeader = (params: {
   dict: Dictionary;
   username: string;
 }) => {

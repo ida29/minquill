@@ -1,4 +1,4 @@
-// components/editor_header.tsx
+// components/article_page_header.tsx
 "use client";
 
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { Dictionary } from "@/app/_utils/dictionary";
 //import { useSession } from "next-auth/react";
 import { FiArrowLeftCircle } from "react-icons/fi";
 
-export const PostPageHeader = (params: { dict: Dictionary }) => {
+export const ArticlePageHeader = (params: { dict: Dictionary }) => {
   //const { data: session, status } = useSession();
 
   return (

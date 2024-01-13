@@ -1,4 +1,4 @@
-// app/[lang]/(home)/posts/page.tsx
+// app/[lang]/(home)/articles/page.tsx
 
 "use client";
 

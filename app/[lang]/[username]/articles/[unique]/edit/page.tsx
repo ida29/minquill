@@ -1,9 +1,9 @@
-// app/[lang]/[username]/posts/[unique]/page.tsx
+// app/[lang]/[username]/articles/[unique]/page.tsx
 
 import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
-import { EditPostHeader } from "@/app/_components/edit_post_header";
-import { EditPostBody } from "@/app/_components/edit_post_body";
+import { EditArticleHeader } from "@/app/_components/edit_article_header";
+import { EditArticleBody } from "@/app/_components/edit_article_body";
 
 export default async function App({
   params: { lang, username, unique },
@@ -29,8 +29,8 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <EditPostHeader dict={dict} username={username} />
-        <EditPostBody dict={dict} username={username} unique={unique} />
+        <EditArticleHeader dict={dict} username={username} />
+        <EditArticleBody dict={dict} username={username} unique={unique} />
       </div>
     </div>
   );

@@ -5,10 +5,10 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import {
-  getPostsWithToken,
-  getRecommendedPosts,
-  Post,
-} from "@/app/_utils/post";
+  getArticlesWithToken,
+  getRecommendedArticles,
+  Article,
+} from "@/app/_utils/article";
 import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
@@ -57,8 +57,8 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
             lg: { fontSize: "1.6rem", gap: "0 8rem" },
           })}
         >
-          <Link href={`/posts`}>
-            <li className={`${liStyle()} }`}>Posts</li>
+          <Link href={`/articles`}>
+            <li className={`${liStyle()} }`}>Articles</li>
           </Link>
           <Link href={`/images`}>
             <li className={`${liStyle()} ${activeTab()}`}>Images</li>
