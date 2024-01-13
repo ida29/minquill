@@ -1,8 +1,8 @@
 // components/landing_page_body.tsx
 import { css, cva } from "@/styled-system/css";
-import { Dictionary } from "@/app/[lang]/_utils/dictionary";
+import { Dictionary } from "@/app/_utils/dictionary";
 import Image from "next/image";
-import { LoginBtn } from "@/app/[lang]/_components/login_btn";
+import { LoginBtn } from "@/app/_components/login_btn";
 
 export const LandingPageBody = async (params: { dict: Dictionary }) => {
   return (

@@ -4,8 +4,8 @@
 //import Link from "next/link";
 import { css } from "@/styled-system/css";
 import "./styles.css";
-import { Dictionary } from "@/app/[lang]/_utils/dictionary";
-import { getPost, Post } from "@/app/[lang]/_utils/post";
+import { Dictionary } from "@/app/_utils/dictionary";
+import { getPost, Post } from "@/app/_utils/post";
 import { useState, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";

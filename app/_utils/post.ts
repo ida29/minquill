@@ -1,6 +1,6 @@
 // app/[lang]/post.ts
 
-import { User } from "@/app/[lang]/_utils/user";
+import { User } from "@/app/_utils/user";
 import { nGram } from "n-gram";
 //import moji from "moji";
 

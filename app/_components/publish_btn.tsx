@@ -1,8 +1,8 @@
 "use client";
-import { ActionButton } from "@/app/[lang]/_components/action_button";
+import { ActionButton } from "@/app/_components/action_button";
 import useLocalStorageState from "use-local-storage-state";
-import { createPost } from "@/app/[lang]/_utils/post";
-import { Post } from "@/app/[lang]/_utils/post";
+import { createPost } from "@/app/_utils/post";
+import { Post } from "@/app/_utils/post";
 import { useRouter } from "next/navigation";
 
 type PublishBtnProps = {

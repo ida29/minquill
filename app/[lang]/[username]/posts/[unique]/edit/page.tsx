@@ -1,9 +1,9 @@
 // app/[lang]/[username]/posts/[unique]/page.tsx
 
-import { getDictionary } from "@/app/[lang]/_utils/dictionary";
+import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
-import { EditPostHeader } from "@/app/[lang]/_components/edit_post_header";
-import { EditPostBody } from "@/app/[lang]/_components/edit_post_body";
+import { EditPostHeader } from "@/app/_components/edit_post_header";
+import { EditPostBody } from "@/app/_components/edit_post_body";
 
 export default async function App({
   params: { lang, username, unique },

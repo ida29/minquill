@@ -1,19 +1,18 @@
-// components/create_post_btn.tsx
+// components/back_btn.tsx
 "use client";
 
+import { ActionButton } from "@/app/_components/action_button";
 import { useRouter } from "next/navigation";
-import { ActionButton } from "@/app/[lang]/_components/action_button";
-//import { css, cva } from "@/styled-system/css";
 
-type CreatePostBtnProps = {
+type BackBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
 };
 
-export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
+export const BackBtn: React.FC<BackBtnProps> = ({
   text,
-  colorVariant = "primary",
+  colorVariant = "default",
   className,
 }) => {
   const router = useRouter();
@@ -23,7 +22,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
       text={text}
       colorVariant={colorVariant}
       className={className}
-      onClick={() => router.push("/posts/new")}
+      onClick={() => router.push("/")}
     />
   );
 };

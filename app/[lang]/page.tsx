@@ -1,12 +1,12 @@
 // app/page.tsx
-import { HomePageWrapper } from "@/app/[lang]/_components/home_page_wrapper";
-import { LandingPageHeader } from "@/app/[lang]/_components/landing_page_header";
-import { LandingPageBody } from "@/app/[lang]/_components/landing_page_body";
+import { HomePageWrapper } from "@/app/_components/home_page_wrapper";
+import { LandingPageHeader } from "@/app/_components/landing_page_header";
+import { LandingPageBody } from "@/app/_components/landing_page_body";
 import { cva } from "@/styled-system/css";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
-import { getDictionary } from "@/app/[lang]/_utils/dictionary";
+import { getDictionary } from "@/app/_utils/dictionary";
 
 export default async function App({
   params: { lang },

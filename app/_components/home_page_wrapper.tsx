@@ -1,22 +1,22 @@
-// components/user_page_wrapper.tsx
+// components/home_page_wrapper.tsx
 "use client";
 
 import Link from "next/link";
-import { Dictionary } from "@/app/[lang]/_utils/dictionary";
-import { UserPageHeader } from "./user_page_header";
-import { UserPageBody } from "./user_page_body";
+import { Dictionary } from "@/app/_utils/dictionary";
+import { HomePageHeader } from "./home_page_header";
+import { HomePageBody } from "./home_page_body";
 import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 
-export const UserPageWrapper = (params: {
+export const HomePageWrapper = (params: {
   dict: Dictionary;
   username: string;
 }) => {
   const { data: session, status } = useSession();
-  const { dict, username } = params;
+  const { dict } = params;
   const [isMenuOpen, setMenuOpen] = useState(false);
   const closeWithClickOutSide = (
     e: React.MouseEvent,
@@ -96,14 +96,15 @@ export const UserPageWrapper = (params: {
           marginLeft: "auto",
           height: "100vh",
           width: "100vw",
+          sm: { width: "90vw" },
         })}
       >
-        <UserPageHeader
+        <HomePageHeader
           dict={dict}
           isMenuOpen={isMenuOpen}
           setMenuOpen={setMenuOpen}
         />
-        <UserPageBody dict={dict} username={username} />
+        <HomePageBody dict={dict} />
 
         {isMenuOpen && (
           <div
