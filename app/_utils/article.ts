@@ -70,7 +70,10 @@ export async function getArticlesByUsername(
   return articles;
 }
 
-export async function updateArticle(newArticle: Article, unique: string): Promise<Article> {
+export async function updateArticle(
+  newArticle: Article,
+  unique: string,
+): Promise<Article> {
   const response = await fetch(`/api/articles/${unique}`, {
     method: "Article",
     cache: "no-cache",

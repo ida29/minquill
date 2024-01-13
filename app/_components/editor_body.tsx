@@ -23,7 +23,7 @@ import { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import rehypeRaw from "rehype-raw";
-import type { User } from "next-auth";
+import { useSession } from "next-auth/react";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -47,11 +47,9 @@ const myTheme = createTheme({
   styles: [],
 });
 
-export const EditorBody = (params: {
-  dict: Dictionary;
-  user: User | null;
-  unique?: string;
-}) => {
+export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
+  const { data: session, status } = useSession();
+
   const [titleValue, setTitle] = useLocalStorageState("title", {
     defaultValue: "",
   });
@@ -351,7 +349,7 @@ export const EditorBody = (params: {
           >
             <PublishBtn
               text={params.dict.publish}
-              username={params?.user?.username}
+              username={session?.user?.username}
             />
           </div>
         </div>
@@ -443,7 +441,7 @@ export const EditorBody = (params: {
             <Image
               width="48"
               height="48"
-              src={params?.user?.image || ""}
+              src={session?.user?.image || ""}
               alt="User Image"
               className={css({
                 borderRadius: "50%",
@@ -457,8 +455,8 @@ export const EditorBody = (params: {
                 fontWeight: "700",
               })}
             >
-              <p>{params?.user?.name}</p>
-              <p>{params?.user?.username}</p>
+              <p>{session?.user?.name}</p>
+              <p>{session?.user?.username}</p>
             </div>
           </div>
           <div

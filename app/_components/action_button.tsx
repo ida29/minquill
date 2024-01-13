@@ -5,7 +5,7 @@ type ButtonProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const ActionButton: React.FC<ButtonProps> = ({

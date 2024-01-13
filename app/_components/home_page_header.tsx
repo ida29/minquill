@@ -23,6 +23,7 @@ export const HomePageHeader = (params: {
 
   let buttons;
   let buttons2;
+  let logo;
   if (status === "authenticated") {
     buttons = (
       <>
@@ -60,9 +61,15 @@ export const HomePageHeader = (params: {
         </div>
       </>
     );
+    logo = <div className={logoStyle()}>{params.dict.minquill}</div>;
     buttons2 = <CreatePostBtn text={params.dict.create_post} />;
+  } else if (status === "loading") {
+    buttons = <></>;
+    logo = <div className={logoStyle()}>Loading...</div>;
+    buttons2 = <></>;
   } else {
     buttons = <></>;
+    logo = <div className={logoStyle()}>{params.dict.minquill}</div>;
     buttons2 = <LoginBtn text={params.dict.login} />;
   }
 
@@ -111,9 +118,7 @@ export const HomePageHeader = (params: {
               height: "100%",
             })}
           >
-            <Link href={`/`}>
-              <div className={logoStyle()}>{params.dict.minquill}</div>
-            </Link>
+            <Link href={`/`}>{logo}</Link>
           </li>
           <li
             className={css({

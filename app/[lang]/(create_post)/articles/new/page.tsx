@@ -2,9 +2,6 @@
 
 import { EditorHeader } from "@/app/_components/editor_header";
 import { EditorBody } from "@/app/_components/editor_body";
-import { getServerSession } from "next-auth";
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
 import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
 
@@ -13,12 +10,7 @@ export default async function App({
 }: {
   params: { lang: string };
 }) {
-  const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
-
-  if (!session) {
-    return redirect("/auth/signin");
-  }
 
   return (
     <div
@@ -38,7 +30,7 @@ export default async function App({
         })}
       >
         <EditorHeader dict={dict} />
-        <EditorBody dict={dict} user={session.user ? session.user : null} />
+        <EditorBody dict={dict} />
       </div>
     </div>
   );
