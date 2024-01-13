@@ -9,7 +9,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
     <main
       className={css({
         paddingTop: "4.4rem",
-		  height: "100%",
+        height: "100%",
       })}
     >
       <div
@@ -18,7 +18,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
           justifyContent: "center",
           margin: "0 calc(50% - 50vw)",
           bg: "stone.300",
-		  height: "100%",
+          height: "100%",
         })}
       >
         <div className={div2Style()}>
@@ -32,49 +32,49 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
               md: { width: "50%" },
             })}
           >
-              <div
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                width: "100%",
+              })}
+            >
+              <h2
                 className={css({
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
                   width: "100%",
+                  paddingBottom: "2rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "1.6rem",
+                  sm: { fontSize: "1.8rem" },
+                  md: { fontSize: "2rem" },
+                  lg: { fontSize: "2.2rem" },
                 })}
               >
-                <h2
-                  className={css({
-                    width: "100%",
-                    paddingBottom: "2rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontSize: "1.6rem",
-                    sm: { fontSize: "1.8rem" },
-                    md: { fontSize: "2rem" },
-                    lg: { fontSize: "2.2rem" },
-                  })}
-                >
-                  {params.dict.lp_text1}
-                  <br />
-                </h2>
-                <div
-                  className={css({
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-					gap: "1rem",
-                    margin: "0 0 1rem 0",
-                  })}
-                >
-                  <LoginBtn text={params.dict.login} colorVariant="primary"/>
-                  <LoginBtn text={params.dict.signin}  colorVariant="secondary"/>
-                </div>
+                {params.dict.lp_text1}
+                <br />
+              </h2>
+              <div
+                className={css({
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1rem",
+                  margin: "0 0 1rem 0",
+                })}
+              >
+                <LoginBtn text={params.dict.login} colorVariant="primary" />
+                <LoginBtn text={params.dict.signin} colorVariant="secondary" />
               </div>
-            </section>
+            </div>
+          </section>
           <div
             className={css({
               display: "flex",
               height: "50%",
-			  justifyContent: "center",
-			  alignItems: "center",
+              justifyContent: "center",
+              alignItems: "center",
               width: "0%",
               md: { width: "50%" },
             })}
@@ -100,8 +100,8 @@ const div2Style = cva({
   base: {
     width: "100%",
     display: "flex",
-	justifyContent: "center",
-	alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
     padding: "0 0.5rem",
     sm: { padding: "0 1rem" },
     md: { padding: "0 1.5rem" },

@@ -1,5 +1,5 @@
-// app/page.tsx
-import { HomePageWrapper } from "@/app/_components/home_page_wrapper";
+// app/[lang]/page.tsx
+
 import { LandingPageHeader } from "@/app/_components/landing_page_header";
 import { LandingPageBody } from "@/app/_components/landing_page_body";
 import { cva } from "@/styled-system/css";
@@ -7,6 +7,7 @@ import React from "react";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { getDictionary } from "@/app/_utils/dictionary";
+import { redirect } from "next/navigation";
 
 export default async function App({
   params: { lang },
@@ -16,20 +17,15 @@ export default async function App({
   const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
 
-  if (!session) {
-    return (
-      <div className={mainStyle()}>
-        <LandingPageHeader dict={dict} />
-        <LandingPageBody dict={dict} />
-      </div>
-    );
+  if (session) {
+    return redirect("/explore/posts");
   }
 
   return (
-    <HomePageWrapper
-      dict={dict}
-      username={session.user ? session.user.username : ""}
-    />
+    <div className={mainStyle()}>
+      <LandingPageHeader dict={dict} />
+      <LandingPageBody dict={dict} />
+    </div>
   );
 }
 

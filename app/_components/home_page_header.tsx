@@ -3,11 +3,11 @@
 
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
-import { SigninWithGoogleBtn } from "@/app/_components/sign_in_with_google_btn";
 import { CreatePostBtn } from "@/app/_components/create_post_btn";
 import { Dictionary } from "@/app/_utils/dictionary";
 import { useSession } from "next-auth/react";
 import { FiMenu, FiXCircle } from "react-icons/fi";
+import { LoginBtn } from "@/app/_components/login_btn";
 
 export const HomePageHeader = (params: {
   dict: Dictionary;
@@ -22,7 +22,8 @@ export const HomePageHeader = (params: {
   };
 
   let buttons;
-  if (!session || status === "authenticated") {
+  let buttons2;
+  if (status === "authenticated") {
     buttons = (
       <>
         <div
@@ -59,8 +60,10 @@ export const HomePageHeader = (params: {
         </div>
       </>
     );
+    buttons2 = <CreatePostBtn text={params.dict.create_post} />;
   } else {
-    buttons = <SigninWithGoogleBtn text={params.dict.login} />;
+    buttons = <></>;
+    buttons2 = <LoginBtn text={params.dict.login} />;
   }
 
   return (
@@ -121,7 +124,7 @@ export const HomePageHeader = (params: {
               color: "text1",
             })}
           >
-            <CreatePostBtn text={params.dict.create_post} />
+            {buttons2}
           </li>
         </ul>
       </nav>

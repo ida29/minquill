@@ -1,24 +1,33 @@
-// components/home_page_wrapper.tsx
+//app/[lang]/top/page.tsx
+
 "use client";
 
 import Link from "next/link";
-import { Dictionary } from "@/app/_utils/dictionary";
-import { HomePageHeader } from "./home_page_header";
-import { HomePageBody } from "./home_page_body";
-import { useState } from "react";
+import { Dictionary, getDictionary } from "@/app/_utils/dictionary";
+import { HomePageHeader } from "@/app/_components/home_page_header";
+import { useEffect, useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 
-export const HomePageWrapper = (params: {
-  dict: Dictionary;
-  username: string;
-}) => {
+export default function Layout({
+  children,
+  params: { lang },
+}: {
+  children: React.ReactNode;
+  params: { lang: string };
+}) {
   const { data: session, status } = useSession();
-  const { dict } = params;
+  const [dict, setDict] = useState<Dictionary>({});
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const dict = await getDictionary(lang);
+      setDict(dict);
+    })();
+  }, [lang]);
 
   const closeWithClickOutSide = (
     e: React.MouseEvent,
@@ -26,59 +35,8 @@ export const HomePageWrapper = (params: {
   ) => {
     if (e.target === e.currentTarget) {
       setMenuOpen(false);
-    } else {
     }
   };
-
-  let activeTavItem;
-  if (tabIndex === 0) {
-    activeTavItem = (
-      <>
-        <HomePageHeader
-          dict={dict}
-          isMenuOpen={isMenuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-        <HomePageBody
-          dict={dict}
-          tabIndex={tabIndex}
-          setTabIndex={setTabIndex}
-        />
-      </>
-    );
-  } else if (tabIndex === 1) {
-    activeTavItem = (
-      <>
-        <HomePageHeader
-          dict={dict}
-          isMenuOpen={isMenuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-        <HomePageBody
-          dict={dict}
-          tabIndex={tabIndex}
-          setTabIndex={setTabIndex}
-        />
-      </>
-    );
-  } else if (tabIndex === 2) {
-    activeTavItem = (
-      <>
-        <HomePageHeader
-          dict={dict}
-          isMenuOpen={isMenuOpen}
-          setMenuOpen={setMenuOpen}
-        />
-        <HomePageBody
-          dict={dict}
-          tabIndex={tabIndex}
-          setTabIndex={setTabIndex}
-        />
-      </>
-    );
-  } else {
-    activeTavItem = <></>;
-  }
 
   const menuContents: React.ReactNode[] = [
     <Link
@@ -152,7 +110,12 @@ export const HomePageWrapper = (params: {
           sm: { width: "90vw" },
         })}
       >
-        {activeTavItem}
+        <HomePageHeader
+          dict={dict}
+          isMenuOpen={isMenuOpen}
+          setMenuOpen={setMenuOpen}
+        />
+        {children}
 
         {isMenuOpen && (
           <div
@@ -198,7 +161,7 @@ export const HomePageWrapper = (params: {
       </div>
     </div>
   );
-};
+}
 
 const outerMenuStyle = cva({
   base: {
