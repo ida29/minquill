@@ -2,7 +2,8 @@
 
 import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
-import { NewImage } from "@/app/_components/new_image";
+import { NewImageHeader } from "@/app/_components/new_image_header";
+import { NewImageBody } from "@/app/_components/new_image_body";
 
 export default async function App({
   params: { lang },
@@ -28,7 +29,8 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <NewImage dict={dict} />
+        <NewImageHeader dict={dict} />
+        <NewImageBody dict={dict} />
       </div>
     </div>
   );

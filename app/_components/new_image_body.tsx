@@ -10,7 +10,7 @@ import useLocalStorageState from "use-local-storage-state";
 //import React, { useState } from "react";
 import { ActionButton } from "@/app/_components/action_button";
 
-export const NewImage = (params: { dict: Dictionary }) => {
+export const NewImageBody = (params: { dict: Dictionary }) => {
   //const [contentValue, setContent] = useState<string>("");
   const [contentValue, setContent] = useLocalStorageState("image_content", {
     defaultValue: "",
