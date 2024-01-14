@@ -50,7 +50,7 @@ const myTheme = createTheme({
 export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
   const { data: session, status } = useSession();
 
-  const [titleValue, setTitle] = useLocalStorageState("title", {
+  const [titleValue, setTitle] = useLocalStorageState("article_title", {
     defaultValue: "",
   });
   const [tagsValue, setTags] = useLocalStorageState("tags", {
@@ -59,7 +59,7 @@ export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
   const [activeTabIndex] = useLocalStorageState("activeTab", {
     defaultValue: 0,
   });
-  const [contentValue, setContentValue] = useLocalStorageState("contentValue", {
+  const [contentValue, setContent] = useLocalStorageState("article_content", {
     defaultValue: "",
   });
   const [editorState, setEditorState] = useLocalStorageState("editorState", {
@@ -309,7 +309,7 @@ export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
                   }),
                 ]}
                 onChange={(value, viewUpdate) => {
-                  setContentValue(value);
+                  setContent(value);
 
                   const state = viewUpdate.state.toJSON(stateFields);
                   setEditorState(JSON.stringify(state));
@@ -337,6 +337,8 @@ export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
             <UploadImgDrop
               text={params.dict.drag_n_drop_some_images_here}
               text2={params.dict.click}
+              contentValue={contentValue}
+              setContent={setContent}
             />
           </div>
           <div

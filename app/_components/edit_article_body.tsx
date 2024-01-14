@@ -63,7 +63,7 @@ export const EditArticleBody = (params: {
   const [titleValue, setTitle] = useState("");
   const [userValue, setUser] = useState<User>();
   const [tagsValue, setTags] = useState("");
-  const [contentValue, setContentValue] = useState("");
+  const [contentValue, setContent] = useState("");
   const [coverImg, setCoverImg] = useState("");
 
   const unique = useMemo(() => {
@@ -80,7 +80,7 @@ export const EditArticleBody = (params: {
           ? article.tags.map((tag: { name: string }) => tag.name).join(",")
           : "",
       );
-      setContentValue(article?.content);
+      setContent(article?.content);
       setCoverImg(article.coverImg ? article.coverImg : "");
     })();
   }, [unique]);
@@ -343,7 +343,7 @@ export const EditArticleBody = (params: {
                   }),
                 ]}
                 onChange={(value, viewUpdate) => {
-                  setContentValue(value);
+                  setContent(value);
 
                   const state = viewUpdate.state.toJSON(stateFields);
                   setEditorState(JSON.stringify(state));
@@ -371,6 +371,8 @@ export const EditArticleBody = (params: {
             <UploadImgDrop
               text={params.dict.drag_n_drop_some_images_here}
               text2={params.dict.click}
+              contentValue={contentValue}
+              setContent={setContent}
             />
           </div>
           <div

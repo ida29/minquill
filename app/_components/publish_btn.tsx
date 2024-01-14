@@ -19,8 +19,8 @@ export const PublishBtn: React.FC<PublishBtnProps> = ({
   username,
 }) => {
   const router = useRouter();
-  const [contentValue, setContent] = useLocalStorageState("contentValue");
-  const [titleValue, setTitle] = useLocalStorageState("title");
+  const [contentValue, setContent] = useLocalStorageState("article_content");
+  const [titleValue, setTitle] = useLocalStorageState("article_title");
   const [coverImg, setCoverImg] = useLocalStorageState<string>("cover_img");
   const [tagsValue, setTags] = useLocalStorageState("tags");
   const content = contentValue as string;

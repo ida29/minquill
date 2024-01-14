@@ -2,24 +2,24 @@
 
 //import { css } from "@/styled-system/css";
 import { ActionButton } from "@/app/_components/action_button";
-import useLocalStorageState from "use-local-storage-state";
 import React, { useRef } from "react";
 
 type UploadImgBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
+  contentValue: string;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
   text,
   colorVariant = "default",
   className,
+  contentValue,
+  setContent,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const [contentValue, setContentValue] =
-    useLocalStorageState<string>("contentValue");
 
   const handleUploadImg = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -66,7 +66,7 @@ export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
       content += `\n\n![${res2_json.result.filename}](${res2_json.result.variants[0]})`;
     }
 
-    setContentValue(content);
+    setContent(content);
   };
 
   const btnClick = () => {

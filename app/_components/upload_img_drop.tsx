@@ -1,7 +1,6 @@
 "use client";
 
 //import { css } from "@/styled-system/css";
-import useLocalStorageState from "use-local-storage-state";
 import { DragEvent, useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { FiArrowDownCircle } from "react-icons/fi";
@@ -10,14 +9,16 @@ import { UploadImgBtn } from "@/app/_components/upload_img_btn";
 type UploadImgDropProps = {
   text: string;
   text2: string;
+  contentValue: string;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
   text,
   text2,
+  contentValue,
+  setContent,
 }) => {
-  const [contentValue, setContentValue] =
-    useLocalStorageState<string>("contentValue");
   const [dragIsOver, setDragIsOver] = useState(false);
 
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -67,7 +68,7 @@ export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
       content += `\n\n![${res2_json.result.filename}](${res2_json.result.variants[0]})`;
     }
 
-    setContentValue(content);
+    setContent(content);
   };
 
   return (
@@ -98,7 +99,11 @@ export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
             margin: "0 0 0.6rem 0.6rem",
           })}
         >
-          <UploadImgBtn text={text2} />
+          <UploadImgBtn
+            text={text2}
+            contentValue={contentValue}
+            setContent={setContent}
+          />
         </div>
       </div>
     </div>

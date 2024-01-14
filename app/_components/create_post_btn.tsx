@@ -96,6 +96,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
               gap: ".5rem",
               color: "text1",
               borderRadius: "0 0 .5rem .5rem",
+              borderTop: "1px solid rgba(0,0,0,0.1)",
               padding: "1rem",
               _hover: {
                 bg: "rgba(0,0,0,0.1)",
