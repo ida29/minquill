@@ -498,6 +498,7 @@ export const EditArticleBody = (params: {
           <div
             className={css({
               display: "flex",
+              flexWrap: "wrap",
               gap: "1rem",
               fontSize: "1.2rem",
               margin: "2rem 0",

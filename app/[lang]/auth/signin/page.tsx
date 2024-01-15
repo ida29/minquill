@@ -1,4 +1,5 @@
 // app/[lang]/auth/signin
+
 import { cva, css } from "@/styled-system/css";
 import { SigninWithGoogleBtn } from "@/app/_components/sign_in_with_google_btn";
 import { getDictionary } from "@/app/_utils/dictionary";

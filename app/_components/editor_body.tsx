@@ -14,7 +14,7 @@ import "./styles.css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import { html } from "@codemirror/lang-html";
 import { EditorView } from "@codemirror/view";
-import { PublishBtn } from "@/app/_components/publish_btn";
+import { PublishArticleBtn } from "@/app/_components/publish_article_btn";
 import { UploadImgDrop } from "@/app/_components/upload_img_drop";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
@@ -349,9 +349,17 @@ export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
               marginBottom: "1.6rem",
             })}
           >
-            <PublishBtn
+            <PublishArticleBtn
               text={params.dict.publish}
               username={session?.user?.username}
+              contentValue={contentValue}
+              setContent={setContent}
+              titleValue={titleValue}
+              setTitle={setTitle}
+              coverImg={coverImg}
+              setCoverImg={setCoverImg}
+              tagsValue={tagsValue}
+              setTags={setTags}
             />
           </div>
         </div>
@@ -464,6 +472,7 @@ export const EditorBody = (params: { dict: Dictionary; unique?: string }) => {
           <div
             className={css({
               display: "flex",
+              flexWrap: "wrap",
               gap: "1rem",
               fontSize: "1.2rem",
               margin: "2rem 0",

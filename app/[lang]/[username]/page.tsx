@@ -1,4 +1,5 @@
 // app/[lang]/[username]/page.tsx
+
 import { UserPageWrapper } from "@/app/_components/user_page_wrapper";
 import { getDictionary } from "@/app/_utils/dictionary";
 

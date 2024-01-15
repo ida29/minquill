@@ -1,26 +1,29 @@
-// component/upload_img_btn.tsx
+// component/upload_img_btn2.tsx
 
 "use client";
 
 //import { css } from "@/styled-system/css";
 import { ActionButton } from "@/app/_components/action_button";
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 
 type UploadImgBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
-  contentValue: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
+  imagesValue?: string[];
+  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  multiple?: boolean;
 };
 
-export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
+export const UploadImgBtn2: React.FC<UploadImgBtnProps> = ({
   text,
   colorVariant = "default",
   className,
-  contentValue,
-  setContent,
+  imagesValue,
+  setImages,
+  multiple = false,
 }) => {
+  const [isUploading, setIsUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadImg = async (
@@ -29,9 +32,15 @@ export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
     if (!event.target.files || event.target.files.length === 0) {
       return;
     }
+    setIsUploading(true);
 
-    let content = contentValue;
-    const files = Array.from(event.target.files);
+    let files = Array.from(event.target.files);
+
+    if (!multiple) {
+      files = files.slice(0, 1);
+    }
+
+    const images: string[] = imagesValue === undefined ? [] : imagesValue;
     for (const file of files) {
       const res = await fetch("/api/images/onetime_upload_url", {
         method: "POST",
@@ -56,14 +65,16 @@ export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
 
       if (!res2.ok) {
         console.error("Failed to get the upload URL");
+        setIsUploading(false);
         return;
       }
 
       const res2_json = await res2.json();
-      content += `\n\n![${res2_json.result.filename}](${res2_json.result.variants[0]})`;
+      images.push(`${res2_json.result.variants[0]}`);
     }
 
-    setContent(content);
+    setImages(images);
+    setIsUploading(false);
   };
 
   const btnClick = () => {
@@ -76,7 +87,7 @@ export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({
     <>
       <label>
         <ActionButton
-          text={text}
+          text={!isUploading ? text : "Uploading..."}
           colorVariant={colorVariant}
           className={className}
           onClick={btnClick}
