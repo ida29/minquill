@@ -47,7 +47,8 @@ model User {
   stripeCustomerId String?    @unique
   isActive         Boolean    @default(false)
   role             Role       @default(USER)
-  articles            Article[]
+  articles         Article[]
+  images           Image[]
   comments         Comment[]
   likes            Like[]
   followers        Follow[]   @relation("Follower")
@@ -67,7 +68,8 @@ model VerificationToken {
 model Tag {
   id        Int    @id @default(autoincrement())
   name      String @unique @map("name")
-  articles     Article[] @relation("article_tag")
+  articles  Article[] @relation("article_tag")
+  images    Image[] @relation("image_tag")
 
   @@map("tags")
 }
@@ -94,30 +96,56 @@ model Article {
   @@map("articles")
 }
 
+model Image {
+  id               Int      @id @default(autoincrement())
+  ulid             String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  published        Boolean  @default(false)
+  title            String   @db.VarChar(255)
+  tokenizedTitle   String   @db.VarChar(255)
+  url              String   @db.VarChar(255)
+  user             User     @relation(fields: [username], references: [username])
+  username         String
+  comments         Comment[]
+  likes            Like[]
+  tags             Tag[]    @relation("image_tag")
+
+  @@index([username])
+  @@fulltext([tokenizedTitle])
+  @@map("images")
+}
+
 model Comment {
-  id              Int            @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   userId          String
-  articleId          Int?
+  articleId       Int?
+  imageId         Int?
   serviceId       Int?
   commentText     String
-  createdAt       DateTime       @default(now())
-  user            User           @relation(fields: [userId], references: [id])
-  article            Article?          @relation(fields: [articleId], references: [id])
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id])
+  article         Article? @relation(fields: [articleId], references: [id])
+  image           Image?   @relation(fields: [imageId], references: [id])
 
   @@index([userId, articleId])
+  @@index([userId, imageId])
   @@index([userId, serviceId])
 }
 
 model Like {
-  id             Int     @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   userId         String
-  articleId         Int?
+  articleId      Int?
+  imageId        Int?
   serviceId      Int?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
-  article           Article?    @relation(fields: [articleId], references: [id])
+  article        Article? @relation(fields: [articleId], references: [id])
+  image          Image?   @relation(fields: [imageId], references: [id])
 
   @@index([userId, articleId])
+  @@index([userId, imageId])
   @@index([userId, serviceId])
 }
 

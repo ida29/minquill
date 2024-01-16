@@ -171,6 +171,8 @@ export const NewImageBody = ({
             <div
               className={css({
                 display: "flex",
+                justifyContent: "center",
+                width: "100%",
                 flexWrap: "wrap",
                 gap: "1rem",
                 fontSize: "2rem",
