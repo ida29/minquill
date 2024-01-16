@@ -102,7 +102,7 @@ export async function updateArticle(
 
 export async function createArticle(newArticle: Article): Promise<Article> {
   const response = await fetch("/api/articles", {
-    method: "Article",
+    method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

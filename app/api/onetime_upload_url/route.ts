@@ -1,4 +1,5 @@
-// app/api/images/onetime_upload_url/route.ts
+// app/api/onetime_upload_url/route.ts
+
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";

@@ -4,20 +4,20 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
-import {
-  getArticlesWithToken,
-  getRecommendedArticles,
-  Article,
-} from "@/app/_utils/article";
+import { getRecommendedImages, Image as Img } from "@/app/_utils/image";
 import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
 export const HomePageBody2 = (params: { dict: Dictionary }) => {
+  const [imagesValue, setImages] = useState<Img[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
     (async () => {
+      const images: Img[] = await getRecommendedImages(20, tags);
+      setImages(images);
       setIsLoading(true);
       try {
       } catch (err) {
@@ -26,7 +26,7 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [tags]);
 
   return (
     <main
@@ -72,6 +72,9 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
           flexWrap: "wrap",
         })}
       >
+        {imagesValue.map((image, i) => (
+          <div key={i}>{image.url}</div>
+        ))}
         <Image
           src="/lowpoly_whiz.png"
           alt="LowPoly Mage Image"

@@ -3,8 +3,7 @@
 "use client";
 
 import { ActionButton } from "@/app/_components/action_button";
-//import { createImage } from "@/app/_utils/image";
-//import { Image } from "@/app/_utils/image";
+import { Image, createImage } from "@/app/_utils/image";
 import { useRouter } from "next/navigation";
 
 export const PublishImageBtn = ({
@@ -36,17 +35,17 @@ export const PublishImageBtn = ({
     try {
       const title = titleValue as string;
       const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
-      //const newImage: Image = {
-      //  title: title,
-      //  image: imagesValue[0],
-      //  tags: tags as [],
-      //};
-      router.push(`/${username}`);
-      //const image = await createImage(newImage);
-      //if (image === undefined) {
-      //  console.error("Failed to create image");
-      //  return;
-      //}
+      const newImage: Image = {
+        title: title,
+        url: imagesValue[0],
+        tags: tags as [],
+      };
+      router.push(`/images`);
+      const image = await createImage(newImage);
+      if (image === undefined) {
+        console.error("Failed to create image");
+        return;
+      }
 
       setImages([]);
       setTitle("");

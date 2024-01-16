@@ -38,7 +38,7 @@ export const UploadImgDrop: React.FC<UploadImgDropProps> = ({
     let content = contentValue;
     const files = Array.from(event.dataTransfer.files);
     for (const file of files) {
-      const res = await fetch("/api/images/onetime_upload_url", {
+      const res = await fetch("/api/onetime_upload_url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

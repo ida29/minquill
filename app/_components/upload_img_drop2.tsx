@@ -1,6 +1,5 @@
 "use client";
 
-//import { css } from "@/styled-system/css";
 import { DragEvent, useState } from "react";
 import { css, cva } from "@/styled-system/css";
 import { FiArrowDownCircle } from "react-icons/fi";
@@ -47,7 +46,7 @@ export const UploadImgDrop2: React.FC<UploadImgDropProps> = ({
 
     const images: string[] = imagesValue === undefined ? [] : imagesValue;
     for (const file of files) {
-      const res = await fetch("/api/images/onetime_upload_url", {
+      const res = await fetch("/api/onetime_upload_url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

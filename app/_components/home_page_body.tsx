@@ -161,7 +161,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
               <div
                 className={css({
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
                   margin: "0 .2rem",
                   gap: ".2rem",
                   sm: { gap: ".3rem" },

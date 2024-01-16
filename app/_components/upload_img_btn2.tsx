@@ -42,7 +42,7 @@ export const UploadImgBtn2: React.FC<UploadImgBtnProps> = ({
 
     const images: string[] = imagesValue === undefined ? [] : imagesValue;
     for (const file of files) {
-      const res = await fetch("/api/images/onetime_upload_url", {
+      const res = await fetch("/api/onetime_upload_url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
