@@ -209,6 +209,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                               height="200"
                               src={article.coverImg || ""}
                               alt="Cover Image"
+                              priority={true}
                               className={css({
                                 borderRadius: "10px 10px 0 0",
                                 width: "100%",
@@ -370,7 +371,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                 {
                   // skelton screen
                   [...Array(5)].map((_, index) => (
-                    <Link key={index} href="javascript:void(0)">
+                    <Link key={index} href="">
                       <article
                         className={css({
                           fontWeight: "700",
@@ -464,6 +465,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           alt="LowPoly Mage Image"
           width="250"
           height="250"
+          priority={true}
           className={css({
             margin: "1rem 0 2rem 0",
           })}

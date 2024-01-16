@@ -198,7 +198,7 @@ export const UserPageBody = (params: {
                         <Image
                           width="400"
                           height="400"
-                          src={article.coverImg || "/lowpoly_whiz.png"}
+                          src={article.coverImg || ""}
                           alt="Cover Image"
                           className={css({
                             borderRadius: "10px 10px 0 0",

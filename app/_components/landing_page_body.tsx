@@ -84,6 +84,7 @@ export const LandingPageBody = async (params: { dict: Dictionary }) => {
               alt="LowPoly Mage Image"
               width="400"
               height="400"
+              priority={true}
               className={css({
                 display: "none",
                 md: { display: "block" },

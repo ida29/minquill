@@ -74,7 +74,7 @@ export default function Layout({
     status === "authenticated" ? (
       <Link
         key="1"
-        href="javascript: void(0);"
+        href=""
         onClick={() => signOut()}
         className={css({ width: "100%", height: "100%" })}
       >
@@ -83,7 +83,7 @@ export default function Layout({
     ) : (
       <Link
         key="1"
-        href="javascript: void(0);"
+        href=""
         onClick={() => signIn()}
         className={css({ width: "100%", height: "100%" })}
       >

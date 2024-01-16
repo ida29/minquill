@@ -80,6 +80,7 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
           alt="LowPoly Mage Image"
           width="250"
           height="250"
+          priority={true}
           className={css({
             margin: "1rem 0 2rem 0",
           })}
