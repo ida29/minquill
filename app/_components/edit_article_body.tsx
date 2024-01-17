@@ -505,9 +505,16 @@ export const EditArticleBody = (params: {
             })}
           >
             {tagsValue &&
-              tagsValue
-                .split(",")
-                .map((tagName: string) => <div key={tagName}>#{tagName}</div>)}
+              tagsValue.split(",").map((tagName: string) => (
+                <div
+                  key={tagName}
+                  className={css({
+                    fontWeight: "700",
+                  })}
+                >
+                  #{tagName}
+                </div>
+              ))}
           </div>
           <div
             className={css({

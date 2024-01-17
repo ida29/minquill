@@ -61,3 +61,29 @@ export async function getRecommendedImages(
   const images: Image[] = await response.json();
   return images;
 }
+
+export async function getImagesWithToken(
+  token: string,
+  count: number,
+): Promise<Image[]> {
+  const url = new URL("/api/images", window.location.origin);
+  url.searchParams.append(
+    "token",
+    token.length > 2 ? nGram(3)(token).join("* | ") + "*" : token + "*",
+  );
+  url.searchParams.append("count", count.toString());
+  url.searchParams.append("mode", "fulltext");
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get images: ${response.statusText}`);
+  }
+
+  const images: Image[] = await response.json();
+  return images;
+}

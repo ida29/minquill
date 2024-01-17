@@ -4,10 +4,16 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
-import { getRecommendedImages, Image as Img } from "@/app/_utils/image";
+import {
+  getRecommendedImages,
+  getImagesWithToken,
+  Image as Img,
+} from "@/app/_utils/image";
 import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import Measure from "react-measure";
 
 export const HomePageBody2 = (params: { dict: Dictionary }) => {
   const [imagesValue, setImages] = useState<Img[]>([]);
@@ -27,6 +33,26 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
       }
     })();
   }, [tags]);
+
+  const handleSubmit = async (token: string) => {
+    setIsLoading(true);
+    try {
+      const articles: Img[] =
+        token === ""
+          ? await getRecommendedImages(20, tags)
+          : await getImagesWithToken(token, 30);
+      setImages(articles);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter") return;
+    handleSubmit((e.target as HTMLInputElement).value);
+  };
 
   return (
     <main
@@ -64,7 +90,99 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
             <li className={`${liStyle()} ${activeTab()}`}>Images</li>
           </Link>
         </ul>
+        <div
+          className={css({
+            display: "flex",
+            gap: "1rem",
+            width: "100%",
+          })}
+        >
+          <input
+            type="search"
+            id="full-text-search"
+            name="full-text-search"
+            onKeyDown={handleKeyDown}
+            placeholder={params.dict.full_text_search_placeholder}
+            autoComplete="off"
+            className={css({
+              color: "text1",
+              bg: "bg3",
+              textIndent: "1rem",
+              borderRadius: "10px",
+              width: "100%",
+              fontWeight: "700",
+              outline: "none",
+              padding: "1rem 0.4rem 0.6rem 0",
+              transition: "all 0.1s",
+              fontSize: "1.4rem",
+              margin: "3rem .5rem 1rem .5rem",
+              border: "4px solid white",
+              _focus: {
+                border: "4px solid black",
+              },
+              sm: {
+                fontSize: "1.4rem",
+              },
+              md: {
+                fontSize: "1.6rem",
+              },
+              lg: {
+                fontSize: "1.8rem",
+              },
+            })}
+          />
+        </div>
       </div>
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{
+          360: 2,
+          640: 3,
+          768: 4,
+          1024: 5,
+          1280: 6,
+          1536: 7,
+        }}
+      >
+        <Masonry>
+          {imagesValue.map((image, i) => (
+            <div
+              key={i}
+              className={css({
+                border: "2px solid",
+                borderColor: "text1",
+                borderRadius: "10px",
+                margin: "5px",
+                padding: "5px",
+                bg: "bg3",
+                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.4)",
+              })}
+            >
+              <Image
+                src={image.url}
+                alt={image.title}
+                width={300}
+                height={300}
+                priority={true}
+                className={css({
+                  width: "100%",
+                  display: "block",
+                  borderRadius: "5px",
+                })}
+              />
+              <div
+                className={css({
+                  marginTop: "0.4rem",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontWeight: "700",
+                })}
+              >
+                {image.title}
+              </div>
+            </div>
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
       <div
         className={css({
           display: "flex",
@@ -72,9 +190,6 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
           flexWrap: "wrap",
         })}
       >
-        {imagesValue.map((image, i) => (
-          <div key={i}>{image.url}</div>
-        ))}
         <Image
           src="/lowpoly_whiz.png"
           alt="LowPoly Mage Image"

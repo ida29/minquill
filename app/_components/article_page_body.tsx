@@ -143,7 +143,14 @@ export const ArticlePageBody = (params: {
         >
           {article?.tags &&
             article?.tags.map((tag: { name: string }) => (
-              <div key={tag.name}>#{tag.name}</div>
+              <div
+                key={tag.name}
+                className={css({
+                  fontWeight: "700",
+                })}
+              >
+                #{tag.name}
+              </div>
             ))}
         </div>
         <div

@@ -70,8 +70,8 @@ export const NewImageBody = ({
             <Image
               src={imagesValue[0]}
               alt={imagesValue[0]}
-              width={250}
-              height={250}
+              width={300}
+              height={300}
               className={css({
                 borderRadius: "0.4rem",
                 boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.4)",
