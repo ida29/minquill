@@ -9,6 +9,5 @@ export default async function App({
   params: { lang: string; username: string };
 }) {
   const dict = await getDictionary(lang);
-
   return <UserPageWrapper dict={dict} username={username} />;
 }

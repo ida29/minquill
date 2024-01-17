@@ -40,9 +40,12 @@ const headerStyle = cva({
 
 const logoStyle = cva({
   base: {
+    padding: "0.3rem 0.5rem 0.2rem 0.5rem",
     fontWeight: "700",
     fontSize: "1.4rem",
     lineHeight: "1",
+    border: "4px solid",
+    borderColor: "text2",
   },
 });
 

@@ -145,41 +145,47 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
       >
         <Masonry>
           {imagesValue.map((image, i) => (
-            <div
-              key={i}
-              className={css({
-                border: "2px solid",
-                borderColor: "text1",
-                borderRadius: "10px",
-                margin: "5px",
-                padding: "5px",
-                bg: "bg3",
-                boxShadow: "0 4px 8px 0 rgba(0,0,0,0.4)",
-              })}
-            >
-              <Image
-                src={image.url}
-                alt={image.title}
-                width={300}
-                height={300}
-                priority={true}
-                className={css({
-                  width: "100%",
-                  display: "block",
-                  borderRadius: "5px",
-                })}
-              />
+            <Link key={i} href={`/${image.username}/images/${image.ulid}`}>
               <div
                 className={css({
-                  marginTop: "0.4rem",
-                  display: "flex",
-                  justifyContent: "center",
-                  fontWeight: "700",
+                  border: "2px solid",
+                  borderColor: "text1",
+                  borderRadius: "10px",
+                  margin: "5px",
+                  padding: "5px",
+                  bg: "bg3",
+                  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.4)",
+                  transition: "all 0.3s ease 0s",
+                  _hover: {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 8px 16px 0 rgba(0,0,0,0.3)",
+                  },
                 })}
               >
-                {image.title}
+                <Image
+                  src={image.url}
+                  alt={image.title}
+                  width={300}
+                  height={300}
+                  priority={true}
+                  className={css({
+                    width: "100%",
+                    display: "block",
+                    borderRadius: "5px",
+                  })}
+                />
+                <div
+                  className={css({
+                    marginTop: "0.4rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    fontWeight: "700",
+                  })}
+                >
+                  {image.title}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </Masonry>
       </ResponsiveMasonry>
@@ -195,7 +201,7 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
           alt="LowPoly Mage Image"
           width="250"
           height="250"
-          priority={true}
+          priority={false}
           className={css({
             margin: "1rem 0 2rem 0",
           })}

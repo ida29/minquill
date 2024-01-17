@@ -191,9 +191,8 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                             borderRadius: "10px",
                             bg: "bg3",
                             boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-                            transition: "transform 0.3s",
-                            _hover: {
-                              transform: "scale(1.05)",
+                            "&:hover #cover-img": {
+                              transform: "scale(1.2)",
                             },
                           })}
                         >
@@ -202,9 +201,11 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                               position: "relative",
                               width: "100%",
                               paddingTop: "60%",
+                              overflow: "hidden",
                             })}
                           >
                             <Image
+                              id="cover-img"
                               width="200"
                               height="200"
                               src={article.coverImg || ""}
@@ -219,6 +220,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
                                 left: "0",
                                 objectFit: "cover",
                                 objectPosition: "center",
+                                transition: "transform 0.3s",
                               })}
                             />
                           </div>
