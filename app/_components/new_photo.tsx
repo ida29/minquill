@@ -1,17 +1,17 @@
-// app/components/new_image.tsx
+// app/components/new_photo.tsx
 
 "use client";
 
 import { Dictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
-import { NewImageHeader } from "@/app/_components/new_image_header";
-import { NewImageBody } from "@/app/_components/new_image_body";
-import { NewImageDialog } from "@/app/_components/new_image_dialog";
+import { NewPhotoHeader } from "@/app/_components/new_photo_header";
+import { NewPhotoBody } from "@/app/_components/new_photo_body";
+import { NewPhotoDialog } from "@/app/_components/new_photo_dialog";
 import { Modal } from "@/app/_components/modal";
 import useLocalStorageState from "use-local-storage-state";
 
-export const NewImage = ({ dict }: { dict: Dictionary }) => {
-  const [imagesValue, setImages] = useLocalStorageState("image_url", {
+export const NewPhoto = ({ dict }: { dict: Dictionary }) => {
+  const [photosValue, setPhotos] = useLocalStorageState("photo_url", {
     defaultValue: [] as string[],
   });
 
@@ -32,17 +32,17 @@ export const NewImage = ({ dict }: { dict: Dictionary }) => {
           width: "100vw",
         })}
       >
-        <NewImageHeader dict={dict} />
-        <NewImageBody
+        <NewPhotoHeader dict={dict} />
+        <NewPhotoBody
           dict={dict}
-          imagesValue={imagesValue}
-          setImages={setImages}
+          photosValue={photosValue}
+          setPhotos={setPhotos}
         />
-        <Modal isOpen={imagesValue.length === 0}>
-          <NewImageDialog
+        <Modal isOpen={photosValue.length === 0}>
+          <NewPhotoDialog
             dict={dict}
-            imagesValue={imagesValue}
-            setImages={setImages}
+            photosValue={photosValue}
+            setPhotos={setPhotos}
           />
         </Modal>
       </div>

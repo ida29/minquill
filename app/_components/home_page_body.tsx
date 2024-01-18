@@ -84,8 +84,8 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
           <Link href={`/articles`}>
             <li className={`${liStyle()} ${activeTab()}`}>Articles</li>
           </Link>
-          <Link href={`/images`}>
-            <li className={`${liStyle()}`}>Images</li>
+          <Link href={`/photos`}>
+            <li className={`${liStyle()}`}>Photos</li>
           </Link>
         </ul>
         <div

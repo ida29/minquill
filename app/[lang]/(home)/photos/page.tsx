@@ -1,7 +1,8 @@
-// app/[lang]/images/new/page.tsx
+// app/[lang]/(home)/photos/page.tsx
 
+import React from "react";
 import { getDictionary } from "@/app/_utils/dictionary";
-import { NewImage } from "@/app/_components/new_image";
+import { HomePageBody2 } from "@/app/_components/home_page_body2";
 
 export default async function App({
   params: { lang },
@@ -9,5 +10,5 @@ export default async function App({
   params: { lang: string };
 }) {
   const dict = await getDictionary(lang);
-  return <NewImage dict={dict} />;
+  return <HomePageBody2 dict={dict} />;
 }

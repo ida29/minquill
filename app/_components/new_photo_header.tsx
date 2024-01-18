@@ -1,4 +1,4 @@
-// components/new_image_header.tsx
+// components/new_photo_header.tsx
 "use client";
 
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import { FiArrowLeftCircle } from "react-icons/fi";
 
-export const NewImageHeader = (params: { dict: Dictionary }) => {
+export const NewPhotoHeader = (params: { dict: Dictionary }) => {
   return (
     <header
       className={css({

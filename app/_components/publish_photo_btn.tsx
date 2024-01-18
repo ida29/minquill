@@ -1,18 +1,18 @@
-//app/_components/publish_images_btn.tsx
+//app/_components/publish_photos_btn.tsx
 
 "use client";
 
 import { ActionButton } from "@/app/_components/action_button";
-import { Image, createImage } from "@/app/_utils/image";
+import { Photo, createPhoto } from "@/app/_utils/photo";
 import { useRouter } from "next/navigation";
 
-export const PublishImageBtn = ({
+export const PublishPhotoBtn = ({
   text,
   colorVariant = "default",
   className,
   username,
-  imagesValue,
-  setImages,
+  photosValue,
+  setPhotos,
   titleValue,
   setTitle,
   tagsValue,
@@ -22,8 +22,8 @@ export const PublishImageBtn = ({
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
   username?: string;
-  imagesValue: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  photosValue: string[];
+  setPhotos: React.Dispatch<React.SetStateAction<string[]>>;
   titleValue: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   tagsValue: string;
@@ -35,19 +35,19 @@ export const PublishImageBtn = ({
     try {
       const title = titleValue as string;
       const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
-      const newImage: Image = {
+      const newPhoto: Photo = {
         title: title,
-        url: imagesValue[0],
+        url: photosValue[0],
         tags: tags as [],
       };
-      router.push(`/images`);
-      const image = await createImage(newImage);
-      if (image === undefined) {
-        console.error("Failed to create image");
+      router.push(`/photos`);
+      const photo = await createPhoto(newPhoto);
+      if (photo === undefined) {
+        console.error("Failed to create photo");
         return;
       }
 
-      setImages([]);
+      setPhotos([]);
       setTitle("");
       setTags("");
     } catch (error) {

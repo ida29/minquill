@@ -1,4 +1,4 @@
-// components/new_image_dialog.tsx
+// components/new_photo_dialog.tsx
 
 "use client";
 
@@ -6,14 +6,14 @@ import { Dictionary } from "@/app/_utils/dictionary";
 import { UploadImgDrop2 } from "./upload_img_drop2";
 import { css, cva } from "@/styled-system/css";
 
-export const NewImageDialog = ({
+export const NewPhotoDialog = ({
   dict,
-  imagesValue,
-  setImages,
+  photosValue,
+  setPhotos,
 }: {
   dict: Dictionary;
-  imagesValue: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  photosValue: string[];
+  setPhotos: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
   return (
     <div
@@ -25,8 +25,8 @@ export const NewImageDialog = ({
       <UploadImgDrop2
         text={dict.drag_n_drop_some_images_here}
         text2={dict.click}
-        imagesValue={imagesValue}
-        setImages={setImages}
+        imagesValue={photosValue}
+        setImages={setPhotos}
       />
     </div>
   );

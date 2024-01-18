@@ -1,47 +1,47 @@
-// app/_utils/images.ts
+// app/_utils/photo.ts
 
 import { User } from "@/app/_utils/user";
 import { nGram } from "n-gram";
 
-export type Image = {
+export type Photo = {
   title: string;
   url: string;
-  username?: string;
-  user?: User;
+  photographerId?: string;
+  photographer?: User;
   ulid?: string;
   likes?: [];
   comments?: [];
   tags?: [];
 };
 
-export async function createImage(newImage: Image): Promise<Image> {
-  const response = await fetch("/api/images", {
+export async function createPhoto(newPhoto: Photo): Promise<Photo> {
+  const response = await fetch("/api/photos", {
     method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      title: newImage.title,
+      title: newPhoto.title,
       tokenizedTitle: nGram(3)(
-        newImage.title.toString() + "a".repeat(3 - 1),
+        newPhoto.title.toString() + "a".repeat(3 - 1),
       ).join(" "),
-      tags: newImage.tags,
-      url: newImage.url,
+      tags: newPhoto.tags,
+      url: newPhoto.url,
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to save Image: ${response.statusText}`);
+    throw new Error(`Failed to save Photo: ${response.statusText}`);
   }
 
-  const Image: Image = await response.json();
-  return Image;
+  const Photo: Photo = await response.json();
+  return Photo;
 }
 
-export async function getRecommendedImages(
+export async function getRecommendedPhotos(
   count: number,
   tags: string[],
-): Promise<Image[]> {
-  const url = new URL("/api/images", window.location.origin);
+): Promise<Photo[]> {
+  const url = new URL("/api/photos", window.location.origin);
   url.searchParams.append("mode", "tags");
   url.searchParams.append("count", count.toString());
   tags.forEach((tag) => {
@@ -55,18 +55,18 @@ export async function getRecommendedImages(
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to get images: ${response.statusText}`);
+    throw new Error(`Failed to get photos: ${response.statusText}`);
   }
 
-  const images: Image[] = await response.json();
-  return images;
+  const photos: Photo[] = await response.json();
+  return photos;
 }
 
-export async function getImagesWithToken(
+export async function getPhotosWithToken(
   token: string,
   count: number,
-): Promise<Image[]> {
-  const url = new URL("/api/images", window.location.origin);
+): Promise<Photo[]> {
+  const url = new URL("/api/photos", window.location.origin);
   url.searchParams.append(
     "token",
     token.length > 2 ? nGram(3)(token).join("* | ") + "*" : token + "*",
@@ -81,9 +81,9 @@ export async function getImagesWithToken(
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to get images: ${response.statusText}`);
+    throw new Error(`Failed to get photos: ${response.statusText}`);
   }
 
-  const images: Image[] = await response.json();
-  return images;
+  const photos: Photo[] = await response.json();
+  return photos;
 }

@@ -1,8 +1,8 @@
-// app/api/images/route.ts
+// app/api/photos/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../prisma/prisma";
-import { Image } from "@prisma/client";
+import { Photo } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { ulid } from "ulid";
@@ -17,11 +17,11 @@ export async function GET(req: NextRequest) {
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
     const mode = searchParams.get("mode") || "latest";
 
-    let images: Image[] = [];
+    let photos: Photo[] = [];
 
     if (mode === "recommended") {
     } else if (mode === "tags") {
-      images = await prisma.image.findMany({
+      photos = await prisma.photo.findMany({
         where: {
           tags: {
             some: {
@@ -36,14 +36,14 @@ export async function GET(req: NextRequest) {
           createdAt: "desc",
         },
         include: {
-          user: true,
+          photographer: true,
           comments: true,
           likes: true,
           tags: true,
         },
       });
     } else if (mode === "fulltext") {
-      images = await prisma.image.findMany({
+      photos = await prisma.photo.findMany({
         where: {
           tokenizedTitle: {
             search: token,
@@ -54,22 +54,22 @@ export async function GET(req: NextRequest) {
           createdAt: order,
         },
         include: {
-          user: true,
+          photographer: true,
           comments: true,
           likes: true,
           tags: true,
         },
       });
     } else {
-      const where = username ? { username: username } : {};
-      images = await prisma.image.findMany({
+      const where = username ? { photographerId: username } : {};
+      photos = await prisma.photo.findMany({
         where,
         take: count,
         orderBy: {
           createdAt: order,
         },
         include: {
-          user: true,
+          photographer: true,
           comments: true,
           likes: true,
           tags: true,
@@ -77,11 +77,11 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return new NextResponse(JSON.stringify(images), { status: 200 });
+    return new NextResponse(JSON.stringify(photos), { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to retrieve images" },
+      { error: "Failed to retrieve photos" },
       { status: 500 },
     );
   }
@@ -95,12 +95,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const req_json = await req.json();
-    const image: Image = await prisma.image.create({
+    const photo: Photo = await prisma.photo.create({
       data: {
         title: req_json.title,
         tokenizedTitle: req_json.tokenizedTitle,
         ulid: ulid(),
-        user: {
+        photographer: {
           connect: {
             id: session?.user?.id,
           },
@@ -114,11 +114,11 @@ export async function POST(req: NextRequest) {
         url: req_json.url,
       },
     });
-    return new NextResponse(`${image.id}`, { status: 200 });
+    return new NextResponse(`${photo.id}`, { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
-      { error: "Failed to create image" },
+      { error: "Failed to create photo" },
       { status: 500 },
     );
   }

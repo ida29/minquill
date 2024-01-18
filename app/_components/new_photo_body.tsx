@@ -1,4 +1,4 @@
-// components/new_image.tsx
+// components/new_photo.tsx
 
 "use client";
 
@@ -7,21 +7,21 @@ import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import useLocalStorageState from "use-local-storage-state";
 import { FiXCircle } from "react-icons/fi";
-import { PublishImageBtn } from "@/app/_components/publish_image_btn";
+import { PublishPhotoBtn } from "@/app/_components/publish_photo_btn";
 
-export const NewImageBody = ({
+export const NewPhotoBody = ({
   dict,
-  imagesValue,
-  setImages,
+  photosValue,
+  setPhotos,
 }: {
   dict: Dictionary;
-  imagesValue: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  photosValue: string[];
+  setPhotos: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
-  const [titleValue, setTitle] = useLocalStorageState("image_title", {
+  const [titleValue, setTitle] = useLocalStorageState("photo_title", {
     defaultValue: "",
   });
-  const [tagsValue, setTags] = useLocalStorageState("image_tags", {
+  const [tagsValue, setTags] = useLocalStorageState("photo_tags", {
     defaultValue: "",
   });
 
@@ -68,8 +68,8 @@ export const NewImageBody = ({
             })}
           >
             <Image
-              src={imagesValue[0]}
-              alt={imagesValue[0]}
+              src={photosValue[0]}
+              alt={photosValue[0]}
               width={300}
               height={300}
               className={css({
@@ -79,7 +79,7 @@ export const NewImageBody = ({
             />
             <FiXCircle
               onClick={() => {
-                setImages([]);
+                setPhotos([]);
                 setTitle("");
                 setTags("");
               }}
@@ -194,10 +194,10 @@ export const NewImageBody = ({
                 width: "100%",
               })}
             >
-              <PublishImageBtn
+              <PublishPhotoBtn
                 text={dict.publish}
-                imagesValue={imagesValue}
-                setImages={setImages}
+                photosValue={photosValue}
+                setPhotos={setPhotos}
                 titleValue={titleValue}
                 setTitle={setTitle}
                 tagsValue={tagsValue}

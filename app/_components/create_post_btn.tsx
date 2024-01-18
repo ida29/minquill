@@ -90,7 +90,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
             Article
           </Link>
           <Link
-            href={`/images/new`}
+            href={`/photos/new`}
             className={css({
               display: "flex",
               gap: ".5rem",
@@ -102,14 +102,14 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
                 bg: "rgba(0,0,0,0.1)",
               },
             })}
-            onClick={() => router.push("/images/new")}
+            onClick={() => router.push("/photos/new")}
           >
             <FiImage
               className={css({
                 fontSize: "1.5rem",
               })}
             />
-            Image
+            Photo
           </Link>
         </div>
       )}

@@ -4,6 +4,9 @@ import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
 import { EditArticleHeader } from "@/app/_components/edit_article_header";
 import { EditArticleBody } from "@/app/_components/edit_article_body";
+import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
 
 export default async function App({
   params: { lang, username, unique },
@@ -11,6 +14,16 @@ export default async function App({
   params: { lang: string; username: string; unique: string };
 }) {
   const dict = await getDictionary(lang);
+
+  const session = await getServerSession(auth);
+
+  if (!session) {
+    return redirect("/");
+  }
+
+  if (username !== session.user?.username) {
+    return redirect("/");
+  }
 
   return (
     <div

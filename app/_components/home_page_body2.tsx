@@ -5,25 +5,23 @@ import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
 import {
-  getRecommendedImages,
-  getImagesWithToken,
-  Image as Img,
-} from "@/app/_utils/image";
+  getRecommendedPhotos,
+  getPhotosWithToken,
+  Photo,
+} from "@/app/_utils/photo";
 import { useState, useEffect, useMemo } from "react";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import Measure from "react-measure";
 
 export const HomePageBody2 = (params: { dict: Dictionary }) => {
-  const [imagesValue, setImages] = useState<Img[]>([]);
+  const [photosValue, setPhotos] = useState<Photo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
     (async () => {
-      const images: Img[] = await getRecommendedImages(20, tags);
-      setImages(images);
+      const photos: Photo[] = await getRecommendedPhotos(20, tags);
+      setPhotos(photos);
       setIsLoading(true);
       try {
       } catch (err) {
@@ -37,11 +35,11 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
     try {
-      const articles: Img[] =
+      const articles: Photo[] =
         token === ""
-          ? await getRecommendedImages(20, tags)
-          : await getImagesWithToken(token, 30);
-      setImages(articles);
+          ? await getRecommendedPhotos(20, tags)
+          : await getPhotosWithToken(token, 30);
+      setPhotos(articles);
     } catch (err) {
       console.error(err);
     } finally {
@@ -86,8 +84,8 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
           <Link href={`/articles`}>
             <li className={`${liStyle()} }`}>Articles</li>
           </Link>
-          <Link href={`/images`}>
-            <li className={`${liStyle()} ${activeTab()}`}>Images</li>
+          <Link href={`/photos`}>
+            <li className={`${liStyle()} ${activeTab()}`}>Photos</li>
           </Link>
         </ul>
         <div
@@ -144,8 +142,11 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
         }}
       >
         <Masonry>
-          {imagesValue.map((image, i) => (
-            <Link key={i} href={`/${image.username}/images/${image.ulid}`}>
+          {photosValue.map((photo, i) => (
+            <Link
+              key={i}
+              href={`/${photo.photographerId}/photos/${photo.ulid}`}
+            >
               <div
                 className={css({
                   border: "2px solid",
@@ -163,8 +164,8 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
                 })}
               >
                 <Image
-                  src={image.url}
-                  alt={image.title}
+                  src={photo.url}
+                  alt={photo.title}
                   width={300}
                   height={300}
                   priority={true}
@@ -182,7 +183,7 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
                     fontWeight: "700",
                   })}
                 >
-                  {image.title}
+                  {photo.title}
                 </div>
               </div>
             </Link>

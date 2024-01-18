@@ -48,7 +48,7 @@ model User {
   isActive         Boolean    @default(false)
   role             Role       @default(USER)
   articles         Article[]
-  images           Image[]
+  photos           Photo[]
   comments         Comment[]
   likes            Like[]
   followers        Follow[]   @relation("Follower")
@@ -69,7 +69,7 @@ model Tag {
   id        Int    @id @default(autoincrement())
   name      String @unique @map("name")
   articles  Article[] @relation("article_tag")
-  images    Image[] @relation("image_tag")
+  photos    Photo[] @relation("image_tag")
 
   @@map("tags")
 }
@@ -96,7 +96,7 @@ model Article {
   @@map("articles")
 }
 
-model Image {
+model Photo {
   id               Int      @id @default(autoincrement())
   ulid             String   @unique
   createdAt        DateTime @default(now())
@@ -105,15 +105,15 @@ model Image {
   title            String   @db.VarChar(255)
   tokenizedTitle   String   @db.VarChar(255)
   url              String   @db.VarChar(255)
-  user             User     @relation(fields: [username], references: [username])
-  username         String
+  photographer     User     @relation(fields: [photographerId], references: [username])
+  photographerId   String
   comments         Comment[]
   likes            Like[]
   tags             Tag[]    @relation("image_tag")
 
-  @@index([username])
+  @@index([photographerId])
   @@fulltext([tokenizedTitle])
-  @@map("images")
+  @@map("photos")
 }
 
 model Comment {
@@ -126,7 +126,7 @@ model Comment {
   createdAt       DateTime @default(now())
   user            User     @relation(fields: [userId], references: [id])
   article         Article? @relation(fields: [articleId], references: [id])
-  image           Image?   @relation(fields: [imageId], references: [id])
+  image           Photo?   @relation(fields: [imageId], references: [id])
 
   @@index([userId, articleId])
   @@index([userId, imageId])
@@ -142,7 +142,7 @@ model Like {
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
   article        Article? @relation(fields: [articleId], references: [id])
-  image          Image?   @relation(fields: [imageId], references: [id])
+  image          Photo?   @relation(fields: [imageId], references: [id])
 
   @@index([userId, articleId])
   @@index([userId, imageId])
