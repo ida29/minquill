@@ -14,6 +14,21 @@ export type Photo = {
   tags?: [];
 };
 
+export async function getPhoto(unique: string): Promise<Photo> {
+  const response = await fetch(`/api/photos/${unique}`, {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get photos: ${response.statusText}`);
+  }
+
+  const photo: Photo = await response.json();
+  return photo;
+}
+
 export async function createPhoto(newPhoto: Photo): Promise<Photo> {
   const response = await fetch("/api/photos", {
     method: "POST",

@@ -9,6 +9,5 @@ export default async function App({
   params: { lang: string; username: string; unique: string };
 }) {
   const dict = await getDictionary(lang);
-
   return <ArticlePageWrapper dict={dict} username={username} unique={unique} />;
 }
