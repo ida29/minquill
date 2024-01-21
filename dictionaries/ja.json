@@ -38,6 +38,7 @@
   "select_placeholder": "選択してください",
   "title_placeholder": "タイトル",
   "tags_placeholder": "カンマ(,)区切りでタグを追加",
+  "comments": "コメント",
   "dummy": "ダミー",
   "end": "エンド"
 }

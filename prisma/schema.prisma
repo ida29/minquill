@@ -69,7 +69,7 @@ model Tag {
   id        Int    @id @default(autoincrement())
   name      String @unique @map("name")
   articles  Article[] @relation("article_tag")
-  photos    Photo[] @relation("image_tag")
+  photos    Photo[] @relation("photo_tag")
 
   @@map("tags")
 }
@@ -109,7 +109,7 @@ model Photo {
   photographerId   String
   comments         Comment[]
   likes            Like[]
-  tags             Tag[]    @relation("image_tag")
+  tags             Tag[]    @relation("photo_tag")
 
   @@index([photographerId])
   @@fulltext([tokenizedTitle])
@@ -119,34 +119,30 @@ model Photo {
 model Comment {
   id              Int      @id @default(autoincrement())
   userId          String
-  articleId       Int?
-  imageId         Int?
-  serviceId       Int?
+  articleId       String?
+  photoId         String?
   commentText     String
   createdAt       DateTime @default(now())
   user            User     @relation(fields: [userId], references: [id])
-  article         Article? @relation(fields: [articleId], references: [id])
-  image           Photo?   @relation(fields: [imageId], references: [id])
+  article         Article? @relation(fields: [articleId], references: [ulid])
+  photo           Photo?   @relation(fields: [photoId], references: [ulid])
 
   @@index([userId, articleId])
-  @@index([userId, imageId])
-  @@index([userId, serviceId])
+  @@index([userId, photoId])
 }
 
 model Like {
   id             Int      @id @default(autoincrement())
   userId         String
-  articleId      Int?
-  imageId        Int?
-  serviceId      Int?
+  articleId      String?
+  photoId        String?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
-  article        Article? @relation(fields: [articleId], references: [id])
-  image          Photo?   @relation(fields: [imageId], references: [id])
+  article        Article? @relation(fields: [articleId], references: [ulid])
+  photo          Photo?   @relation(fields: [photoId], references: [ulid])
 
   @@index([userId, articleId])
-  @@index([userId, imageId])
-  @@index([userId, serviceId])
+  @@index([userId, photoId])
 }
 
 model Follow {

@@ -20,7 +20,14 @@ export async function GET(
     },
     include: {
       photographer: true,
-      comments: true,
+      comments: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
       likes: true,
       tags: true,
     },

@@ -38,6 +38,7 @@
   "select_placeholder": "Select",
   "title_placeholder": "Title",
   "tags_placeholder": "Add Tags Separated by Commas(,)",
+  "comments": "Comments",
   "dummy": "Dummy",
   "end": "End"
 }

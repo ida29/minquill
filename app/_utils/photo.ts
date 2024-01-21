@@ -1,6 +1,7 @@
 // app/_utils/photo.ts
 
 import { User } from "@/app/_utils/user";
+import { Comment } from "@/app/_utils/comment";
 import { nGram } from "n-gram";
 
 export type Photo = {
@@ -10,7 +11,7 @@ export type Photo = {
   photographer?: User;
   ulid?: string;
   likes?: [];
-  comments?: [];
+  comments?: Comment[];
   tags?: [];
 };
 
