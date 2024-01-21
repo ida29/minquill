@@ -245,7 +245,7 @@ export const PhotoPage = ({
                   marginTop: "auto",
                   display: "flex",
                   padding: "1rem 0 ",
-                  alignItems: "flex-start",
+                  alignItems: "center",
                   borderTop: "1px solid #ccc",
                 })}
               >
