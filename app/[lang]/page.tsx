@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { getDictionary } from "@/app/_utils/dictionary";
 import { redirect } from "next/navigation";
+export const runtime = 'edge';
 
 export default async function App({
   params: { lang },
