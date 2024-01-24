@@ -46,7 +46,6 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.8.5",
     "@pandacss/dev": "^0.21.0",
     "@types/negotiator": "^0.6.2",
     "@types/node": "^20",
