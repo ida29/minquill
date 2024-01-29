@@ -19,11 +19,11 @@ export default async function App({
   const session = await getServerSession(auth);
 
   if (!session) {
-    return redirect("/");
+    return redirect("/articles");
   }
 
   if (username !== session.user?.username) {
-    return redirect("/");
+    return redirect("/articles");
   }
 
   const article: Article = await getArticle(unique);

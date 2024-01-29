@@ -107,7 +107,7 @@ export const UserPageHeader = (params: {
               height: "100%",
             })}
           >
-            <Link href={`/`}>
+            <Link href={`/articles`}>
               <div className={logoStyle()}>{params.dict.minquill}</div>
             </Link>
           </li>

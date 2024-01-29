@@ -73,7 +73,7 @@ export const EditorHeader = (params: { dict: Dictionary }) => {
             })}
           >
             <Link
-              href={"/"}
+              href={"/articles"}
               className={css({
                 fontSize: "2rem",
               })}

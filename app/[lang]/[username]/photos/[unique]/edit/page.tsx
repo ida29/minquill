@@ -14,11 +14,11 @@ export default async function App({
   const session = await getServerSession(auth);
 
   if (!session) {
-    return redirect("/");
+    return redirect("/articles");
   }
 
   if (username !== session.user?.username) {
-    return redirect("/");
+    return redirect("/articles");
   }
 
   return <>app/[lang]/[username]/photos/[unique]/edit/page.tsx</>;

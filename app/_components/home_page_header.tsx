@@ -108,7 +108,35 @@ export const HomePageHeader = (params: {
   } else {
     buttons = (
       <>
-        <LoginBtn text={params.dict.login} />
+        <div
+          className={css({
+            userSelect: "none",
+            color: "text1",
+            fontSize: "0.8rem",
+            lineHeight: "1",
+            padding: "0.8em 1em",
+            border: "2px solid",
+            borderColor: "text1",
+            borderRadius: "6px",
+            sm: {
+              fontSize: "0.8rem",
+              borderRadius: "6px",
+              borderWidth: "2px",
+            },
+            md: {
+              fontSize: "0.9rem",
+              borderRadius: "7px",
+              borderWidth: "3px",
+            },
+            lg: {
+              fontSize: "1rem",
+              borderRadius: "8px",
+              borderWidth: "3px",
+            },
+          })}
+        >
+          {params.dict.login}
+        </div>
       </>
     );
     buttons2 = (
@@ -164,7 +192,7 @@ export const HomePageHeader = (params: {
               alignItems: "center",
             })}
           >
-            <Link href={`/`}>{logo}</Link>
+            <Link href={`/articles`}>{logo}</Link>
           </li>
           <li
             className={css({
