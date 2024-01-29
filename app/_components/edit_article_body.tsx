@@ -94,7 +94,9 @@ export const EditArticleBody = ({
         tags: tags as [],
       };
 
-      await updateArticle(newArticle, unique);
+      if (article.ulid) {
+        await updateArticle(newArticle, article.ulid);
+      }
     } catch (error) {
       console.error(error);
     }
