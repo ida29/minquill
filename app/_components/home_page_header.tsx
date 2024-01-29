@@ -31,7 +31,6 @@ export const HomePageHeader = (params: {
           onClick={handleMenuClick}
           className={css({
             fontSize: "2rem",
-            _hover: {},
             borderRadius: "50%",
           })}
         >
@@ -59,18 +58,65 @@ export const HomePageHeader = (params: {
             />
           )}
         </div>
+        <div
+          className={css({
+            bg: "bg2",
+            color: "text1",
+            fontSize: "1rem",
+            fontWeight: "700",
+            padding: ".5rem 2rem",
+            border: "4px solid",
+            borderColor: "text1",
+            borderRadius: "9999px",
+            userSelect: "none",
+          })}
+        >
+          {params.dict.create_post}
+        </div>
+      </>
+    );
+    buttons2 = (
+      <>
+        <div
+          onClick={handleMenuClick}
+          className={css({
+            fontSize: "2rem",
+            borderRadius: "50%",
+            pointerEvents: "none",
+            color: "text1",
+          })}
+        >
+          <FiMenu
+            className={css({
+              marginTop: "3px",
+              width: "2rem",
+              borderRadius: "50%",
+              sm: { width: "2.2rem" },
+              md: { width: "2.3rem" },
+              lg: { width: "2.4rem" },
+            })}
+          />
+        </div>
+        <CreatePostBtn text={params.dict.create_post} />
       </>
     );
     logo = <div className={logoStyle()}>{params.dict.minquill}</div>;
-    buttons2 = <CreatePostBtn text={params.dict.create_post} />;
   } else if (status === "loading") {
     buttons = <></>;
-    logo = <div className={logoStyle()}>Loading...</div>;
     buttons2 = <></>;
+    logo = <div className={logoStyle()}>Loading...</div>;
   } else {
-    buttons = <></>;
+    buttons = (
+      <>
+        <LoginBtn text={params.dict.login} />
+      </>
+    );
+    buttons2 = (
+      <>
+        <LoginBtn text={params.dict.login} />
+      </>
+    );
     logo = <div className={logoStyle()}>{params.dict.minquill}</div>;
-    buttons2 = <LoginBtn text={params.dict.login} />;
   }
 
   return (
@@ -95,7 +141,9 @@ export const HomePageHeader = (params: {
         <ul
           className={css({
             height: "100%",
+            width: "100%",
             display: "flex",
+            alignItems: "center",
             justifyContent: "space-between",
           })}
         >
@@ -104,7 +152,6 @@ export const HomePageHeader = (params: {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              height: "100%",
               color: "text2",
             })}
           >
@@ -115,7 +162,6 @@ export const HomePageHeader = (params: {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              height: "100%",
             })}
           >
             <Link href={`/`}>{logo}</Link>
@@ -125,8 +171,7 @@ export const HomePageHeader = (params: {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              height: "100%",
-              color: "text1",
+              color: "text2",
             })}
           >
             {buttons2}
@@ -146,7 +191,6 @@ const navStyle = cva({
 
 const logoStyle = cva({
   base: {
-    margin: "0.5rem 0 0 4rem",
     padding: "0.3rem 0.5rem 0.2rem 0.5rem",
     color: "text2",
     fontWeight: "700",
@@ -154,5 +198,7 @@ const logoStyle = cva({
     lineHeight: "1",
     border: "4px solid",
     borderColor: "text2",
+	display: "none",
+    sm: { display: "block" },
   },
 });

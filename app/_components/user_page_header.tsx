@@ -118,6 +118,7 @@ export const UserPageHeader = (params: {
               alignItems: "center",
               height: "100%",
               color: "text1",
+              pointerEvents: "none",
             })}
           >
             {buttons}
@@ -137,7 +138,6 @@ const navStyle = cva({
 
 const logoStyle = cva({
   base: {
-    margin: "0.5rem 0 0 0.5rem",
     padding: "0.3rem 0.5rem 0.2rem 0.5rem",
     color: "text2",
     fontWeight: "700",
@@ -145,5 +145,7 @@ const logoStyle = cva({
     lineHeight: "1",
     border: "4px solid",
     borderColor: "text2",
+	display: "none",
+    sm: { display: "block" },
   },
 });

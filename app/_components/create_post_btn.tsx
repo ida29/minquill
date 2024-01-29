@@ -4,20 +4,17 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { ActionButton } from "@/app/_components/action_button";
 import { css, cva } from "@/styled-system/css";
 import { FiFileText, FiImage } from "react-icons/fi";
 
 type CreatePostBtnProps = {
   text: string;
   colorVariant?: "default" | "primary" | "secondary";
-  className?: string;
 };
 
 export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
   text,
   colorVariant = "primary",
-  className,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -44,12 +41,25 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
 
   return (
     <>
-      <ActionButton
-        text={text}
-        colorVariant={colorVariant}
-        className={className}
+      <button
         onClick={handleButtonClick}
-      />
+        className={css({
+          bg: "bg2",
+          color: "text2",
+          fontSize: "1rem",
+          fontWeight: "700",
+          padding: ".5rem 2rem",
+          border: "4px solid",
+          borderColor: "text2",
+          borderRadius: "9999px",
+          _hover: {
+            cursor: "pointer",
+            bg: "stone.700",
+          },
+        })}
+      >
+        {text}
+      </button>
       {menuVisible && (
         <div
           ref={menuRef}
