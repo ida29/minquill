@@ -16,7 +16,11 @@ export type Photo = {
 };
 
 export async function getPhoto(unique: string): Promise<Photo> {
-  const response = await fetch(`/api/photos/${unique}`, {
+  const url = new URL(
+    `/api/photos/${unique}`,
+    process.env.NEXT_PUBLIC_WEBSITE_URL,
+  );
+  const response = await fetch(url.toString(), {
     method: "GET",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
@@ -31,7 +35,8 @@ export async function getPhoto(unique: string): Promise<Photo> {
 }
 
 export async function createPhoto(newPhoto: Photo): Promise<Photo> {
-  const response = await fetch("/api/photos", {
+  const url = new URL(`/api/photos`, process.env.NEXT_PUBLIC_WEBSITE_URL);
+  const response = await fetch(url.toString(), {
     method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
@@ -57,7 +62,7 @@ export async function getRecommendedPhotos(
   count: number,
   tags: string[],
 ): Promise<Photo[]> {
-  const url = new URL("/api/photos", window.location.origin);
+  const url = new URL("/api/photos", process.env.NEXT_PUBLIC_WEBSITE_URL);
   url.searchParams.append("mode", "tags");
   url.searchParams.append("count", count.toString());
   tags.forEach((tag) => {
@@ -82,7 +87,7 @@ export async function getPhotosWithToken(
   token: string,
   count: number,
 ): Promise<Photo[]> {
-  const url = new URL("/api/photos", window.location.origin);
+  const url = new URL("/api/photos", process.env.NEXT_PUBLIC_WEBSITE_URL);
   url.searchParams.append(
     "token",
     token.length > 2 ? nGram(3)(token).join("* | ") + "*" : token + "*",

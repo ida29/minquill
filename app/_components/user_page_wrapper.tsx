@@ -10,13 +10,16 @@ import { css, cva } from "@/styled-system/css";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import { User } from "@/app/_utils/user";
 
-export const UserPageWrapper = (params: {
+export const UserPageWrapper = ({
+  dict,
+  user,
+}: {
   dict: Dictionary;
-  username: string;
+  user: User;
 }) => {
   const { data: session, status } = useSession();
-  const { dict, username } = params;
   const [isMenuOpen, setMenuOpen] = useState(false);
   const closeWithClickOutSide = (
     e: React.MouseEvent,
@@ -103,7 +106,7 @@ export const UserPageWrapper = (params: {
           isMenuOpen={isMenuOpen}
           setMenuOpen={setMenuOpen}
         />
-        <UserPageBody dict={dict} username={username} />
+        <UserPageBody dict={dict} user={user} />
 
         {isMenuOpen && (
           <div

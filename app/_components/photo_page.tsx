@@ -14,37 +14,30 @@ import { Comment } from "@/app/_utils/comment";
 
 export const PhotoPage = ({
   dict,
-  username,
-  unique,
+  photo,
 }: {
   dict: Dictionary;
-  username: string;
-  unique: string;
+  photo: Photo;
 }) => {
   const { data: session, status } = useSession();
   const [photoValue, setPhoto] = useState<Photo>();
   const [commentValue, setComment] = useState("");
 
   useEffect(() => {
-    const fetchPhoto = async () => {
-      try {
-        const photo: Photo = await getPhoto(unique);
-        setPhoto(photo);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchPhoto();
-  }, [unique]);
+    setPhoto(photo);
+  }, [photo]);
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
   };
 
   const submitComment = async () => {
-    if (commentValue) {
-      const res = await fetch(`/api/photos/${unique}/comments`, {
+    if (commentValue && photoValue) {
+      const url = new URL(
+        `/api/photos/${photoValue.ulid}/comments`,
+        process.env.NEXT_PUBLIC_WEBSITE_URL,
+      );
+      const res = await fetch(url.toString(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +45,7 @@ export const PhotoPage = ({
         body: JSON.stringify({ comment: commentValue }),
       });
 
-      if (res.ok && photoValue) {
+      if (res.ok) {
         const newComment: Comment = await res.json();
         setPhoto({
           ...photoValue,

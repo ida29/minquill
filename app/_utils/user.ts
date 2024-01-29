@@ -13,7 +13,11 @@ export type User = {
 };
 
 export async function getUser(unique: string): Promise<User> {
-  const response = await fetch(`/api/users/${unique}`, {
+  const url = new URL(
+    `/api/users/${unique}`,
+    process.env.NEXT_PUBLIC_WEBSITE_URL,
+  );
+  const response = await fetch(url.toString(), {
     method: "GET",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },

@@ -5,31 +5,21 @@
 import { css } from "@/styled-system/css";
 import "./styles.css";
 import { Dictionary } from "@/app/_utils/dictionary";
-import { getArticle, Article } from "@/app/_utils/article";
-import { useState, useEffect, useMemo } from "react";
+import { Article } from "@/app/_utils/article";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import Image from "next/image";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
-export const ArticlePageBody = (params: {
+export const ArticlePageBody = ({
+  dict,
+  article,
+}: {
   dict: Dictionary;
-  username: string;
-  unique: string;
+  article: Article;
 }) => {
-  const [article, setArticle] = useState<Article>();
-  const unique = useMemo(() => {
-    return params.unique;
-  }, [params.unique]);
-
-  useEffect(() => {
-    (async () => {
-      const article: Article = await getArticle(unique);
-      setArticle(article);
-    })();
-  }, [unique]);
-
   const activeTabItem = (
     <>
       <div

@@ -2,6 +2,7 @@
 
 import { getDictionary } from "@/app/_utils/dictionary";
 import { PhotoPage } from "@/app/_components/photo_page";
+import { Photo, getPhoto } from "@/app/_utils/photo";
 
 export default async function App({
   params: { lang, username, unique },
@@ -9,5 +10,6 @@ export default async function App({
   params: { lang: string; username: string; unique: string };
 }) {
   const dict = await getDictionary(lang);
-  return <PhotoPage dict={dict} username={username} unique={unique} />;
+  const photo: Photo = await getPhoto(unique);
+  return <PhotoPage dict={dict} photo={photo} />;
 }

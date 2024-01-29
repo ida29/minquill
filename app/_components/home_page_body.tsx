@@ -13,24 +13,20 @@ import { useState, useEffect, useMemo } from "react";
 import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
 import Image from "next/image";
 
-export const HomePageBody = (params: { dict: Dictionary }) => {
+export const HomePageBody = ({
+  dict,
+  articles,
+}: {
+  dict: Dictionary;
+  articles: Article[];
+}) => {
   const [articlesValue, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      try {
-        const articles: Article[] = await getRecommendedArticles(20, tags);
-        setArticles(articles);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [tags]);
+    setArticles(articles);
+  }, [articles]);
 
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
@@ -100,7 +96,7 @@ export const HomePageBody = (params: { dict: Dictionary }) => {
             id="full-text-search"
             name="full-text-search"
             onKeyDown={handleKeyDown}
-            placeholder={params.dict.full_text_search_placeholder}
+            placeholder={dict.full_text_search_placeholder}
             autoComplete="off"
             className={css({
               color: "text1",

@@ -4,18 +4,16 @@
 import { Dictionary } from "@/app/_utils/dictionary";
 import { ArticlePageHeader } from "@/app/_components/article_page_header";
 import { ArticlePageBody } from "@/app/_components/article_page_body";
-import { useState } from "react";
 import { css, cva } from "@/styled-system/css";
-//import { useSession } from "next-auth/react";
+import { Article } from "@/app/_utils/article";
 
-export const ArticlePageWrapper = (params: {
+export const ArticlePageWrapper = ({
+  dict,
+  article,
+}: {
   dict: Dictionary;
-  username: string;
-  unique: string;
+  article: Article;
 }) => {
-  //const { data: session, status } = useSession();
-  const { dict, username, unique } = params;
-
   return (
     <div
       data-theme="normal"
@@ -34,7 +32,7 @@ export const ArticlePageWrapper = (params: {
         })}
       >
         <ArticlePageHeader dict={dict} />
-        <ArticlePageBody dict={dict} username={username} unique={unique} />
+        <ArticlePageBody dict={dict} article={article} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { EditArticleBody } from "@/app/_components/edit_article_body";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
+import { getArticle, Article } from "@/app/_utils/article";
 
 export default async function App({
   params: { lang, username, unique },
@@ -24,6 +25,8 @@ export default async function App({
   if (username !== session.user?.username) {
     return redirect("/");
   }
+
+  const article: Article = await getArticle(unique);
 
   return (
     <div
@@ -43,7 +46,7 @@ export default async function App({
         })}
       >
         <EditArticleHeader dict={dict} username={username} />
-        <EditArticleBody dict={dict} username={username} unique={unique} />
+        <EditArticleBody dict={dict} article={article} />
       </div>
     </div>
   );

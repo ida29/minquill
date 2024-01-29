@@ -19,9 +19,9 @@ import remarkBreaks from "remark-breaks";
 import { UploadImgNPreview } from "./upload_image_and_preview";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import { getArticle, updateArticle, Article } from "@/app/_utils/article";
+import { updateArticle, Article } from "@/app/_utils/article";
 import { User } from "@/app/_utils/user";
 import { ActionButton } from "@/app/_components/action_button";
 import rehypeRaw from "rehype-raw";
@@ -48,10 +48,12 @@ const myTheme = createTheme({
   styles: [],
 });
 
-export const EditArticleBody = (params: {
+export const EditArticleBody = ({
+  dict,
+  article,
+}: {
   dict: Dictionary;
-  username: string;
-  unique: string;
+  article: Article;
 }) => {
   const [editorState, setEditorState] = useLocalStorageState("editorState2", {
     defaultValue: "",
@@ -66,13 +68,8 @@ export const EditArticleBody = (params: {
   const [contentValue, setContent] = useState("");
   const [coverImg, setCoverImg] = useState("");
 
-  const unique = useMemo(() => {
-    return params.unique;
-  }, [params.unique]);
-
   useEffect(() => {
     (async () => {
-      const article: Article = await getArticle(unique);
       setTitle(article?.title);
       setUser(article?.author);
       setTags(
@@ -83,7 +80,7 @@ export const EditArticleBody = (params: {
       setContent(article?.content);
       setCoverImg(article.coverImg ? article.coverImg : "");
     })();
-  }, [unique]);
+  }, [article]);
 
   const handleSave = async () => {
     try {
@@ -154,8 +151,8 @@ export const EditArticleBody = (params: {
             })}
           >
             <UploadImgNPreview
-              text={params.dict.upload_a_cover_image}
-              text2={params.dict.uploading}
+              text={dict.upload_a_cover_image}
+              text2={dict.uploading}
               coverImg={coverImg}
               setCoverImg={setCoverImg}
             />
@@ -167,14 +164,14 @@ export const EditArticleBody = (params: {
               fontWeight: "700",
             })}
           >
-            {params.dict.title}
+            {dict.title}
           </label>
           <input
             type="text"
             id="title"
             value={titleValue}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder={params.dict.title_placeholder}
+            placeholder={dict.title_placeholder}
             autoComplete="off"
             className={css({
               bg: "bg3",
@@ -215,7 +212,7 @@ export const EditArticleBody = (params: {
               fontWeight: "700",
             })}
           >
-            {params.dict.tags}
+            {dict.tags}
           </label>
           <input
             type="text"
@@ -228,7 +225,7 @@ export const EditArticleBody = (params: {
             }}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
-            placeholder={params.dict.tags_placeholder}
+            placeholder={dict.tags_placeholder}
             autoComplete="off"
             className={`${ulStyle()} ${
               isFocus && filteredOptions.length != 0 ? isForcusStyle() : ""
@@ -303,7 +300,7 @@ export const EditArticleBody = (params: {
                 fontWeight: "700",
               })}
             >
-              {params.dict.contents}
+              {dict.contents}
             </label>
             <div
               className={css({
@@ -358,7 +355,7 @@ export const EditArticleBody = (params: {
               fontWeight: "700",
             })}
           >
-            {params.dict.upload_images}
+            {dict.upload_images}
           </label>
           <div
             className={css({
@@ -369,8 +366,8 @@ export const EditArticleBody = (params: {
             })}
           >
             <UploadImgDrop
-              text={params.dict.drag_n_drop_some_images_here}
-              text2={params.dict.click}
+              text={dict.drag_n_drop_some_images_here}
+              text2={dict.click}
               contentValue={contentValue}
               setContent={setContent}
             />
@@ -384,7 +381,7 @@ export const EditArticleBody = (params: {
             })}
           >
             <ActionButton
-              text={params.dict.save_changes}
+              text={dict.save_changes}
               onClick={() => handleSave()}
             />
           </div>
@@ -589,7 +586,7 @@ export const EditArticleBody = (params: {
               fontWeight: "700",
             })}
           >
-            {params.dict.help}
+            {dict.help}
           </label>
           <div
             id="markdown-preview"
@@ -618,7 +615,7 @@ export const EditArticleBody = (params: {
               }}
               rehypePlugins={[rehypeRaw]}
             >
-              {params.dict.help_text}
+              {dict.help_text}
             </ReactMarkdown>
           </div>
         </div>

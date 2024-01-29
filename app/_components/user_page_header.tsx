@@ -145,7 +145,7 @@ const logoStyle = cva({
     lineHeight: "1",
     border: "4px solid",
     borderColor: "text2",
-	display: "none",
+    display: "none",
     sm: { display: "block" },
   },
 });

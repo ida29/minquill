@@ -4,9 +4,8 @@
 import Link from "next/link";
 import { css } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
-import { getUser, User } from "@/app/_utils/user";
+import { User } from "@/app/_utils/user";
 import { Article } from "@/app/_utils/article";
-import { useState, useEffect } from "react";
 import {
   FiFileText,
   FiThumbsUp,
@@ -15,28 +14,13 @@ import {
 } from "react-icons/fi";
 import Image from "next/image";
 
-export const UserPageBody = (params: {
+export const UserPageBody = ({
+  dict,
+  user,
+}: {
   dict: Dictionary;
-  username: string;
+  user: User;
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  //const [isLoading, setIsLoading] = useState(false);
-  //const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    //setIsLoading(true);
-    (async () => {
-      try {
-        const user = await getUser(params.username);
-        setUser(user);
-      } catch (err) {
-        //setError("データの取得に失敗しました。");
-      } finally {
-        //setIsLoading(false);
-      }
-    })();
-  }, [params.username]);
-
   return (
     <main
       className={css({
@@ -251,22 +235,6 @@ export const UserPageBody = (params: {
                             <li>{article.comments?.length}</li>
                           </ul>
                         </div>
-                        <Link
-                          href={`/${article.authorId}/articles/${article.ulid}/edit`}
-                        >
-                          <div
-                            className={css({
-                              fontSize: "1rem",
-                              border: "4px solid black",
-                              borderRadius: "9999px",
-                              padding: ".5rem 1.5rem",
-                              marginTop: "3rem",
-                              marginBottom: "2rem",
-                            })}
-                          >
-                            {params.dict.edit_article}
-                          </div>
-                        </Link>
                       </div>
                     </article>
                   </Link>

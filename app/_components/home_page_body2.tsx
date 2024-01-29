@@ -13,24 +13,20 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-export const HomePageBody2 = (params: { dict: Dictionary }) => {
+export const HomePageBody2 = ({
+  dict,
+  photos,
+}: {
+  dict: Dictionary;
+  photos: Photo[];
+}) => {
   const [photosValue, setPhotos] = useState<Photo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
-    (async () => {
-      const photos: Photo[] = await getRecommendedPhotos(20, tags);
-      setPhotos(photos);
-      setIsLoading(true);
-      try {
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [tags]);
+    setPhotos(photos);
+  }, [photos]);
 
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
@@ -100,7 +96,7 @@ export const HomePageBody2 = (params: { dict: Dictionary }) => {
             id="full-text-search"
             name="full-text-search"
             onKeyDown={handleKeyDown}
-            placeholder={params.dict.full_text_search_placeholder}
+            placeholder={dict.full_text_search_placeholder}
             autoComplete="off"
             className={css({
               color: "text1",

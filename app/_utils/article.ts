@@ -17,7 +17,11 @@ export type Article = {
 };
 
 export async function getArticle(unique: string): Promise<Article> {
-  const response = await fetch(`/api/articles/${unique}`, {
+  const url = new URL(
+    `/api/articles/${unique}`,
+    process.env.NEXT_PUBLIC_WEBSITE_URL,
+  );
+  const response = await fetch(url.toString(), {
     method: "GET",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
@@ -32,7 +36,8 @@ export async function getArticle(unique: string): Promise<Article> {
 }
 
 export async function getArticles(): Promise<Article[]> {
-  const response = await fetch("/api/articles", {
+  const url = new URL(`/api/articles`, process.env.NEXT_PUBLIC_WEBSITE_URL);
+  const response = await fetch(url.toString(), {
     method: "GET",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
@@ -51,7 +56,7 @@ export async function getArticlesByUsername(
   count: number,
   order: string,
 ): Promise<Article[]> {
-  const url = new URL("/api/articles", window.location.origin);
+  const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
   url.searchParams.append("username", username);
   url.searchParams.append("count", count.toString());
   url.searchParams.append("order", order);
@@ -131,7 +136,7 @@ export async function getRecommendedArticles(
   count: number,
   tags: string[],
 ): Promise<Article[]> {
-  const url = new URL("/api/articles", window.location.origin);
+  const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
   url.searchParams.append("mode", "tags");
   url.searchParams.append("count", count.toString());
   tags.forEach((tag) => {
@@ -156,7 +161,7 @@ export async function getArticlesWithToken(
   token: string,
   count: number,
 ): Promise<Article[]> {
-  const url = new URL("/api/articles", window.location.origin);
+  const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
   url.searchParams.append(
     "token",
     token.length > 2 ? nGram(3)(token).join("* | ") + "*" : token + "*",
