@@ -13,6 +13,9 @@ import {
   FiMessageSquare,
 } from "react-icons/fi";
 import Image from "next/image";
+import { useState } from "react";
+import { getArticlesByUsername } from "@/app/_utils/article";
+import { ActionButton } from "@/app/_components/action_button";
 
 export const UserPageBody = ({
   dict,
@@ -21,6 +24,24 @@ export const UserPageBody = ({
   dict: Dictionary;
   user: User;
 }) => {
+  const [articles, setArticles] = useState<Article[]>(user?.articles || []);
+  const [page, setPage] = useState(1);
+
+  const loadMoreArticles = async () => {
+    try {
+      const newArticles: Article[] = await getArticlesByUsername(
+        user.username,
+        10,
+        "desc",
+        page + 1,
+      );
+      setArticles((articles) => [...articles, ...newArticles]);
+      setPage(page + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <main
       className={css({
@@ -93,7 +114,7 @@ export const UserPageBody = ({
                   fontSize: "1.5rem",
                 })}
               />
-              {user?.articles?.length} Articles
+              {articles.length} Articles
             </li>
             <li
               className={css({
@@ -137,7 +158,7 @@ export const UserPageBody = ({
               width: "100%",
             })}
           >
-            {user?.articles?.map((article: Article, index) => (
+            {articles?.map((article: Article, index) => (
               <div
                 key={index}
                 className={css({
@@ -163,14 +184,17 @@ export const UserPageBody = ({
                     width: "100%",
                   })}
                 >
-                  <Link href={`/${article.authorId}/articles/${article.ulid}`}>
-                    <article
-                      className={css({
-                        bg: "bg3",
-                        fontWeight: "700",
-                        borderRadius: "10px",
-                        gap: "1rem .5rem",
-                      })}
+                  <article
+                    className={css({
+                      bg: "bg3",
+                      fontWeight: "700",
+                      borderRadius: "10px",
+                      gap: "1rem .5rem",
+                      marginBottom: "3rem",
+                    })}
+                  >
+                    <Link
+                      href={`/${article.authorId}/articles/${article.ulid}`}
                     >
                       <div
                         id="card-header"
@@ -196,51 +220,80 @@ export const UserPageBody = ({
                           })}
                         />
                       </div>
+                    </Link>
+                    <div
+                      id="card-body"
+                      className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-start",
+                      })}
+                    >
                       <div
-                        id="card-body"
                         className={css({
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
+                          padding: "1.6rem .8rem",
                         })}
                       >
-                        <div
-                          className={css({
-                            padding: ".8rem",
-                          })}
+                        <Link
+                          href={`/${article.authorId}/articles/${article.ulid}`}
                         >
-                          {article?.title}
-                          <ul
-                            id="reactions"
+                          <div
                             className={css({
-                              display: "flex",
-                              gap: "0.5rem",
+                              height: "3rem",
+                              fontSize: "1.8rem",
                             })}
                           >
-                            <li>
-                              <FiThumbsUp
-                                className={css({
-                                  fontSize: "1.5rem",
-                                })}
-                              />
-                            </li>
-                            <li>{article.likes?.length}</li>
-                            <li>
-                              <FiMessageSquare
-                                className={css({
-                                  fontSize: "1.5rem",
-                                })}
-                              />
-                            </li>
-                            <li>{article.comments?.length}</li>
-                          </ul>
-                        </div>
+                            {article?.title}
+                          </div>
+                          <div
+                            className={css({
+                              display: "-webkit-box",
+                              boxOrient: "vertical",
+                              overflow: "hidden",
+                              height: "10.4rem",
+                              fontSize: "1.2rem",
+                              marginBottom: "2.4rem",
+                              color: "text3",
+                            })}
+                          >
+                            {article?.content}
+                          </div>
+                        </Link>
+                        <Link
+                          href={`/${article.authorId}/articles/${article.ulid}/edit`}
+                          className={css({
+                            textDecoration: "none",
+                            color: "text1",
+                            border: "2px solid black",
+                            borderRadius: "9999px",
+                            padding: ".5rem 1rem",
+                            cursor: "pointer",
+                            "&:hover": {
+                              bg: "bg1",
+                            },
+                          })}
+                        >
+                          {dict.edit_article}
+                        </Link>
                       </div>
-                    </article>
-                  </Link>
+                    </div>
+                  </article>
                 </div>
               </div>
             ))}
+            <div
+              className={css({
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                marginBottom: "2rem",
+              })}
+            >
+              <ActionButton
+                text={dict.get_more_articles}
+                onClick={loadMoreArticles}
+              />
+            </div>
           </div>
         </div>
       </div>

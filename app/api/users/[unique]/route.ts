@@ -26,6 +26,17 @@ export async function GET(
           comments: true,
           likes: true,
         },
+        take: 10,
+      },
+      photos: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          comments: true,
+          likes: true,
+        },
+        take: 10,
       },
       followers: true,
       followings: true,

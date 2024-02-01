@@ -11,12 +11,14 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const username = searchParams.get("username") as string;
     const count = Number(searchParams.get("count")) || 20;
+    const page = Number(searchParams.get("page")) || 1;
     const token = searchParams.get("token") as string;
     const tags = searchParams.getAll("tags") as string[];
     const order = (searchParams.get("order") as "asc" | "desc") || "desc";
     const mode = searchParams.get("mode") || "latest";
 
     let articles: Article[] = [];
+    const skip = (page - 1) * count;
 
     if (mode === "recommended") {
     } else if (mode === "tags") {
@@ -66,6 +68,7 @@ export async function GET(req: NextRequest) {
       const where = username ? { authorId: username } : {};
       articles = await prisma.article.findMany({
         where,
+        skip,
         take: count,
         orderBy: {
           createdAt: order,
