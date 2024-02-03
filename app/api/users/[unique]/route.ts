@@ -25,6 +25,7 @@ export async function GET(
         include: {
           comments: true,
           likes: true,
+          tags: true,
         },
         take: 10,
       },
@@ -35,6 +36,7 @@ export async function GET(
         include: {
           comments: true,
           likes: true,
+          tags: true,
         },
         take: 10,
       },

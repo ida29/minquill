@@ -34,6 +34,32 @@ export async function getPhoto(unique: string): Promise<Photo> {
   return photo;
 }
 
+export async function getPhotosByUsername(
+  username: string,
+  count?: number,
+  order?: string,
+  page?: number,
+): Promise<Photo[]> {
+  const url = new URL("/api/photos", process.env.NEXT_PUBLIC_WEBSITE_URL);
+  url.searchParams.append("username", username);
+  url.searchParams.append("count", count ? count.toString() : "20");
+  url.searchParams.append("order", order ? order : "desc");
+  url.searchParams.append("page", page ? page.toString() : "1");
+
+  const response = await fetch(url.toString(), {
+    method: "GET",
+    cache: "no-cache",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to get photos: ${response.statusText}`);
+  }
+
+  const photos: Photo[] = await response.json();
+  return photos;
+}
+
 export async function createPhoto(newPhoto: Photo): Promise<Photo> {
   const url = new URL(`/api/photos`, process.env.NEXT_PUBLIC_WEBSITE_URL);
   const response = await fetch(url.toString(), {

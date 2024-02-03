@@ -6,6 +6,7 @@ export type User = {
   email: string;
   image: string;
   articles: [];
+  photos: [];
   comments: [];
   likes: [];
   followers: [];
