@@ -210,8 +210,11 @@ export const HomePageBody2 = ({
 
 const liStyle = cva({
   base: {
-    paddingBottom: "0.8rem",
+    padding: "0.8rem 0.4rem",
     listStyle: "none",
+    _hover: {
+      bg: "rgba(0, 0, 0, 0.1)",
+    },
   },
 });
 
