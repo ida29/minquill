@@ -20,7 +20,6 @@ export const UserPagePhotos = ({
 }) => {
   const [photos, setPhotos] = useState<Photo[]>(user?.photos || []);
   const [page, setPage] = useState(1);
-  console.log(photos);
 
   const loadMorePhotos = async () => {
     try {
@@ -104,6 +103,7 @@ export const UserPagePhotos = ({
                     borderRadius: "10px",
                     gap: "1rem .5rem",
                     marginBottom: "3rem",
+                    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1)",
                   })}
                 >
                   <Link href={`/${photo.photographerId}/photos/${photo.ulid}`}>
@@ -114,22 +114,24 @@ export const UserPagePhotos = ({
                         paddingTop: "70%",
                       })}
                     >
-                      <Image
-                        width="400"
-                        height="400"
-                        src={photo.url || ""}
-                        alt="Cover Image"
-                        className={css({
-                          borderRadius: "10px 10px 0 0",
-                          width: "100%",
-                          height: "100%",
-                          position: "absolute",
-                          top: "0",
-                          left: "0",
-                          objectFit: "cover",
-                          objectPosition: "center",
-                        })}
-                      />
+                      {photo.url && (
+                        <Image
+                          width="400"
+                          height="400"
+                          src={photo.url}
+                          alt="Cover Image"
+                          className={css({
+                            borderRadius: "10px 10px 0 0",
+                            width: "100%",
+                            height: "100%",
+                            position: "absolute",
+                            top: "0",
+                            left: "0",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                          })}
+                        />
+                      )}
                     </div>
                   </Link>
                   <div

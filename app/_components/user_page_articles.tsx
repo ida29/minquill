@@ -103,6 +103,7 @@ export const UserPageArticles = ({
                     borderRadius: "10px",
                     gap: "1rem .5rem",
                     marginBottom: "3rem",
+                    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1)",
                   })}
                 >
                   <Link href={`/${article.authorId}/articles/${article.ulid}`}>

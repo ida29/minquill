@@ -76,15 +76,24 @@ export const UserPageBody = ({
               flexDirection: "column",
               margin: ".5rem",
               gap: ".5rem",
+              borderRadius: "10px",
+              padding: "2rem 4rem",
             })}
           >
-            <li>
+            <li
+              className={css({
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              })}
+            >
               <Image
                 width="180"
                 height="180"
                 src={user?.image || ""}
                 alt="User Image"
                 className={css({
+                  width: "100%",
                   border: "3px solid black",
                   borderRadius: "50%",
                 })}
@@ -92,7 +101,14 @@ export const UserPageBody = ({
             </li>
             <li
               className={css({
-                fontSize: "1.6rem",
+                margin: "1rem 0",
+                borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+                width: "100%",
+              })}
+            ></li>
+            <li
+              className={css({
+                fontSize: "1.2rem",
               })}
             >
               <div
@@ -102,7 +118,7 @@ export const UserPageBody = ({
                 })}
               >
                 <strong>{user?.name}</strong>
-                {user?.username}
+                <strong>{user?.username}</strong>
               </div>
             </li>
             <li
@@ -145,29 +161,35 @@ export const UserPageBody = ({
                   fontSize: "1.5rem",
                 })}
               />
-              {user?.followers?.length} Followers {user?.followings?.length}{" "}
-              Followings
+              {user?.followers?.length} {dict.followers} {user?.followings?.length}{" "}
+			  {dict.followings}
             </li>
+            <li
+              className={css({
+                margin: "1rem 0",
+                borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+                width: "100%",
+              })}
+            ></li>
           </ul>
           <ul
             className={css({
               display: "flex",
+              alignItems: "flex-start",
               color: "text1",
               fontWeight: "700",
               fontSize: "1rem",
               lineHeight: "1",
-              marginTop: "3rem",
-
-              gap: "0 3rem",
-              sm: { fontSize: "1.1rem", gap: "0 3.5rem" },
-              md: { fontSize: "1.2rem", gap: "0 4rem" },
-              lg: { fontSize: "1.3rem", gap: "0 4.5rem" },
+              width: "calc(90% - 40px)",
+              sm: { fontSize: "1.1rem", width: "calc(80% - 40px)" },
+              md: { fontSize: "1.2rem", width: "calc(70% - 40px)" },
+              lg: { fontSize: "1.3rem", width: "calc(60% - 40px)" },
             })}
           >
             <li
               onClick={() => handleTabClick(pathname, "articles")}
               className={`${liStyle()} ${
-                currentTab == "articles" ? activeTab() : ""
+                currentTab === "articles" ? activeTab() : ""
               }`}
             >
               Articles
@@ -175,7 +197,7 @@ export const UserPageBody = ({
             <li
               onClick={() => handleTabClick(pathname, "photos")}
               className={`${liStyle()} ${
-                currentTab == "photos" ? activeTab() : ""
+                currentTab === "photos" ? activeTab() : ""
               }`}
             >
               Photos
@@ -190,15 +212,18 @@ export const UserPageBody = ({
 
 const liStyle = cva({
   base: {
-    paddingBottom: "0.6rem",
+    padding: "0.6rem 0.8rem",
     listStyle: "none",
-    color: "text3",
     cursor: "pointer",
+    color: "text1",
+    _hover: {
+      bg: "rgba(0, 0, 0, 0.1)",
+    },
   },
 });
 
 const activeTab = cva({
   base: {
-    color: "text1",
+    borderBottom: "2px solid",
   },
 });
