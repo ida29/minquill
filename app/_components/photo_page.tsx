@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { FiArrowLeftCircle, FiArrowRight } from "react-icons/fi";
 import { Comment } from "@/app/_utils/comment";
+import { formatDate } from "@/app/_utils/formatDate";
 
 export const PhotoPage = ({
   dict,
@@ -140,7 +141,8 @@ export const PhotoPage = ({
                 lg: { width: "50%" },
               })}
             >
-              <div
+              <Link
+                href={`/${photoValue?.photographer?.username}`}
                 className={css({
                   display: "flex",
                   fontWeight: "700",
@@ -168,7 +170,7 @@ export const PhotoPage = ({
                   <p>{photoValue?.photographer?.name}</p>
                   <p>{photoValue?.photographer?.username}</p>
                 </div>
-              </div>
+              </Link>
               <div
                 className={css({
                   fontSize: "1.6rem",
@@ -205,7 +207,7 @@ export const PhotoPage = ({
                 <div
                   className={css({
                     overflow: "auto",
-                    height: "500px",
+                    height: "70dvh",
                   })}
                 >
                   {photoValue?.comments?.map((comment: Comment, i) => (
@@ -218,29 +220,56 @@ export const PhotoPage = ({
                       <div
                         className={css({
                           display: "flex",
-                          alignItems: "center",
-                          marginTop: "1rem",
+                          alignItems: "flex-start",
                           paddingBlock: ".4rem",
                         })}
                       >
-                        <Image
-                          width="36"
-                          height="36"
-                          src={comment.user.image}
-                          alt="Comment User Image"
-                          className={css({
-                            borderRadius: "50%",
-                            marginRight: ".5rem",
-                          })}
-                        />
+                        <Link href={`/${comment?.user?.username}`}>
+                          <Image
+                            width="40"
+                            height="40"
+                            src={comment.user.image}
+                            alt="Comment User Image"
+                            className={css({
+                              borderRadius: "50%",
+                              margin: ".5rem 1rem 0 .5rem",
+                            })}
+                          />
+                        </Link>
                         <div
                           className={css({
                             display: "flex",
                             flexDirection: "column",
+                            fontSize: "1.2rem",
+                            width: "100%",
                           })}
                         >
-                          <p>{comment.user.name}</p>
-                          <p>{comment.commentText}</p>
+                          <div
+                            className={css({
+                              display: "flex",
+                              gap: ".5rem",
+                              alignItems: "center",
+                            })}
+                          >
+                            <p>
+                              <strong>{comment.user.name}</strong>
+                            </p>
+                            <div
+                              className={css({
+                                fontSize: "1rem",
+                                color: "text3",
+                              })}
+                            >
+                              <p>{formatDate(comment.createdAt)}</p>
+                            </div>
+                          </div>
+                          <p
+                            className={css({
+                              wordBreak: "break-word",
+                            })}
+                          >
+                            {comment.commentText}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -254,6 +283,11 @@ export const PhotoPage = ({
                   padding: "1rem 0 ",
                   alignItems: "center",
                   borderTop: "1px solid #ccc",
+                  position: "sticky",
+                  bg: "bg3",
+                  bottom: "0",
+                  right: "0",
+                  paddingBottom: "1rem",
                 })}
               >
                 {session?.user && (

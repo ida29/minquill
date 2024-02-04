@@ -9,4 +9,5 @@ export type Comment = {
   user: User;
   article?: Article;
   photo?: Photo;
+  createdAt: Date;
 };
