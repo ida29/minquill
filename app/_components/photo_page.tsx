@@ -102,6 +102,7 @@ export const PhotoPage = ({
               flexWrap: "wrap",
               bg: "bg3",
               borderRadius: "10px",
+              shadow: "0 4px 8px 0 rgba(0, 0, 0, 0.4)",
               width: "95%",
               sm: { width: "95%" },
               md: { width: "90%" },
@@ -192,7 +193,7 @@ export const PhotoPage = ({
                 <div
                   className={css({
                     overflow: "auto",
-                    height: "250px",
+                    height: "500px",
                   })}
                 >
                   {photoValue?.comments?.map((comment: Comment, i) => (
@@ -207,6 +208,8 @@ export const PhotoPage = ({
                           display: "flex",
                           alignItems: "center",
                           marginTop: "1rem",
+                          paddingBlock: ".4rem",
+                          borderBottom: "1px solid #ccc",
                         })}
                       >
                         <Image

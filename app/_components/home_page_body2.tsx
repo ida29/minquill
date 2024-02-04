@@ -132,9 +132,9 @@ export const HomePageBody2 = ({
           360: 2,
           640: 3,
           768: 4,
-          1024: 5,
-          1280: 6,
-          1536: 7,
+          1024: 4,
+          1280: 4,
+          1536: 5,
         }}
       >
         <Masonry>
@@ -198,7 +198,7 @@ export const HomePageBody2 = ({
           alt="LowPoly Mage Image"
           width="250"
           height="250"
-          priority={false}
+          priority={true}
           className={css({
             margin: "1rem 0 2rem 0",
           })}

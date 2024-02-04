@@ -10,6 +10,7 @@ import { css, cva } from "@/styled-system/css";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import { FiFileText, FiHome, FiImage, FiLogIn, FiLogOut } from "react-icons/fi";
 
 export default function Layout({
   children,
@@ -71,22 +72,103 @@ export default function Layout({
         </div>
       </div>
     </Link>,
+    <Link
+      key="2"
+      href="/articles/new"
+      className={css({
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+        width: "100%",
+        height: "100%",
+      })}
+    >
+      <FiFileText
+        className={css({
+          fontSize: "1.6rem",
+          paddingBottom: "0.3rem",
+        })}
+      />
+      {dict.create_article}
+    </Link>,
+    <Link
+      key="3"
+      href="/photos/new"
+      className={css({
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+        width: "100%",
+        height: "100%",
+      })}
+    >
+      <FiImage
+        className={css({
+          fontSize: "1.6rem",
+          paddingBottom: "0.3rem",
+        })}
+      />
+      {dict.create_photo}
+    </Link>,
+    <Link
+      key="4"
+      href="/articles"
+      className={css({
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+        width: "100%",
+        height: "100%",
+      })}
+    >
+      <FiHome
+        className={css({
+          fontSize: "1.6rem",
+          paddingBottom: "0.3rem",
+        })}
+      />
+      {dict.home}
+    </Link>,
     status === "authenticated" ? (
       <Link
-        key="1"
+        key="5"
         href=""
         onClick={() => signOut()}
-        className={css({ width: "100%", height: "100%" })}
+        className={css({
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          width: "100%",
+          height: "100%",
+        })}
       >
+        <FiLogOut
+          className={css({
+            fontSize: "1.6rem",
+            paddingBottom: "0.3rem",
+          })}
+        />
         {dict.logout}
       </Link>
     ) : (
       <Link
-        key="1"
+        key="5"
         href=""
         onClick={() => signIn()}
-        className={css({ width: "100%", height: "100%" })}
+        className={css({
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          width: "100%",
+          height: "100%",
+        })}
       >
+        <FiLogIn
+          className={css({
+            fontSize: "1.6rem",
+            paddingBottom: "0.3rem",
+          })}
+        />
         {dict.login}
       </Link>
     ),

@@ -130,7 +130,8 @@ export const UserPageBody = ({
             >
               <FiFileText
                 className={css({
-                  fontSize: "1.5rem",
+                  fontSize: "1.6rem",
+                  paddingBottom: "0.2rem",
                 })}
               />
               {user?.articles.length} Articles
@@ -144,7 +145,8 @@ export const UserPageBody = ({
             >
               <FiImage
                 className={css({
-                  fontSize: "1.5rem",
+                  fontSize: "1.6rem",
+                  paddingBottom: "0.2rem",
                 })}
               />
               {user?.photos.length} Photos
@@ -158,11 +160,12 @@ export const UserPageBody = ({
             >
               <FiUsers
                 className={css({
-                  fontSize: "1.5rem",
+                  fontSize: "1.6rem",
+                  paddingBottom: "0.2rem",
                 })}
               />
-              {user?.followers?.length} {dict.followers} {user?.followings?.length}{" "}
-			  {dict.followings}
+              {user?.followers?.length} {dict.followers}{" "}
+              {user?.followings?.length} {dict.followings}
             </li>
             <li
               className={css({
