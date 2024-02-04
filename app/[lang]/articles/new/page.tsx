@@ -2,15 +2,23 @@
 
 import { EditorHeader } from "@/app/_components/editor_header";
 import { EditorBody } from "@/app/_components/editor_body";
-import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
+import { getServerSession } from "next-auth";
+import { auth } from "@/app/auth";
+import { getDictionary } from "@/app/_utils/dictionary";
+import { redirect } from "next/navigation";
 
 export default async function App({
   params: { lang },
 }: {
   params: { lang: string };
 }) {
+  const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
+
+  if (!session) {
+    return redirect("/articles");
+  }
 
   return (
     <div

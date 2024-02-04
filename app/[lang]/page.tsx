@@ -17,16 +17,16 @@ export default async function App({
   const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
 
-  if (session) {
-    return redirect("/articles");
+  if (!session) {
+    return (
+      <div className={mainStyle()}>
+        <LandingPageHeader dict={dict} />
+        <LandingPageBody dict={dict} />
+      </div>
+    );
   }
 
-  return (
-    <div className={mainStyle()}>
-      <LandingPageHeader dict={dict} />
-      <LandingPageBody dict={dict} />
-    </div>
-  );
+  return redirect("/articles");
 }
 
 const mainStyle = cva({
