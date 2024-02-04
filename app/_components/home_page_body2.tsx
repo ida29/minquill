@@ -12,6 +12,7 @@ import {
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { FiMessageCircle, FiHeart } from "react-icons/fi";
 
 export const HomePageBody2 = ({
   dict,
@@ -132,9 +133,9 @@ export const HomePageBody2 = ({
           360: 2,
           640: 3,
           768: 4,
-          1024: 4,
-          1280: 4,
-          1536: 5,
+          1024: 5,
+          1280: 6,
+          1536: 7,
         }}
       >
         <Masonry>
@@ -145,20 +146,61 @@ export const HomePageBody2 = ({
             >
               <div
                 className={css({
-                  border: "2px solid",
                   borderColor: "text1",
                   borderRadius: "10px",
                   margin: "5px",
-                  padding: "5px",
                   bg: "bg3",
-                  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.4)",
-                  transition: "all 0.3s ease 0s",
-                  _hover: {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 8px 16px 0 rgba(0,0,0,0.3)",
+                  position: "relative",
+                  "&:hover #photo_content": {
+                    opacity: 1,
                   },
                 })}
               >
+                <div
+                  id="photo_content"
+                  className={css({
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    opacity: 0,
+                    padding: "1rem",
+                    bg: "rgba(0, 0, 0, 0.5)",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                    transition: "all 0.2s",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "0 .5rem",
+                    color: "text2",
+                  })}
+                >
+                  <FiHeart
+                    className={css({
+                      fontSize: "1.4rem",
+                    })}
+                  />
+                  <div
+                    className={css({
+                      fontSize: "1rem",
+                    })}
+                  >
+                    {photo.likes?.length}
+                  </div>
+                  <FiMessageCircle
+                    className={css({
+                      fontSize: "1.4rem",
+                    })}
+                  />
+                  <div
+                    className={css({
+                      fontSize: "1rem",
+                    })}
+                  >
+                    {photo.comments?.length}
+                  </div>
+                </div>
                 <Image
                   src={photo.url}
                   alt={photo.title}
@@ -168,19 +210,9 @@ export const HomePageBody2 = ({
                   className={css({
                     width: "100%",
                     display: "block",
-                    borderRadius: "5px",
+                    borderRadius: "10px",
                   })}
                 />
-                <div
-                  className={css({
-                    marginTop: "0.4rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: "700",
-                  })}
-                >
-                  {photo.title}
-                </div>
               </div>
             </Link>
           ))}
