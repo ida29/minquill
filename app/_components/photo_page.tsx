@@ -185,10 +185,22 @@ export const PhotoPage = ({
               >
                 <h2
                   className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    gap: ".5rem",
                     fontWeight: "700",
+                    borderBottom: "1px solid #ccc",
+                    paddingBottom: "1rem",
                   })}
                 >
-                  {dict.comments}:
+                  {dict.comments}
+                  <div
+                    className={css({
+                      fontSize: "1rem",
+                    })}
+                  >
+                    {photoValue?.comments?.length}
+                  </div>
                 </h2>
                 <div
                   className={css({
@@ -209,7 +221,6 @@ export const PhotoPage = ({
                           alignItems: "center",
                           marginTop: "1rem",
                           paddingBlock: ".4rem",
-                          borderBottom: "1px solid #ccc",
                         })}
                       >
                         <Image
