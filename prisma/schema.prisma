@@ -126,6 +126,7 @@ model Comment {
   user            User     @relation(fields: [userId], references: [id])
   article         Article? @relation(fields: [articleId], references: [ulid])
   photo           Photo?   @relation(fields: [photoId], references: [ulid])
+  likes           Like[]
 
   @@index([userId, articleId])
   @@index([userId, photoId])
@@ -136,13 +137,16 @@ model Like {
   userId         String
   articleId      String?
   photoId        String?
+  commentId      Int?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id])
   article        Article? @relation(fields: [articleId], references: [ulid])
   photo          Photo?   @relation(fields: [photoId], references: [ulid])
+  comment        Comment? @relation(fields: [commentId], references: [id])
 
   @@index([userId, articleId])
   @@index([userId, photoId])
+  @@index([userId, commentId])
 }
 
 model Follow {

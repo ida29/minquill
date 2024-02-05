@@ -2,6 +2,7 @@
 
 import { User } from "@/app/_utils/user";
 import { Comment } from "@/app/_utils/comment";
+import { Like } from "@/app/_utils/like";
 import { nGram } from "n-gram";
 
 export type Photo = {
@@ -10,7 +11,7 @@ export type Photo = {
   photographerId?: string;
   photographer?: User;
   ulid?: string;
-  likes?: [];
+  likes?: Like[];
   comments?: Comment[];
   tags?: [];
 };

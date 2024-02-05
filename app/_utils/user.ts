@@ -1,14 +1,20 @@
 // app/[lang]/user.ts
 
+import { Article } from "@/app/_utils/article";
+import { Photo } from "@/app/_utils/photo";
+import { Comment } from "@/app/_utils/comment";
+import { Like } from "@/app/_utils/like";
+
 export type User = {
+  id: string;
   username: string;
   name: string;
   email: string;
   image: string;
-  articles: [];
-  photos: [];
-  comments: [];
-  likes: [];
+  articles: Article[];
+  photos: Photo[];
+  comments: Comment[];
+  likes: Like[];
   followers: [];
   followings: [];
 };

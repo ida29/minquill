@@ -28,7 +28,14 @@ export async function GET(
           createdAt: "desc",
         },
       },
-      likes: true,
+      likes: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
       tags: true,
     },
   });

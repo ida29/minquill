@@ -12,21 +12,54 @@ import { useSession } from "next-auth/react";
 import { FiArrowLeftCircle, FiArrowRight } from "react-icons/fi";
 import { Comment } from "@/app/_utils/comment";
 import { formatDate } from "@/app/_utils/formatDate";
+import HeartButton from "@/app/_components/heart_button";
 
 export const PhotoPage = ({
   dict,
   photo,
+  isLikedByUser,
 }: {
   dict: Dictionary;
   photo: Photo;
+  isLikedByUser: boolean;
 }) => {
   const { data: session, status } = useSession();
   const [photoValue, setPhoto] = useState<Photo>();
   const [commentValue, setComment] = useState("");
+  const [isLiked, setIsLiked] = useState(isLikedByUser);
+  const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
     setPhoto(photo);
+    setLikesCount(photo.likes?.length as number);
   }, [photo]);
+
+  const handleLike = async () => {
+    if (photoValue) {
+      const newIsLiked = !isLiked;
+      setIsLiked(newIsLiked);
+      const oldLikesCount = likesCount;
+      setLikesCount(oldLikesCount + (newIsLiked ? 1 : -1));
+
+      const url = new URL(
+        `/api/photos/${photoValue.ulid}/likes`,
+        process.env.NEXT_PUBLIC_WEBSITE_URL,
+      );
+      const res = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ like: newIsLiked }),
+      });
+
+      if (!res.ok) {
+        setIsLiked(!newIsLiked);
+        setLikesCount(oldLikesCount);
+        return;
+      }
+    }
+  };
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -34,6 +67,9 @@ export const PhotoPage = ({
 
   const submitComment = async () => {
     if (commentValue && photoValue) {
+      const newComment = commentValue;
+      setComment("");
+
       const url = new URL(
         `/api/photos/${photoValue.ulid}/comments`,
         process.env.NEXT_PUBLIC_WEBSITE_URL,
@@ -43,18 +79,19 @@ export const PhotoPage = ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comment: commentValue }),
+        body: JSON.stringify({ comment: newComment }),
       });
 
-      if (res.ok) {
-        const newComment: Comment = await res.json();
-        setPhoto({
-          ...photoValue,
-          comments: [newComment, ...(photoValue.comments || [])],
-        });
-
-        setComment("");
+      if (!res.ok) {
+        setComment(newComment);
+        return;
       }
+
+      const resComment: Comment = await res.json();
+      setPhoto({
+        ...photoValue,
+        comments: [resComment, ...(photoValue.comments || [])],
+      });
     }
   };
 
@@ -115,8 +152,6 @@ export const PhotoPage = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                bg: "bg2",
-                borderRadius: "10px 0 0 10px",
                 width: "100%",
                 lg: { width: "50%" },
               })}
@@ -151,36 +186,65 @@ export const PhotoPage = ({
                   right: "0",
                 })}
               >
-                <Link
-                  href={`/${photoValue?.photographer?.username}`}
+                <div
                   className={css({
                     display: "flex",
-                    fontWeight: "700",
-                    padding: "1rem 0",
+                    justifyContent: "space-between",
                   })}
                 >
-                  {photoValue?.photographer && (
-                    <Image
-                      width="48"
-                      height="48"
-                      src={photoValue.photographer.image}
-                      alt="User Image"
+                  <Link
+                    href={`/${photoValue?.photographer?.username}`}
+                    className={css({
+                      display: "flex",
+                      fontWeight: "700",
+                      padding: "1rem 0",
+                    })}
+                  >
+                    {photoValue?.photographer && (
+                      <Image
+                        width="48"
+                        height="48"
+                        src={photoValue.photographer.image}
+                        alt="User Image"
+                        className={css({
+                          borderRadius: "50%",
+                          marginRight: ".5rem",
+                        })}
+                      />
+                    )}
+                    <div
                       className={css({
-                        borderRadius: "50%",
-                        marginRight: ".5rem",
+                        display: "flex",
+                        flexDirection: "column",
                       })}
-                    />
-                  )}
+                    >
+                      <p>{photoValue?.photographer?.name}</p>
+                      <p>{photoValue?.photographer?.username}</p>
+                    </div>
+                  </Link>
                   <div
                     className={css({
                       display: "flex",
                       flexDirection: "column",
+                      alignItems: "center",
+                      paddingTop: "1rem",
                     })}
                   >
-                    <p>{photoValue?.photographer?.name}</p>
-                    <p>{photoValue?.photographer?.username}</p>
+                    <HeartButton
+                      isLiked={isLiked}
+                      setIsLiked={setIsLiked}
+                      onClick={handleLike}
+                    />
+                    <div
+                      className={css({
+                        fontSize: "1rem",
+                        color: "text3",
+                      })}
+                    >
+                      {likesCount}
+                    </div>
                   </div>
-                </Link>
+                </div>
                 <div
                   className={css({
                     fontSize: "1.6rem",
