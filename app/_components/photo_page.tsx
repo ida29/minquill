@@ -102,9 +102,9 @@ export const PhotoPage = ({
               display: "flex",
               flexWrap: "wrap",
               bg: "bg3",
-              borderRadius: "10px",
-              shadow: "0 4px 8px 0 rgba(0, 0, 0, 0.4)",
               width: "95%",
+              boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
+
               sm: { width: "95%" },
               md: { width: "90%" },
               lg: { width: "90%" },
@@ -113,7 +113,10 @@ export const PhotoPage = ({
             <div
               className={css({
                 display: "flex",
-                alignItems: "flex-start",
+                justifyContent: "center",
+                alignItems: "center",
+                bg: "bg2",
+                borderRadius: "10px 0 0 10px",
                 width: "100%",
                 lg: { width: "50%" },
               })}
@@ -127,7 +130,6 @@ export const PhotoPage = ({
                   priority={true}
                   className={css({
                     width: "100%",
-                    sm: { borderRadius: "10px 0 0 10px" },
                   })}
                 />
               )}
@@ -136,144 +138,149 @@ export const PhotoPage = ({
               className={css({
                 display: "flex",
                 flexDirection: "column",
-                padding: "1rem",
+                padding: "0 1rem",
                 width: "100%",
                 lg: { width: "50%" },
               })}
             >
-              <Link
-                href={`/${photoValue?.photographer?.username}`}
-                className={css({
-                  display: "flex",
-                  fontWeight: "700",
-                  marginTop: "1rem",
-                })}
-              >
-                {photoValue?.photographer && (
-                  <Image
-                    width="48"
-                    height="48"
-                    src={photoValue.photographer.image}
-                    alt="User Image"
-                    className={css({
-                      borderRadius: "50%",
-                      marginRight: ".5rem",
-                    })}
-                  />
-                )}
-                <div
-                  className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                  })}
-                >
-                  <p>{photoValue?.photographer?.name}</p>
-                  <p>{photoValue?.photographer?.username}</p>
-                </div>
-              </Link>
               <div
                 className={css({
-                  fontSize: "1.6rem",
-                  fontWeight: "700",
-                  marginTop: "2rem",
+                  position: "sticky",
+                  bg: "bg3",
+                  top: "0",
+                  right: "0",
                 })}
               >
-                {photoValue?.title}
-              </div>
-              <div
-                className={css({
-                  marginTop: "2rem",
-                })}
-              >
-                <h2
+                <Link
+                  href={`/${photoValue?.photographer?.username}`}
                   className={css({
                     display: "flex",
-                    alignItems: "center",
-                    gap: ".5rem",
                     fontWeight: "700",
-                    borderBottom: "1px solid #ccc",
-                    paddingBottom: "1rem",
+                    padding: "1rem 0",
                   })}
                 >
-                  {dict.comments}
+                  {photoValue?.photographer && (
+                    <Image
+                      width="48"
+                      height="48"
+                      src={photoValue.photographer.image}
+                      alt="User Image"
+                      className={css({
+                        borderRadius: "50%",
+                        marginRight: ".5rem",
+                      })}
+                    />
+                  )}
                   <div
                     className={css({
-                      fontSize: "1rem",
+                      display: "flex",
+                      flexDirection: "column",
                     })}
                   >
-                    {photoValue?.comments?.length}
+                    <p>{photoValue?.photographer?.name}</p>
+                    <p>{photoValue?.photographer?.username}</p>
                   </div>
-                </h2>
+                </Link>
                 <div
                   className={css({
-                    overflow: "auto",
-                    height: "70dvh",
+                    fontSize: "1.6rem",
+                    fontWeight: "700",
+                    margin: "2rem 0",
                   })}
                 >
-                  {photoValue?.comments?.map((comment: Comment, i) => (
+                  {photoValue?.title}
+                </div>
+                <div className={css({})}>
+                  <h2
+                    className={css({
+                      display: "flex",
+                      alignItems: "center",
+                      gap: ".5rem",
+                      fontWeight: "700",
+                      borderBottom: "1px solid #ccc",
+                      paddingBottom: "1rem",
+                    })}
+                  >
+                    {dict.comments}
                     <div
-                      key={i}
                       className={css({
-                        width: "100%",
+                        fontSize: "1rem",
                       })}
                     >
+                      {photoValue?.comments?.length}
+                    </div>
+                  </h2>
+                  <div
+                    className={css({
+                      overflow: "auto",
+                      maxHeight: "calc(100vh - 20rem)",
+                    })}
+                  >
+                    {photoValue?.comments?.map((comment: Comment, i) => (
                       <div
+                        key={i}
                         className={css({
-                          display: "flex",
-                          alignItems: "flex-start",
-                          paddingBlock: ".4rem",
+                          width: "100%",
                         })}
                       >
-                        <Link href={`/${comment?.user?.username}`}>
-                          <Image
-                            width="40"
-                            height="40"
-                            src={comment.user.image}
-                            alt="Comment User Image"
-                            className={css({
-                              borderRadius: "50%",
-                              margin: ".5rem 1rem 0 .5rem",
-                            })}
-                          />
-                        </Link>
                         <div
                           className={css({
                             display: "flex",
-                            flexDirection: "column",
-                            fontSize: "1.2rem",
-                            width: "100%",
+                            alignItems: "flex-start",
+                            paddingBlock: ".4rem",
                           })}
                         >
+                          <Link href={`/${comment?.user?.username}`}>
+                            <Image
+                              width="40"
+                              height="40"
+                              src={comment.user.image}
+                              alt="Comment User Image"
+                              className={css({
+                                borderRadius: "50%",
+                                margin: ".5rem 1rem 0 .5rem",
+                              })}
+                            />
+                          </Link>
                           <div
                             className={css({
                               display: "flex",
-                              gap: ".5rem",
-                              alignItems: "center",
+                              flexDirection: "column",
+                              fontSize: "1.2rem",
+                              width: "100%",
                             })}
                           >
-                            <p>
-                              <strong>{comment.user.name}</strong>
-                            </p>
                             <div
                               className={css({
-                                fontSize: "1rem",
-                                color: "text3",
+                                display: "flex",
+                                gap: ".5rem",
+                                alignItems: "center",
                               })}
                             >
-                              <p>{formatDate(comment.createdAt)}</p>
+                              <p>
+                                <strong>{comment.user.name}</strong>
+                              </p>
+                              <div
+                                className={css({
+                                  fontSize: "1rem",
+                                  color: "text3",
+                                })}
+                              >
+                                <p>{formatDate(comment.createdAt)}</p>
+                              </div>
                             </div>
+                            <p
+                              className={css({
+                                wordBreak: "break-word",
+                              })}
+                            >
+                              {comment.commentText}
+                            </p>
                           </div>
-                          <p
-                            className={css({
-                              wordBreak: "break-word",
-                            })}
-                          >
-                            {comment.commentText}
-                          </p>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
               <div
