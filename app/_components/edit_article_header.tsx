@@ -11,26 +11,19 @@ import {
   FiArrowLeftCircle,
   FiMinus,
 } from "react-icons/fi";
-import useLocalStorageState from "use-local-storage-state";
 
 export const EditArticleHeader = (params: {
   dict: Dictionary;
   username: string;
+  activeTabIndex: number;
+  setActiveTabIndex: (index: number) => void;
+  handleTabClick: (index: number) => void;
 }) => {
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
     <FiHelpCircle key="2" />,
   ];
-  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
-    "activeTab2",
-    {
-      defaultValue: 0,
-    },
-  );
-  const handleTabClick = (index: number) => {
-    setActiveTabIndex(index);
-  };
 
   return (
     <header
@@ -96,9 +89,9 @@ export const EditArticleHeader = (params: {
           {tabStrArr.map((tabName, index) => (
             <li
               key={index}
-              onClick={() => handleTabClick(index)}
+              onClick={() => params.handleTabClick(index)}
               className={`${liStyle()} 
-                  ${index === activeTabIndex ? activeTab() : ""}`}
+                  ${index === params.activeTabIndex ? activeTab() : ""}`}
             >
               {tabName}
             </li>

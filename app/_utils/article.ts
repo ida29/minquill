@@ -1,6 +1,8 @@
 // app/_utils/article.ts
 
 import { User } from "@/app/_utils/user";
+import { Comment } from "@/app/_utils/comment";
+import { Like } from "@/app/_utils/like";
 import { nGram } from "n-gram";
 //import moji from "moji";
 
@@ -11,8 +13,8 @@ export type Article = {
   author?: User;
   ulid?: string;
   coverImg?: string;
-  likes?: [];
-  comments?: [];
+  likes?: Like[];
+  comments?: Comment[];
   tags?: [];
 };
 
@@ -81,8 +83,12 @@ export async function updateArticle(
   newArticle: Article,
   unique: string,
 ): Promise<Article> {
-  const response = await fetch(`/api/articles/${unique}`, {
-    method: "Article",
+  const url = new URL(
+    `/api/articles/${unique}`,
+    process.env.NEXT_PUBLIC_WEBSITE_URL,
+  );
+  const response = await fetch(url.toString(), {
+    method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -108,7 +114,8 @@ export async function updateArticle(
 }
 
 export async function createArticle(newArticle: Article): Promise<Article> {
-  const response = await fetch("/api/articles", {
+  const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
+  const response = await fetch(url.toString(), {
     method: "POST",
     cache: "no-cache",
     headers: { "Content-Type": "application/json" },

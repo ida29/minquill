@@ -2,8 +2,7 @@
 
 import { getDictionary } from "@/app/_utils/dictionary";
 import { css } from "@/styled-system/css";
-import { EditArticleHeader } from "@/app/_components/edit_article_header";
-import { EditArticleBody } from "@/app/_components/edit_article_body";
+import { EditArticle } from "@/app/_components/edit_article";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
@@ -18,13 +17,27 @@ export default async function App({
 
   const session = await getServerSession(auth);
 
-  if (!session) {
+  if (!session || !session.user) {
     return redirect("/articles");
   }
 
   if (username !== session.user?.username) {
     return redirect("/articles");
   }
+
+  const user: User = {
+    id: session.user.id,
+    username: session.user.username,
+    name: session.user.name,
+    email: session.user.email as string,
+    image: session.user.image,
+    articles: [],
+    photos: [],
+    comments: [],
+    likes: [],
+    followers: [],
+    followings: [],
+  };
 
   const article: Article = await getArticle(unique);
 
@@ -45,8 +58,7 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <EditArticleHeader dict={dict} username={username} />
-        <EditArticleBody dict={dict} article={article} />
+        <EditArticle dict={dict} article={article} user={user} />
       </div>
     </div>
   );

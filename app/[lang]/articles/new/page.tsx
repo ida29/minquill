@@ -1,12 +1,12 @@
 // app/[lang]/articles/new/page.tsx
 
-import { EditorHeader } from "@/app/_components/editor_header";
-import { EditorBody } from "@/app/_components/editor_body";
+import { NewArticle } from "@/app/_components/new_article";
 import { css } from "@/styled-system/css";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { getDictionary } from "@/app/_utils/dictionary";
 import { redirect } from "next/navigation";
+import { User } from "@/app/_utils/user";
 
 export default async function App({
   params: { lang },
@@ -16,9 +16,23 @@ export default async function App({
   const session = await getServerSession(auth);
   const dict = await getDictionary(lang);
 
-  if (!session) {
+  if (!session || !session.user) {
     return redirect("/articles");
   }
+
+  const user: User = {
+    id: session.user.id,
+    username: session.user.username,
+    name: session.user.name,
+    email: session.user.email as string,
+    image: session.user.image,
+    articles: [],
+    photos: [],
+    comments: [],
+    likes: [],
+    followers: [],
+    followings: [],
+  };
 
   return (
     <div
@@ -37,8 +51,7 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <EditorHeader dict={dict} />
-        <EditorBody dict={dict} />
+        <NewArticle dict={dict} user={user} />
       </div>
     </div>
   );

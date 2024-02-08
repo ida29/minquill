@@ -4,7 +4,6 @@
 import Link from "next/link";
 import { css, cva } from "@/styled-system/css";
 import { Dictionary } from "@/app/_utils/dictionary";
-//import { useSession } from "next-auth/react";
 import {
   FiFeather,
   FiPlayCircle,
@@ -12,23 +11,19 @@ import {
   FiArrowLeftCircle,
   FiMinus,
 } from "react-icons/fi";
-import useLocalStorageState from "use-local-storage-state";
 
-export const EditorHeader = (params: { dict: Dictionary }) => {
+export const NewArticleHeader = (params: {
+  dict: Dictionary;
+  username: string;
+  activeTabIndex: number;
+  setActiveTabIndex: (index: number) => void;
+  handleTabClick: (index: number) => void;
+}) => {
   const tabStrArr: React.ReactNode[] = [
     <FiFeather key="0" />,
     <FiPlayCircle key="1" />,
     <FiHelpCircle key="2" />,
   ];
-  const [activeTabIndex, setActiveTabIndex] = useLocalStorageState(
-    "activeTab",
-    {
-      defaultValue: 0,
-    },
-  );
-  const handleTabClick = (index: number) => {
-    setActiveTabIndex(index);
-  };
 
   return (
     <header
@@ -94,9 +89,9 @@ export const EditorHeader = (params: { dict: Dictionary }) => {
           {tabStrArr.map((tabName, index) => (
             <li
               key={index}
-              onClick={() => handleTabClick(index)}
+              onClick={() => params.handleTabClick(index)}
               className={`${liStyle()} 
-                  ${index === activeTabIndex ? activeTab() : ""}`}
+                  ${index === params.activeTabIndex ? activeTab() : ""}`}
             >
               {tabName}
             </li>

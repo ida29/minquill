@@ -11,7 +11,7 @@ type UploadImgBtnProps = {
   colorVariant?: "default" | "primary" | "secondary";
   className?: string;
   contentValue: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
+  setContent: (content: string) => void;
 };
 
 export const UploadImgBtn: React.FC<UploadImgBtnProps> = ({

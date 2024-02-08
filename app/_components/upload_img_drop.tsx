@@ -10,7 +10,7 @@ type UploadImgDropProps = {
   text: string;
   text2: string;
   contentValue: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
+  setContent: (content: string) => void;
 };
 
 export const UploadImgDrop: React.FC<UploadImgDropProps> = ({

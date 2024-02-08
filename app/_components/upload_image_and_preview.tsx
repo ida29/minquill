@@ -98,7 +98,7 @@ export const UploadImgNPreview: React.FC<UploadImgNPreviewProps> = ({
             width="200"
             height="200"
             alt="Cover image preview"
-            src={coverImg as string}
+            src={coverImg}
           />
           <FiX
             className={css({
