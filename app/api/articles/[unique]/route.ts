@@ -43,7 +43,6 @@ export async function POST(
 
   try {
     const req_json = await req.json();
-    console.log(req_json);
     const article: Article = await prisma.article.update({
       where: {
         ulid: params.unique,

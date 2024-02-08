@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getArticle, Article } from "@/app/_utils/article";
+import { User } from "@/app/_utils/user";
 
 export default async function App({
   params: { lang, username, unique },
