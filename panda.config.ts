@@ -81,6 +81,14 @@ export default defineConfig({
               },
             },
           },
+          text4: {
+            value: {
+              _normalTheme: {
+                base: "{colors.stone.300}",
+                _dark: "{colors.stone.500}",
+              },
+            },
+          },
           border1: {
             value: {
               _normalTheme: {

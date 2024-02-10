@@ -17,8 +17,6 @@ export const NewPhoto = ({ dict }: { dict: Dictionary }) => {
 
   return (
     <div
-      data-theme="normal"
-      data-color-mode="light"
       className={css({
         overflow: "auto",
         bg: "bg1",

@@ -43,7 +43,11 @@ export default function RootLayout({
         overflow: "hidden",
       })}
     >
-      <body className={hind.className}>
+      <body
+        className={hind.className}
+        data-theme="normal"
+        data-color-mode="light"
+      >
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>

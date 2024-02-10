@@ -21,6 +21,19 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * count;
 
     if (mode === "recommended") {
+      articles = await prisma.article.findMany({
+        skip,
+        take: count,
+        orderBy: {
+          createdAt: order,
+        },
+        include: {
+          author: true,
+          comments: true,
+          likes: true,
+          tags: true,
+        },
+      });
     } else if (mode === "tags") {
       articles = await prisma.article.findMany({
         where: {

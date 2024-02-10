@@ -23,7 +23,6 @@ export const HomePageBody2 = ({
 }) => {
   const [photosValue, setPhotos] = useState<Photo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const tags = useMemo(() => ["Tips", "Review", "Painting Guide"], []);
 
   useEffect(() => {
     setPhotos(photos);
@@ -32,11 +31,12 @@ export const HomePageBody2 = ({
   const handleSubmit = async (token: string) => {
     setIsLoading(true);
     try {
-      const articles: Photo[] =
-        token === ""
-          ? await getRecommendedPhotos(20, tags)
-          : await getPhotosWithToken(token, 30);
-      setPhotos(articles);
+      if (token !== "") {
+        const searchedPhotos = await getPhotosWithToken(token, 30);
+        setPhotos(searchedPhotos);
+      } else {
+        setPhotos(photos);
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -60,6 +60,7 @@ export const HomePageBody2 = ({
           display: "flex",
           justifyContent: "center",
           flexWrap: "wrap",
+          marginBottom: "2.6rem",
         })}
       >
         <ul
@@ -88,6 +89,7 @@ export const HomePageBody2 = ({
         <div
           className={css({
             display: "flex",
+            justifyContent: "center",
             gap: "1rem",
             width: "100%",
           })}
@@ -99,32 +101,7 @@ export const HomePageBody2 = ({
             onKeyDown={handleKeyDown}
             placeholder={dict.full_text_search_placeholder}
             autoComplete="off"
-            className={css({
-              color: "text1",
-              bg: "bg3",
-              textIndent: "1rem",
-              borderRadius: "10px",
-              width: "100%",
-              fontWeight: "700",
-              outline: "none",
-              padding: "1rem 0.4rem 0.6rem 0",
-              transition: "all 0.1s",
-              fontSize: "1.4rem",
-              margin: "3rem .5rem 1rem .5rem",
-              border: "4px solid white",
-              _focus: {
-                border: "4px solid black",
-              },
-              sm: {
-                fontSize: "1.4rem",
-              },
-              md: {
-                fontSize: "1.6rem",
-              },
-              lg: {
-                fontSize: "1.8rem",
-              },
-            })}
+            className={inputStyle({})}
           />
         </div>
       </div>
@@ -254,5 +231,34 @@ const activeTab = cva({
   base: {
     borderBottom: "4px solid",
     color: "text1",
+  },
+});
+
+const inputStyle = cva({
+  base: {
+    bg: "bg3",
+    textIndent: "1rem",
+    borderRadius: "10px",
+    width: "42rem",
+    fontWeight: "700",
+    outline: "none",
+    padding: ".8rem .4rem .6rem 0",
+    transition: "all 0.1s",
+    fontSize: "1.4rem",
+    margin: "2rem .5rem 1rem .5rem",
+    border: "4px solid white",
+    _focus: {
+      border: "4px solid",
+      borderColor: "text1",
+    },
+    sm: {
+      fontSize: "1.4rem",
+    },
+    md: {
+      fontSize: "1.6rem",
+    },
+    lg: {
+      fontSize: "1.8rem",
+    },
   },
 });

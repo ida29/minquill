@@ -36,13 +36,13 @@ export async function getPhoto(unique: string): Promise<Photo> {
 }
 
 export async function getPhotosByUsername(
-  username: string,
+  username?: string,
   count?: number,
   order?: string,
   page?: number,
 ): Promise<Photo[]> {
   const url = new URL("/api/photos", process.env.NEXT_PUBLIC_WEBSITE_URL);
-  url.searchParams.append("username", username);
+  url.searchParams.append("username", username ? username : "");
   url.searchParams.append("count", count ? count.toString() : "20");
   url.searchParams.append("order", order ? order : "desc");
   url.searchParams.append("page", page ? page.toString() : "1");
@@ -85,16 +85,10 @@ export async function createPhoto(newPhoto: Photo): Promise<Photo> {
   return Photo;
 }
 
-export async function getRecommendedPhotos(
-  count: number,
-  tags: string[],
-): Promise<Photo[]> {
+export async function getRecommendedPhotos(count: number): Promise<Photo[]> {
   const url = new URL("/api/photos", process.env.NEXT_PUBLIC_WEBSITE_URL);
-  url.searchParams.append("mode", "tags");
+  url.searchParams.append("mode", "recommended");
   url.searchParams.append("count", count.toString());
-  tags.forEach((tag) => {
-    url.searchParams.append("tags", tag);
-  });
 
   const response = await fetch(url.toString(), {
     method: "GET",

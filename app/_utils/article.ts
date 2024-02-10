@@ -54,13 +54,13 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticlesByUsername(
-  username: string,
+  username?: string,
   count?: number,
   order?: string,
   page?: number,
 ): Promise<Article[]> {
   const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
-  url.searchParams.append("username", username);
+  url.searchParams.append("username", username ? username : "");
   url.searchParams.append("count", count ? count.toString() : "20");
   url.searchParams.append("order", order ? order : "desc");
   url.searchParams.append("page", page ? page.toString() : "1");
@@ -143,14 +143,10 @@ export async function createArticle(newArticle: Article): Promise<Article> {
 
 export async function getRecommendedArticles(
   count: number,
-  tags: string[],
 ): Promise<Article[]> {
   const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
-  url.searchParams.append("mode", "tags");
+  url.searchParams.append("mode", "recommended");
   url.searchParams.append("count", count.toString());
-  tags.forEach((tag) => {
-    url.searchParams.append("tags", tag);
-  });
 
   const response = await fetch(url.toString(), {
     method: "GET",
