@@ -17,9 +17,11 @@ import { ActionButton } from "@/app/_components/action_button";
 export const HomePageBody = ({
   dict,
   articles,
+  tags,
 }: {
   dict: Dictionary;
   articles: Article[];
+  tags: string[];
 }) => {
   const [articlesValue, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +62,7 @@ export const HomePageBody = ({
         20,
         "desc",
         page + 1,
+        tags,
       );
       setArticles((articles) => [...articles, ...newArticles]);
       setPage(page + 1);
@@ -98,10 +101,10 @@ export const HomePageBody = ({
           })}
         >
           <Link href={`/articles`}>
-            <li className={`${liStyle()} ${activeTab()}`}>Articles</li>
+            <li className={`${liStyle()} ${activeTab()}`}>{dict.articles}</li>
           </Link>
           <Link href={`/photos`}>
-            <li className={`${liStyle()}`}>Photos</li>
+            <li className={`${liStyle()}`}>{dict.photos}</li>
           </Link>
         </ul>
         <div
@@ -123,7 +126,7 @@ export const HomePageBody = ({
           />
         </div>
       </div>
-      {articlesValue.length > 0 && !isLoading ? (
+      {!isLoading ? (
         <div>
           <div
             className={css({
@@ -139,7 +142,7 @@ export const HomePageBody = ({
                 margin: "1rem",
               })}
             >
-              <strong>{dict.article_list}</strong>
+              {articlesValue.length > 0 && <strong>{dict.article_list}</strong>}
             </h2>
           </div>
           <div
@@ -312,19 +315,21 @@ export const HomePageBody = ({
                 ),
               )}
           </div>
-          <div
-            className={css({
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-              margin: "2rem 0",
-            })}
-          >
-            <ActionButton
-              text={dict.get_more_articles}
-              onClick={loadMoreArticles}
-            />
-          </div>
+          {articlesValue.length > 0 && (
+            <div
+              className={css({
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                margin: "2rem 0",
+              })}
+            >
+              <ActionButton
+                text={dict.get_more_articles}
+                onClick={loadMoreArticles}
+              />
+            </div>
+          )}
         </div>
       ) : (
         <div>
@@ -363,7 +368,7 @@ export const HomePageBody = ({
             {
               // skelton screen
               [...Array(5)].map((_, index) => (
-                <Link key={index} href="">
+                <div key={index}>
                   <article
                     className={css({
                       fontWeight: "700",
@@ -439,7 +444,7 @@ export const HomePageBody = ({
                       </ul>
                     </div>
                   </article>
-                </Link>
+                </div>
               ))
             }
           </div>

@@ -9,6 +9,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import "./styles.css";
 import { User } from "@/app/_utils/user";
 import Image from "next/image";
+import Link from "next/link";
 
 export const PreviewTab = ({
   dict,
@@ -42,9 +43,7 @@ export const PreviewTab = ({
             width: "100%",
             paddingTop: "100%",
             bg: "bg2",
-            sm: { paddingTop: "calc(80vh - 4.4rem)" },
-            md: { paddingTop: "calc(70vh - 4.4rem)" },
-            lg: { paddingTop: "calc(60vh - 4.4rem)" },
+            md: { paddingTop: "calc(80vh - 4.4rem)" },
           })}
         >
           {coverImg && (
@@ -78,10 +77,11 @@ export const PreviewTab = ({
               transform: "translate(-50%,-50%)",
               fontWeight: "700",
               fontSize: "2.2rem",
+              overflowWrap: "break-word",
               width: "90%",
-              sm: { fontSize: "2.4rem", width: "auto" },
-              md: { fontSize: "2.6rem", width: "auto" },
-              lg: { fontSize: "2.8rem", width: "auto" },
+              sm: { fontSize: "2.4rem", width: "90%" },
+              md: { fontSize: "2.6rem", width: "auto", maxWidth: "80%" },
+              lg: { fontSize: "2.8rem", width: "auto", maxWidth: "80%" },
             })}
           >
             {titleValue}
@@ -91,73 +91,54 @@ export const PreviewTab = ({
       <div
         className={css({
           display: "flex",
-          flexDirection: "column",
           alignItems: "flex-start",
           marginBottom: ".5rem",
           width: "90%",
-          sm: { width: "70%" },
-          md: { width: "70%" },
-          lg: { width: "70%" },
+          sm: { width: "80%" },
+          md: { width: "80%" },
+          lg: { width: "80%" },
         })}
       >
-        <div
-          className={css({
-            display: "flex",
-            paddingTop: ".5rem",
-            alignItems: "center",
-            fontSize: "1rem",
-            sm: { fontSize: "1.2rem" },
-          })}
-        >
-          {userValue && (
-            <Image
-              width="48"
-              height="48"
-              src={userValue?.image}
-              alt="User Image"
-              className={css({
-                borderRadius: "50%",
-                marginRight: ".5rem",
-              })}
-            />
-          )}
-          <div
-            className={css({
-              display: "flex",
-              flexDirection: "column",
-              fontWeight: "700",
-            })}
-          >
-            <p>{userValue?.name}</p>
-            <p>{userValue?.username}</p>
-          </div>
-        </div>
-        <div
-          className={css({
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-            fontSize: "1.2rem",
-            margin: "2rem 0",
-          })}
-        >
-          {tagsValue &&
-            tagsValue.split(",").map((tagName: string) => (
-              <div
-                key={tagName}
-                className={css({
-                  fontWeight: "700",
-                })}
-              >
-                #{tagName}
-              </div>
-            ))}
-        </div>
         <div
           className={css({
             width: "100%",
           })}
         >
+          <div
+            className={css({
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1rem",
+              fontSize: "1rem",
+              margin: "2rem 0",
+              zIndex: "1",
+            })}
+          >
+            <div
+              className={css({
+                fontWeight: "700",
+                padding: "calc(.1rem + 2px) 0",
+              })}
+            >
+              {dict.tags}:
+            </div>
+            {tagsValue &&
+              tagsValue.split(",").map((tagName: string) => (
+                <Link
+                  key={tagName}
+                  href={`/articles/${tagName}`}
+                  className={css({
+                    fontWeight: "700",
+                    borderRadius: "9999px",
+                    border: "2px solid",
+                    padding: ".1rem .8rem",
+                    boxShadow: "1px 1px 0",
+                  })}
+                >
+                  {tagName}
+                </Link>
+              ))}
+          </div>
           <div
             id="markdown-preview"
             className={css({
@@ -165,9 +146,6 @@ export const PreviewTab = ({
 
               borderRadius: "10px",
               bg: "bg1",
-
-              position: "relative",
-              zIndex: "0",
             })}
           >
             <ReactMarkdown
@@ -191,6 +169,138 @@ export const PreviewTab = ({
                 },
                 p: ({ children }) => (
                   <p style={{ marginBottom: "1em" }}>{children}</p>
+                ),
+                h1: ({ node, ...props }) => (
+                  <h1
+                    id={node?.position?.start.line.toString()}
+                    style={{ paddingTop: "4.4rem", marginTop: "-4.4rem" }}
+                  >
+                    <strong>{props.children}</strong>
+                  </h1>
+                ),
+                h2: ({ node, ...props }) => (
+                  <h2
+                    id={node?.position?.start.line.toString()}
+                    style={{ paddingTop: "4.4rem", marginTop: "-4.4rem" }}
+                  >
+                    <strong>{props.children}</strong>
+                  </h2>
+                ),
+                h3: ({ node, ...props }) => (
+                  <h3
+                    id={node?.position?.start.line.toString()}
+                    style={{ paddingTop: "4.4rem", marginTop: "-4.4rem" }}
+                  >
+                    <strong>{props.children}</strong>
+                  </h3>
+                ),
+              }}
+            >
+              {contentValue}
+            </ReactMarkdown>
+          </div>
+        </div>
+        <div
+          className={css({
+            display: "none",
+            lg: {
+              display: "flex",
+              flexDirection: "column",
+              width: "40%",
+              position: "sticky",
+              top: "4.4rem",
+              padding: "1rem 0 1rem 2rem",
+            },
+          })}
+        >
+          <div
+            className={css({
+              display: "flex",
+              padding: "1rem",
+              alignItems: "center",
+              fontSize: "1rem",
+              bg: "bg3",
+              borderRadius: "10px",
+              shadow: "0 4px 8px 0 rgba(0,0,0,0.1)",
+              sm: { fontSize: "1.2rem" },
+            })}
+          >
+            <Link
+              href={`/${userValue?.username}`}
+              className={css({
+                display: "flex",
+                fontWeight: "700",
+                padding: "1rem 0",
+              })}
+            >
+              {userValue && (
+                <Image
+                  width="48"
+                  height="48"
+                  src={userValue?.image}
+                  alt="User Image"
+                  className={css({
+                    borderRadius: "50%",
+                    marginRight: ".5rem",
+                  })}
+                />
+              )}
+            </Link>
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                fontWeight: "700",
+              })}
+            >
+              <p>{userValue?.name}</p>
+              <p>{userValue?.username}</p>
+            </div>
+          </div>
+          <div
+            className={css({
+              bg: "bg3",
+              borderRadius: "10px",
+              marginTop: "1rem",
+              padding: "1rem",
+              shadow: "0 4px 8px 0 rgba(0,0,0,0.1)",
+            })}
+          >
+            <ReactMarkdown
+              allowedElements={["h1", "h2", "h3"]}
+              components={{
+                h1: ({ node, ...props }) => (
+                  <>
+                    <a
+                      href={"#" + node?.position?.start.line.toString()}
+                      style={{ lineHeight: "1.6rem" }}
+                    >
+                      #{props.children}
+                      <br />
+                    </a>
+                  </>
+                ),
+                h2: ({ node, ...props }) => (
+                  <>
+                    <a
+                      href={"#" + node?.position?.start.line.toString()}
+                      style={{ lineHeight: "1.6rem" }}
+                    >
+                      &nbsp;&nbsp;#{props.children}
+                      <br />
+                    </a>
+                  </>
+                ),
+                h3: ({ node, ...props }) => (
+                  <>
+                    <a
+                      href={"#" + node?.position?.start.line.toString()}
+                      style={{ lineHeight: "1.6rem" }}
+                    >
+                      &nbsp;&nbsp;&nbsp;&nbsp;#{props.children}
+                      <br />
+                    </a>
+                  </>
                 ),
               }}
             >

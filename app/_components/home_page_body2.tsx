@@ -80,10 +80,10 @@ export const HomePageBody2 = ({
           })}
         >
           <Link href={`/articles`}>
-            <li className={`${liStyle()} }`}>Articles</li>
+            <li className={`${liStyle()}`}>{dict.articles}</li>
           </Link>
           <Link href={`/photos`}>
-            <li className={`${liStyle()} ${activeTab()}`}>Photos</li>
+            <li className={`${liStyle()} ${activeTab()}`}>{dict.photos}</li>
           </Link>
         </ul>
         <div

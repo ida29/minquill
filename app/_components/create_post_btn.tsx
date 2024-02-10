@@ -8,12 +8,16 @@ import { css, cva } from "@/styled-system/css";
 import { FiFileText, FiImage } from "react-icons/fi";
 
 type CreatePostBtnProps = {
-  text: string;
+  text1: string;
+  text2: string;
+  text3: string;
   colorVariant?: "default" | "primary" | "secondary";
 };
 
 export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
-  text,
+  text1,
+  text2,
+  text3,
   colorVariant = "primary",
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -58,7 +62,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
           },
         })}
       >
-        {text}
+        {text1}
       </button>
       {menuVisible && (
         <div
@@ -97,7 +101,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
                 fontSize: "1.5rem",
               })}
             />
-            Article
+            {text2}
           </Link>
           <Link
             href={`/photos/new`}
@@ -119,7 +123,7 @@ export const CreatePostBtn: React.FC<CreatePostBtnProps> = ({
                 fontSize: "1.5rem",
               })}
             />
-            Photo
+            {text3}
           </Link>
         </div>
       )}

@@ -54,16 +54,18 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticlesByUsername(
-  username?: string,
-  count?: number,
-  order?: string,
-  page?: number,
+  username: string = "",
+  count: number = 20,
+  order: string = "desc",
+  page: number = 1,
+  tags: string[] = [],
 ): Promise<Article[]> {
   const url = new URL("/api/articles", process.env.NEXT_PUBLIC_WEBSITE_URL);
-  url.searchParams.append("username", username ? username : "");
-  url.searchParams.append("count", count ? count.toString() : "20");
-  url.searchParams.append("order", order ? order : "desc");
-  url.searchParams.append("page", page ? page.toString() : "1");
+  username !== "" ? url.searchParams.append("username", username) : null;
+  url.searchParams.append("count", count.toString());
+  url.searchParams.append("order", order);
+  url.searchParams.append("page", page.toString());
+  tags.length > 0 ? url.searchParams.append("tags", tags.join(",")) : null;
 
   const response = await fetch(url.toString(), {
     method: "GET",

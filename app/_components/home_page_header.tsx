@@ -97,7 +97,11 @@ export const HomePageHeader = (params: {
             })}
           />
         </div>
-        <CreatePostBtn text={params.dict.create_post} />
+        <CreatePostBtn
+          text1={params.dict.create_post}
+          text2={params.dict.article}
+          text3={params.dict.photo}
+        />
       </>
     );
     logo = <div className={logoStyle()}>{params.dict.minquill}</div>;

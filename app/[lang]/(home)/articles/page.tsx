@@ -12,5 +12,5 @@ export default async function App({
 }) {
   const dict = await getDictionary(lang);
   const articles: Article[] = await getArticlesByUsername("", 20, "desc", 0);
-  return <HomePageBody dict={dict} articles={articles} />;
+  return <HomePageBody dict={dict} articles={articles} tags={[]} />;
 }

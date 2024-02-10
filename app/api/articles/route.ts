@@ -78,7 +78,19 @@ export async function GET(req: NextRequest) {
         },
       });
     } else {
-      const where = username ? { authorId: username } : {};
+      const where = {
+        ...(username && { authorId: username }),
+        ...(tags.length > 0 && {
+          tags: {
+            some: {
+              name: {
+                in: tags,
+              },
+            },
+          },
+        }),
+      };
+
       articles = await prisma.article.findMany({
         where,
         skip,
