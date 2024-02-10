@@ -136,37 +136,7 @@ export const EditTab = ({
           onChange={(e) => setTitle(e.target.value)}
           placeholder={dict.title_placeholder}
           autoComplete="off"
-          className={css({
-            bg: "bg3",
-            textIndent: "0.8rem",
-            borderRadius: "10px",
-            width: "100%",
-            fontWeight: "700",
-            outline: "none",
-            padding: "0.5rem",
-            transition: "all 0.1s",
-            fontSize: "1.2rem",
-            marginBottom: "1.2rem",
-            border: "4px solid white",
-            _focus: {
-              border: "4px solid black",
-            },
-            sm: {
-              fontSize: "1.4rem",
-              marginBottom: "1.4rem",
-              padding: "0.8rem 0.4rem 0.6rem 0",
-            },
-            md: {
-              fontSize: "1.6rem",
-              marginBottom: "1.6rem",
-              padding: "0.8rem 0.4rem 0.6rem 0",
-            },
-            lg: {
-              fontSize: "1.8rem",
-              marginBottom: "1.8rem",
-              padding: "0.8rem 0.4rem 0.6rem 0",
-            },
-          })}
+          className={ulStyle()}
         />
         <label
           htmlFor="tags"
@@ -177,27 +147,36 @@ export const EditTab = ({
         >
           {dict.tags}
         </label>
-        <input
-          type="text"
-          id="tags"
-          value={tagsValue}
-          onChange={(e) => {
-            setIsFocus(true);
-            setTags((e.target as HTMLInputElement).value);
-            handleChange((e.target as HTMLInputElement).value);
-          }}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          placeholder={dict.tags_placeholder}
-          autoComplete="off"
-          className={`${ulStyle()} ${
-            isFocus && filteredOptions.length != 0 ? isForcusStyle() : ""
-          }`}
-        />
-        {isFocus && filteredOptions.length != 0 && (
-          <>
+        <div
+          className={css({
+            position: "relative",
+          })}
+        >
+          <input
+            type="text"
+            id="tags"
+            value={tagsValue}
+            onChange={(e) => {
+              setIsFocus(true);
+              setTags((e.target as HTMLInputElement).value);
+              handleChange((e.target as HTMLInputElement).value);
+            }}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            placeholder={dict.tags_placeholder}
+            autoComplete="off"
+            className={ulStyle({
+              focus: isFocus && filteredOptions.length > 0 ? "on" : "off",
+            })}
+          />
+          {isFocus && filteredOptions.length > 0 && (
             <ul
               className={css({
+                position: "absolute",
+                top: "2rem",
+                left: "0",
+                width: "100%",
+                zIndex: "1",
                 fontWeight: "700",
                 bg: "bg3",
                 borderTop: "none",
@@ -206,18 +185,22 @@ export const EditTab = ({
                 borderBottom: "4px solid black",
                 borderRadius: "0 0 10px 10px",
                 textIndent: "0.4rem",
+                fontSize: "1.2rem",
                 sm: {
                   fontSize: "1.4rem",
                   padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  top: "3.2rem",
                 },
                 md: {
                   fontSize: "1.6rem",
                   padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  top: "3.4rem",
                 },
                 lg: {
                   fontSize: "1.8rem",
                   minHeight: "1.8rem",
                   padding: "0.8rem 0.4rem 0.6rem 0.4rem",
+                  top: "3.6rem",
                 },
               })}
             >
@@ -248,11 +231,10 @@ export const EditTab = ({
                 </li>
               ))}
             </ul>
-          </>
-        )}
+          )}
+        </div>
         <div
           className={css({
-            marginTop: "1.6rem",
             marginBottom: "1.6rem",
           })}
         >
@@ -365,9 +347,10 @@ const ulStyle = cva({
     outline: "none",
     paddingTop: "0.2rem",
     transition: "all 0.1s",
-    fontSize: "1.4rem",
-    minHeight: "1.4rem",
+    fontSize: "1.2rem",
+    minHeight: "1.2rem",
     border: "4px solid white",
+    marginBottom: "1rem",
     sm: {
       fontSize: "1.4rem",
       padding: "0.8rem 0.4rem 0.4rem 0.4rem",
@@ -388,14 +371,14 @@ const ulStyle = cva({
       borderBottom: "4px solid black",
     },
   },
-});
-
-const isForcusStyle = cva({
-  base: {
-    borderTop: "4px solid black",
-    borderLeft: "4px solid black",
-    borderRight: "4px solid black",
-    borderBottom: "4px solid black",
-    borderRadius: "10px 10px 0 0",
+  variants: {
+    focus: {
+      on: {
+        borderTop: "4px solid black",
+        borderLeft: "4px solid black",
+        borderRight: "4px solid black",
+      },
+      off: {},
+    },
   },
 });

@@ -159,7 +159,7 @@ export const PreviewTab = ({
           })}
         >
           <div
-            id="markdown-preview2"
+            id="markdown-preview"
             className={css({
               minHeight: "calc(100dvh - 10rem)",
 

@@ -1,0 +1,146 @@
+#markdown-preview h1 {
+  font-size: 2em;
+  color: black;
+  margin-bottom: 0.4em;
+}
+
+#markdown-preview h2 {
+  font-size: 1.8em;
+  color: black;
+  margin-bottom: 0.4em;
+}
+
+#markdown-preview h3 {
+  font-size: 1.6em;
+  color: black;
+  margin-bottom: 0.35em;
+}
+
+#markdown-preview h4 {
+  font-size: 1.6em;
+  color: black;
+  margin-bottom: 0.3em;
+}
+
+#markdown-preview h5 {
+  font-size: 1.6em;
+  color: black;
+  margin-bottom: 0.25em;
+}
+
+#markdown-preview h6 {
+  font-size: 1.6em;
+  color: black;
+  margin-bottom: 0.2em;
+}
+
+#markdown-preview p {
+  font-size: 1.2em;
+}
+
+@media (max-width: 600px) {
+  #markdown-preview h1 {
+    font-size: 2em;
+  }
+  #markdown-preview h2 {
+    font-size: 1.8em;
+  }
+  #markdown-preview h3 {
+    font-size: 1.6em;
+  }
+  #markdown-preview h4 {
+    font-size: 1.6em;
+  }
+  #markdown-preview h5 {
+    font-size: 1.6em;
+  }
+  #markdown-preview h6 {
+    font-size: 1.6em;
+  }
+  #markdown-preview p {
+    font-size: 1.2em;
+  }
+}
+
+#markdown-preview pre {
+  background-color: #f4f4f4;
+  border-left: 3px solid darkgrey;
+  page-break-inside: avoid;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 1em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  word-wrap: break-word;
+}
+
+#markdown-preview img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+#markdown-preview hr {
+  border: 1px solid black;
+  height: 1px;
+  margin: 20px 0;
+}
+
+#markdown-preview blockquote {
+  background: #f9f9f9;
+  border-left: 5px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+#markdown-preview blockquote p {
+  display: inline;
+}
+
+#markdown-preview code {
+  background: #f4f4f4;
+  padding: 2px 4px;
+  color: black;
+}
+
+#markdown-preview em {
+  color: black;
+  font-style: italic;
+}
+
+#markdown-preview ul {
+  list-style-type: disc;
+  margin: 10px 0 10px 20px;
+  padding: 0;
+}
+
+#markdown-preview ul ul {
+  list-style-type: circle;
+  margin-left: 20px;
+}
+
+#markdown-preview ol {
+  list-style-type: decimal;
+  margin: 10px 0 10px 20px;
+  padding: 0;
+}
+
+#markdown-preview ol ol {
+  list-style-type: lower-alpha;
+  margin-left: 20px;
+}
+
+#markdown-preview a {
+  color: green;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+#markdown-preview a:hover,
+#markdown-preview a:focus {
+  color: #0056b3;
+  text-decoration: underline;
+}
