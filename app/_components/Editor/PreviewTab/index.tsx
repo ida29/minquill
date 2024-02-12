@@ -41,7 +41,7 @@ export const PreviewTab = ({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          marginBottom: "1rem",
+          marginBottom: "2rem",
         })}
       >
         <div
@@ -108,49 +108,20 @@ export const PreviewTab = ({
       >
         <div
           className={css({
+            display: "flex",
+            flexDirection: "column",
+            bg: "bg3",
             width: "100%",
+            padding: "1.6rem 2rem",
+            borderRadius: "10px",
+            gap: "2rem",
+            marginTop: "1rem",
           })}
         >
-          <div
-            className={css({
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "1rem",
-              fontSize: "1rem",
-              margin: "2rem 0",
-              zIndex: "1",
-            })}
-          >
-            <div
-              className={css({
-                fontWeight: "700",
-                padding: "calc(.1rem + 2px) 0",
-              })}
-            >
-              {dict.tags}:
-            </div>
-            {tagsValue &&
-              tagsValue.split(",").map((tagName: string) => (
-                <Link
-                  key={tagName}
-                  href={`/articles/${tagName}`}
-                  className={css({
-                    fontWeight: "700",
-                    borderRadius: "9999px",
-                    border: "2px solid",
-                    padding: ".1rem .8rem",
-                    boxShadow: "1px 1px 0",
-                  })}
-                >
-                  {tagName}
-                </Link>
-              ))}
-          </div>
           <div
             id="markdown-preview"
             className={css({
               borderRadius: "10px",
-              bg: "bg1",
             })}
           >
             <ReactMarkdown
@@ -207,32 +178,125 @@ export const PreviewTab = ({
           <div
             className={css({
               display: "flex",
-              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "1rem",
+              fontSize: "1rem",
+              color: "text3",
+            })}
+          >
+            <div
+              className={css({
+                fontWeight: "700",
+                padding: "calc(.1rem + 2px) 0",
+              })}
+            >
+              {dict.tags}:
+            </div>
+            {tagsValue &&
+              tagsValue.split(",").map((tagName: string) => (
+                <Link
+                  key={tagName}
+                  href={`/articles/${tagName}`}
+                  className={css({
+                    fontWeight: "700",
+                    borderRadius: "9999px",
+                    border: "2px solid",
+                    padding: ".1rem .8rem",
+                    boxShadow: "1px 1px 0",
+                    _hover: {
+                      color: "text4",
+                    },
+                  })}
+                >
+                  {tagName}
+                </Link>
+              ))}
+          </div>
+          <div
+            className={css({
+              display: "flex",
+              flexDirection: "column",
               bg: "bg3",
               width: "100%",
-              padding: "1rem",
               borderRadius: "10px",
+              gap: "2rem",
             })}
           >
             <div
               className={css({
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                paddingTop: "1rem",
+                justifyContent: "space-between",
+                borderBottom: "2px solid #ccc",
+                width: "100%",
               })}
             >
-              <HeartButton
-                isLiked={isLiked}
-                onClick={handleLike ? handleLike : () => {}}
-              />
               <div
                 className={css({
-                  fontSize: "1rem",
-                  color: "text3",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "1rem 0",
                 })}
               >
-                {likesCount}
+                <HeartButton
+                  isLiked={isLiked}
+                  onClick={handleLike ? handleLike : () => {}}
+                />
+                <div
+                  className={css({
+                    fontSize: "1rem",
+                    color: "text3",
+                  })}
+                >
+                  {likesCount}
+                </div>
+              </div>
+            </div>
+            <div
+              className={css({
+                display: "flex",
+                alignItems: "flex-start",
+                width: "100%",
+              })}
+            >
+              <Link
+                href={`/${userValue?.username}`}
+                className={css({
+                  display: "flex",
+                  fontWeight: "700",
+                  marginRight: ".5rem",
+                  flexShrink: "0",
+                  padding: ".5rem",
+                })}
+              >
+                {userValue && (
+                  <Image
+                    width="126"
+                    height="126"
+                    src={userValue?.image}
+                    alt="User Image"
+                    className={css({
+                      borderRadius: "50%",
+                      marginRight: ".5rem",
+                    })}
+                  />
+                )}
+              </Link>
+              <div
+                className={css({
+                  display: "flex",
+                  flexDirection: "column",
+                  wordBreak: "break-word",
+                })}
+              >
+                <p
+                  className={css({
+                    fontWeight: "700",
+                  })}
+                >
+                  {userValue?.name}
+                </p>
+                <p>{dict.loren_ipsum}</p>
               </div>
             </div>
           </div>
@@ -267,7 +331,6 @@ export const PreviewTab = ({
               className={css({
                 display: "flex",
                 fontWeight: "700",
-                padding: "1rem 0",
               })}
             >
               {userValue && (

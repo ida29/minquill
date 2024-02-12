@@ -21,7 +21,7 @@ export const ArticlePage = ({
   isLikedByUser: boolean;
 }) => {
   const [isLiked, setIsLiked] = useState(isLikedByUser);
-  const [likesCount, setLikesCount] = useState(article.likes?.length);
+  const [likesCount, setLikesCount] = useState(article.likes?.length || 0);
 
   const handleLike = async () => {
     if (article) {
