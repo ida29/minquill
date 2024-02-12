@@ -10,7 +10,7 @@ import {
   Article,
 } from "@/app/_utils/article";
 import { useState, useEffect, useMemo } from "react";
-import { FiThumbsUp, FiMessageSquare } from "react-icons/fi";
+import { FiHeart, FiMessageCircle } from "react-icons/fi";
 import Image from "next/image";
 import { ActionButton } from "@/app/_components/action_button";
 
@@ -185,25 +185,27 @@ export const HomePageBody = ({
                           overflow: "hidden",
                         })}
                       >
-                        <Image
-                          id="cover-img"
-                          width="200"
-                          height="200"
-                          src={article.coverImg || ""}
-                          alt="Cover Image"
-                          priority={true}
-                          className={css({
-                            borderRadius: "10px 10px 0 0",
-                            width: "100%",
-                            height: "100%",
-                            position: "absolute",
-                            top: "0",
-                            left: "0",
-                            objectFit: "cover",
-                            objectPosition: "center",
-                            transition: "transform 0.3s",
-                          })}
-                        />
+                        {article.coverImg && (
+                          <Image
+                            id="cover-img"
+                            width="200"
+                            height="200"
+                            src={article.coverImg}
+                            alt="Cover Image"
+                            priority={true}
+                            className={css({
+                              borderRadius: "10px 10px 0 0",
+                              width: "100%",
+                              height: "100%",
+                              position: "absolute",
+                              top: "0",
+                              left: "0",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                              transition: "transform 0.3s",
+                            })}
+                          />
+                        )}
                       </div>
                       <div
                         className={css({
@@ -254,7 +256,7 @@ export const HomePageBody = ({
                                   gap: ".2rem",
                                 })}
                               >
-                                <FiThumbsUp
+                                <FiHeart
                                   className={css({
                                     fontSize: "1.5rem",
                                   })}
@@ -269,7 +271,7 @@ export const HomePageBody = ({
                                   gap: ".2rem",
                                 })}
                               >
-                                <FiMessageSquare
+                                <FiMessageCircle
                                   className={css({
                                     fontSize: "1.5rem",
                                   })}
@@ -287,16 +289,18 @@ export const HomePageBody = ({
                             alignItems: "center",
                           })}
                         >
-                          <Image
-                            width="40"
-                            height="40"
-                            src={article.author?.image || ""}
-                            alt="User Image"
-                            className={css({
-                              borderRadius: "50%",
-                              marginRight: ".5rem",
-                            })}
-                          />
+                          {article.author?.image && (
+                            <Image
+                              width="40"
+                              height="40"
+                              src={article.author?.image}
+                              alt="User Image"
+                              className={css({
+                                borderRadius: "50%",
+                                marginRight: ".5rem",
+                              })}
+                            />
+                          )}
                           <div
                             className={css({
                               display: "flex",
@@ -426,7 +430,7 @@ export const HomePageBody = ({
                         })}
                       >
                         <li>
-                          <FiThumbsUp
+                          <FiHeart
                             className={css({
                               fontSize: "1.5rem",
                             })}
@@ -434,7 +438,7 @@ export const HomePageBody = ({
                         </li>
                         <li>0</li>
                         <li>
-                          <FiMessageSquare
+                          <FiMessageCircle
                             className={css({
                               fontSize: "1.5rem",
                             })}

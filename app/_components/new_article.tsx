@@ -38,20 +38,6 @@ export const NewArticle = ({
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [editorState, setEditorState] = useState("");
 
-  //useEffect(() => {
-  //  (async () => {
-  //    setTitle(article?.title);
-  //    setUser(article?.author);
-  //    setTags(
-  //      article?.tags
-  //        ? article.tags.map((tag: { name: string }) => tag.name).join(",")
-  //        : "",
-  //    );
-  //    setContent(article?.content);
-  //    setCoverImg(article.coverImg ? article.coverImg : "");
-  //  })();
-  //}, [article]);
-
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
@@ -110,6 +96,8 @@ export const NewArticle = ({
         titleValue={titleValue}
         tagsValue={tagsValue}
         contentValue={contentValue}
+        isLiked={false}
+        likesCount={0}
       />
     );
   } else {

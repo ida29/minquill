@@ -10,6 +10,7 @@ import "./styles.css";
 import { User } from "@/app/_utils/user";
 import Image from "next/image";
 import Link from "next/link";
+import HeartButton from "@/app/_components/heart_button";
 
 export const PreviewTab = ({
   dict,
@@ -18,6 +19,9 @@ export const PreviewTab = ({
   titleValue,
   tagsValue,
   contentValue,
+  handleLike,
+  isLiked,
+  likesCount,
 }: {
   dict: Dictionary;
   userValue: User;
@@ -25,6 +29,9 @@ export const PreviewTab = ({
   titleValue: string;
   tagsValue: string;
   contentValue: string;
+  handleLike?: () => void;
+  isLiked: boolean;
+  likesCount: number;
 }) => {
   return (
     <>
@@ -142,8 +149,6 @@ export const PreviewTab = ({
           <div
             id="markdown-preview"
             className={css({
-              minHeight: "calc(100dvh - 10rem)",
-
               borderRadius: "10px",
               bg: "bg1",
             })}
@@ -198,6 +203,38 @@ export const PreviewTab = ({
             >
               {contentValue}
             </ReactMarkdown>
+          </div>
+          <div
+            className={css({
+              display: "flex",
+              alignItems: "center",
+              bg: "bg3",
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "10px",
+            })}
+          >
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                paddingTop: "1rem",
+              })}
+            >
+              <HeartButton
+                isLiked={isLiked}
+                onClick={handleLike ? handleLike : () => {}}
+              />
+              <div
+                className={css({
+                  fontSize: "1rem",
+                  color: "text3",
+                })}
+              >
+                {likesCount}
+              </div>
+            </div>
           </div>
         </div>
         <div

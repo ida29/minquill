@@ -18,7 +18,7 @@ export default async function App({
   let isLikedByUser = false;
   if (session) {
     isLikedByUser = photo.likes?.some(
-      (like) => like.user.id === session.user?.id,
+      (like) => like.userId === session.user?.id,
     ) as boolean;
   }
 

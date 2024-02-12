@@ -42,6 +42,10 @@ export default async function App({
 
   const article: Article = await getArticle(unique);
 
+  const isLikedByUser = article.likes?.some(
+    (like) => like.userId === session.user?.id,
+  ) as boolean;
+
   return (
     <div
       className={css({
@@ -57,7 +61,12 @@ export default async function App({
           width: "100vw",
         })}
       >
-        <EditArticle dict={dict} article={article} user={user} />
+        <EditArticle
+          dict={dict}
+          article={article}
+          user={user}
+          isLikedByUser={isLikedByUser}
+        />
       </div>
     </div>
   );

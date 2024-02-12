@@ -13,10 +13,12 @@ export const EditArticle = ({
   dict,
   user,
   article,
+  isLikedByUser,
 }: {
   dict: Dictionary;
   user: User;
   article: Article;
+  isLikedByUser: boolean;
 }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -27,6 +29,9 @@ export const EditArticle = ({
   const [contentValue, setContent] = useState("");
   const [coverImg, setCoverImg] = useState("");
 
+  const [isLiked, setIsLiked] = useState(isLikedByUser);
+  const [likesCount, setLikesCount] = useState(0);
+
   useEffect(() => {
     (async () => {
       setTitle(article?.title);
@@ -36,8 +41,9 @@ export const EditArticle = ({
           ? article.tags.map((tag: { name: string }) => tag.name).join(",")
           : "",
       );
-      setContent(article?.content);
+      setContent(article.content);
       setCoverImg(article.coverImg ? article.coverImg : "");
+      setLikesCount(article.likes ? article.likes.length : 0);
     })();
   }, [article]);
 
@@ -62,6 +68,33 @@ export const EditArticle = ({
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleLike = async () => {
+    if (article) {
+      const newIsLiked = !isLiked;
+      setIsLiked(newIsLiked);
+      const oldLikesCount = likesCount;
+      setLikesCount(oldLikesCount + (newIsLiked ? 1 : -1));
+
+      const url = new URL(
+        `/api/articles/${article.ulid}/likes`,
+        process.env.NEXT_PUBLIC_WEBSITE_URL,
+      );
+      const res = await fetch(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ like: newIsLiked }),
+      });
+
+      if (!res.ok) {
+        setIsLiked(!newIsLiked);
+        setLikesCount(oldLikesCount);
+        return;
+      }
     }
   };
 
@@ -92,6 +125,9 @@ export const EditArticle = ({
         titleValue={titleValue}
         tagsValue={tagsValue}
         contentValue={contentValue}
+        handleLike={handleLike}
+        isLiked={isLiked}
+        likesCount={likesCount}
       />
     );
   } else {

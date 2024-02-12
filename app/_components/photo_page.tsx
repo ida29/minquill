@@ -24,15 +24,10 @@ export const PhotoPage = ({
   isLikedByUser: boolean;
 }) => {
   const { data: session, status } = useSession();
-  const [photoValue, setPhoto] = useState<Photo>();
+  const [photoValue, setPhoto] = useState<Photo>(photo);
   const [commentValue, setComment] = useState("");
   const [isLiked, setIsLiked] = useState(isLikedByUser);
-  const [likesCount, setLikesCount] = useState(0);
-
-  useEffect(() => {
-    setPhoto(photo);
-    setLikesCount(photo.likes?.length as number);
-  }, [photo]);
+  const [likesCount, setLikesCount] = useState(photo.likes?.length as number);
 
   const handleLike = async () => {
     if (photoValue) {
@@ -228,11 +223,7 @@ export const PhotoPage = ({
                       paddingTop: "1rem",
                     })}
                   >
-                    <HeartButton
-                      isLiked={isLiked}
-                      setIsLiked={setIsLiked}
-                      onClick={handleLike}
-                    />
+                    <HeartButton isLiked={isLiked} onClick={handleLike} />
                     <div
                       className={css({
                         fontSize: "1rem",

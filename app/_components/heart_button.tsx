@@ -4,14 +4,12 @@ import React, { useState } from "react";
 type HeartButtonProps = {
   size?: number;
   isLiked: boolean;
-  setIsLiked?: (isLiked: boolean) => void;
   onClick: () => void;
 };
 
 const HeartButton: React.FC<HeartButtonProps> = ({
   size = 42,
   isLiked,
-  setIsLiked,
   onClick,
 }) => {
   const handleClick = () => {

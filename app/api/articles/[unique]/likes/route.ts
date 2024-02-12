@@ -22,7 +22,7 @@ export async function POST(
 
     const existingLike = await prisma.like.findFirst({
       where: {
-        AND: [{ photoId: params.unique }, { userId: session.user.id }],
+        AND: [{ articleId: params.unique }, { userId: session.user.id }],
       },
     });
 
@@ -32,12 +32,12 @@ export async function POST(
       } else {
         const like = await prisma.like.create({
           data: {
-            photoId: params.unique,
+            articleId: params.unique,
             userId: session.user.id,
           },
           include: {
             user: true,
-            photo: true,
+            article: true,
           },
         });
         return NextResponse.json(like, { status: 200 });
