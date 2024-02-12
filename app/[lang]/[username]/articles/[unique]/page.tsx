@@ -5,6 +5,7 @@ import { ArticlePage } from "@/app/_components/article_page";
 import { getArticle, Article } from "@/app/_utils/article";
 import { getServerSession } from "next-auth";
 import { auth } from "@/app/auth";
+import { User } from "@/app/_utils/user";
 
 export default async function App({
   params: { lang, username, unique },
@@ -15,14 +16,34 @@ export default async function App({
   const session = await getServerSession(auth);
   const article: Article = await getArticle(unique);
 
-  let isLikedByUser = false;
-  if (session) {
-    isLikedByUser = article.likes?.some(
-      (like) => like.userId === session.user?.id,
-    ) as boolean;
+  if (!session || !session.user) {
+    return <ArticlePage dict={dict} article={article} />;
   }
 
+  const user: User = {
+    id: session.user.id,
+    username: session.user.username,
+    name: session.user.name,
+    email: session.user.email as string,
+    image: session.user.image,
+    articles: [],
+    photos: [],
+    comments: [],
+    likes: [],
+    followers: [],
+    followings: [],
+  };
+
+  const isLikedByUser = article.likes?.some(
+    (like) => like.userId === session.user?.id,
+  ) as boolean;
+
   return (
-    <ArticlePage dict={dict} article={article} isLikedByUser={isLikedByUser} />
+    <ArticlePage
+      dict={dict}
+      article={article}
+      user={user}
+      isLikedByUser={isLikedByUser}
+    />
   );
 }

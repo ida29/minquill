@@ -18,6 +18,8 @@ import { historyField } from "@codemirror/commands";
 import { options } from "@/app/_constants/index";
 import { ActionButton } from "@/app/_components/action_button";
 import { useState } from "react";
+import { Article } from "@/app/_utils/article";
+import { Tag } from "@/app/_utils/tag";
 
 const stateFields = { history: historyField };
 const editorSetup: BasicSetupOptions = {
@@ -45,30 +47,24 @@ export const EditTab = ({
   dict,
   handleSave,
   handlePublish,
-  coverImg,
   setCoverImg,
-  titleValue,
   setTitle,
-  tagsValue,
   setTags,
   editorState,
   setEditorState,
-  contentValue,
   setContent,
+  article,
 }: {
   dict: Dictionary;
   handleSave?: () => void;
   handlePublish?: () => void;
-  coverImg: string;
   setCoverImg: (coverImg: string) => void;
-  titleValue: string;
   setTitle: (title: string) => void;
-  tagsValue: string;
-  setTags: (tags: string) => void;
+  setTags: (tags: Tag[]) => void;
   editorState: string;
   setEditorState: (editorState: string) => void;
-  contentValue: string;
   setContent: (content: string) => void;
+  article: Article;
 }) => {
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isFocus, setIsFocus] = useState(false);
@@ -116,7 +112,7 @@ export const EditTab = ({
           <UploadImgNPreview
             text={dict.upload_a_cover_image}
             text2={dict.uploading}
-            coverImg={coverImg}
+            coverImg={article.coverImg || ""}
             setCoverImg={setCoverImg}
           />
         </div>
@@ -132,7 +128,7 @@ export const EditTab = ({
         <input
           type="text"
           id="title"
-          value={titleValue}
+          value={article.title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={dict.title_placeholder}
           autoComplete="off"
@@ -155,11 +151,18 @@ export const EditTab = ({
           <input
             type="text"
             id="tags"
-            value={tagsValue}
-            onChange={(e) => {
+            value={article.tags?.map((tag: Tag) => tag.name).join(",")}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setIsFocus(true);
-              setTags((e.target as HTMLInputElement).value);
-              handleChange((e.target as HTMLInputElement).value);
+              const tags_str = e.target.value;
+              const tags: Tag[] = tags_str
+                .split(",")
+                .map((tagName: string, i) => ({
+                  id: i,
+                  name: tagName.trim(),
+                }));
+              setTags(tags);
+              handleChange(tags_str);
             }}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -209,13 +212,25 @@ export const EditTab = ({
                   key={option.id}
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => {
-                    const parts = tagsValue.split(",");
-                    const tagsWithoutLast = parts.slice(0, -1).join(",");
+                    if (!article.tags) {
+                      return;
+                    }
+
+                    const tagsWithoutLast = article.tags
+                      .map((tag: Tag) => tag.name)
+                      .slice(0, -1)
+                      .join(",")
+                      .trim();
                     const newTags =
                       tagsWithoutLast +
-                      (parts.length > 1 ? "," : "") +
+                      (article.tags.length > 1 ? "," : "") +
                       option.text;
-                    setTags(newTags);
+                    setTags(
+                      newTags.split(",").map((tagName: string, i) => ({
+                        id: i,
+                        name: tagName.trim(),
+                      })),
+                    );
                     setIsFocus(false);
                   }}
                   className={css({
@@ -265,7 +280,7 @@ export const EditTab = ({
             })}
           >
             <CodeMirror
-              value={contentValue}
+              value={article.content || ""}
               initialState={
                 editorState
                   ? {
@@ -313,7 +328,7 @@ export const EditTab = ({
           <UploadImgDrop
             text={dict.drag_n_drop_some_images_here}
             text2={dict.click}
-            contentValue={contentValue}
+            contentValue={article.content || ""}
             setContent={setContent}
           />
         </div>

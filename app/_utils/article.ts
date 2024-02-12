@@ -4,6 +4,7 @@ import { User } from "@/app/_utils/user";
 import { Comment } from "@/app/_utils/comment";
 import { Like } from "@/app/_utils/like";
 import { nGram } from "n-gram";
+import { Tag } from "@/app/_utils/tag";
 //import moji from "moji";
 
 export type Article = {
@@ -15,7 +16,7 @@ export type Article = {
   coverImg?: string;
   likes?: Like[];
   comments?: Comment[];
-  tags?: [];
+  tags?: Tag[];
 };
 
 export async function getArticle(unique: string): Promise<Article> {
@@ -103,7 +104,7 @@ export async function updateArticle(
         newArticle.content.toString() + "a".repeat(3 - 1),
       ).join(" "),
       coverImg: newArticle.coverImg,
-      tags: newArticle.tags,
+      tags: newArticle.tags?.map((tag) => tag.name),
     }),
   });
 

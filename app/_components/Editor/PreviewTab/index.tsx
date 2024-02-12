@@ -8,6 +8,8 @@ import { TwitterTweetEmbed } from "react-twitter-embed";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import "./styles.css";
 import { User } from "@/app/_utils/user";
+import { Article } from "@/app/_utils/article";
+import { Tag } from "@/app/_utils/tag";
 import Image from "next/image";
 import Link from "next/link";
 import HeartButton from "@/app/_components/heart_button";
@@ -15,23 +17,17 @@ import HeartButton from "@/app/_components/heart_button";
 export const PreviewTab = ({
   dict,
   userValue,
-  coverImg,
-  titleValue,
-  tagsValue,
-  contentValue,
   handleLike,
   isLiked,
   likesCount,
+  article,
 }: {
   dict: Dictionary;
-  userValue: User;
-  coverImg: string;
-  titleValue: string;
-  tagsValue: string;
-  contentValue: string;
+  userValue?: User;
   handleLike?: () => void;
   isLiked: boolean;
   likesCount: number;
+  article: Article;
 }) => {
   return (
     <>
@@ -53,11 +49,11 @@ export const PreviewTab = ({
             md: { paddingTop: "calc(80vh - 4.4rem)" },
           })}
         >
-          {coverImg && (
+          {article.coverImg && (
             <Image
               width="400"
               height="400"
-              src={coverImg}
+              src={article.coverImg}
               alt="Cover Image"
               className={css({
                 width: "100%",
@@ -91,7 +87,7 @@ export const PreviewTab = ({
               lg: { fontSize: "2.8rem", width: "auto", maxWidth: "80%" },
             })}
           >
-            {titleValue}
+            {article.title}
           </div>
         </div>
       </div>
@@ -172,7 +168,7 @@ export const PreviewTab = ({
                 ),
               }}
             >
-              {contentValue}
+              {article.content}
             </ReactMarkdown>
           </div>
           <div
@@ -192,11 +188,12 @@ export const PreviewTab = ({
             >
               {dict.tags}:
             </div>
-            {tagsValue &&
-              tagsValue.split(",").map((tagName: string) => (
+            {article.tags &&
+              article.tags.length > 0 &&
+              article.tags.map((tag: Tag) => (
                 <Link
-                  key={tagName}
-                  href={`/articles/${tagName}`}
+                  key={tag.name}
+                  href={`/articles/${tag.name}`}
                   className={css({
                     fontWeight: "700",
                     borderRadius: "9999px",
@@ -208,7 +205,7 @@ export const PreviewTab = ({
                     },
                   })}
                 >
-                  {tagName}
+                  {tag.name}
                 </Link>
               ))}
           </div>
@@ -256,24 +253,31 @@ export const PreviewTab = ({
               className={css({
                 display: "flex",
                 alignItems: "flex-start",
+                flexWrap: "wrap",
                 width: "100%",
               })}
             >
               <Link
-                href={`/${userValue?.username}`}
+                href={`/${article.author?.username}`}
                 className={css({
                   display: "flex",
                   fontWeight: "700",
                   marginRight: ".5rem",
                   flexShrink: "0",
                   padding: ".5rem",
+                  width: "100%",
+                  justifyContent: "center",
+                  sm: {
+                    width: "auto",
+                    justifyContent: "center",
+                  },
                 })}
               >
-                {userValue && (
+                {article.author && (
                   <Image
                     width="126"
                     height="126"
-                    src={userValue?.image}
+                    src={article.author.image}
                     alt="User Image"
                     className={css({
                       borderRadius: "50%",
@@ -287,16 +291,67 @@ export const PreviewTab = ({
                   display: "flex",
                   flexDirection: "column",
                   wordBreak: "break-word",
+                  width: "100%",
+                  sm: { width: "calc(100% - 126px - 2rem)" },
                 })}
               >
                 <p
                   className={css({
                     fontWeight: "700",
+                    alignSelf: "center",
+                    sm: { alignSelf: "auto" },
                   })}
                 >
-                  {userValue?.name}
+                  {article.author?.name}
                 </p>
                 <p>{dict.loren_ipsum}</p>
+              </div>
+            </div>
+            <div
+              className={css({
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+              })}
+            >
+              {dict.comments}:
+              <div
+                className={css({
+                  display: "flex",
+                  alignItems: "flex-start",
+                  width: "100%",
+                })}
+              >
+                <Link
+                  href={`/${userValue?.username}`}
+                  className={css({
+                    display: "flex",
+                    fontWeight: "700",
+                    marginRight: ".5rem",
+                    flexShrink: "0",
+                    padding: ".5rem",
+                    width: "100%",
+                    justifyContent: "center",
+                    sm: {
+                      width: "auto",
+                      justifyContent: "center",
+                    },
+                  })}
+                >
+                  {userValue && (
+                    <Image
+                      width="32"
+                      height="32"
+                      src={userValue?.image}
+                      alt="User Image"
+                      className={css({
+                        borderRadius: "50%",
+                        marginRight: ".5rem",
+                      })}
+                    />
+                  )}
+                </Link>
+                <div className={css({})}></div>
               </div>
             </div>
           </div>
@@ -327,17 +382,17 @@ export const PreviewTab = ({
             })}
           >
             <Link
-              href={`/${userValue?.username}`}
+              href={`/${article.author?.username}`}
               className={css({
                 display: "flex",
                 fontWeight: "700",
               })}
             >
-              {userValue && (
+              {article.author && (
                 <Image
                   width="48"
                   height="48"
-                  src={userValue?.image}
+                  src={article.author?.image}
                   alt="User Image"
                   className={css({
                     borderRadius: "50%",
@@ -350,11 +405,10 @@ export const PreviewTab = ({
               className={css({
                 display: "flex",
                 flexDirection: "column",
-                fontWeight: "700",
               })}
             >
-              <p>{userValue?.name}</p>
-              <p>{userValue?.username}</p>
+              <p>{article.author?.name}</p>
+              <p>{article.author?.username}</p>
             </div>
           </div>
           <div
@@ -404,7 +458,7 @@ export const PreviewTab = ({
                 ),
               }}
             >
-              {contentValue}
+              {article.content}
             </ReactMarkdown>
           </div>
         </div>

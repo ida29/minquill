@@ -14,13 +14,15 @@ import { ArticlePageHeader } from "@/app/_components/article_page_header";
 export const ArticlePage = ({
   dict,
   article,
+  user,
   isLikedByUser,
 }: {
   dict: Dictionary;
   article: Article;
-  isLikedByUser: boolean;
+  user?: User;
+  isLikedByUser?: boolean;
 }) => {
-  const [isLiked, setIsLiked] = useState(isLikedByUser);
+  const [isLiked, setIsLiked] = useState(isLikedByUser || false);
   const [likesCount, setLikesCount] = useState(article.likes?.length || 0);
 
   const handleLike = async () => {
@@ -53,18 +55,11 @@ export const ArticlePage = ({
   const activeTabItem = (
     <Editor.PreviewTab
       dict={dict}
-      userValue={article.author as User}
-      coverImg={article.coverImg ? article.coverImg : ""}
-      titleValue={article.title}
-      tagsValue={
-        article?.tags
-          ? article.tags.map((tag: { name: string }) => tag.name).join(",")
-          : ""
-      }
-      contentValue={article?.content}
+      userValue={user}
       handleLike={handleLike}
       isLiked={isLiked}
       likesCount={likesCount}
+      article={article}
     />
   );
 

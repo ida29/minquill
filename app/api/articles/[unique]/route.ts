@@ -59,6 +59,7 @@ export async function POST(
           },
         },
         tags: {
+          set: [],
           connectOrCreate: req_json.tags.map((tag: string) => ({
             where: { name: tag },
             create: { name: tag },

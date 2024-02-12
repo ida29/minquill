@@ -170,8 +170,8 @@ export const UserPagePhotos = ({
                           })}
                         >
                           {photo.tags &&
-                            photo.tags.map((tag: { name: string }, i) => (
-                              <div key={i}># {tag.name}</div>
+                            photo.tags.map((tag: { name: string }) => (
+                              <div key={tag.name}># {tag.name}</div>
                             ))}
                         </div>
                       </Link>

@@ -6,6 +6,7 @@ import { Dictionary } from "@/app/_utils/dictionary";
 import { useState, useEffect } from "react";
 import { updateArticle, Article } from "@/app/_utils/article";
 import { User } from "@/app/_utils/user";
+import { Tag } from "@/app/_utils/tag";
 import { EditArticleHeader } from "@/app/_components/edit_article_header";
 import * as Editor from "@/app/_components/Editor/index";
 
@@ -21,51 +22,40 @@ export const EditArticle = ({
   isLikedByUser: boolean;
 }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
   const [editorState, setEditorState] = useState("");
-  const [titleValue, setTitle] = useState("");
-  const [userValue, setUser] = useState<User>();
-  const [tagsValue, setTags] = useState("");
-  const [contentValue, setContent] = useState("");
-  const [coverImg, setCoverImg] = useState("");
+  const [userValue, setUser] = useState<User>(article.author as User);
 
   const [isLiked, setIsLiked] = useState(isLikedByUser);
-  const [likesCount, setLikesCount] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      setTitle(article?.title);
-      setUser(article?.author);
-      setTags(
-        article?.tags
-          ? article.tags.map((tag: { name: string }) => tag.name).join(",")
-          : "",
-      );
-      setContent(article.content);
-      setCoverImg(article.coverImg ? article.coverImg : "");
-      setLikesCount(article.likes ? article.likes.length : 0);
-    })();
-  }, [article]);
+  const [likesCount, setLikesCount] = useState(article.likes?.length || 0);
 
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
 
+  const [articleValue, setArticleValue] = useState<Article>(article);
+  const setTitle = (value: string) => {
+    setArticleValue({ ...articleValue, title: value });
+  };
+  const setTags = (value: Tag[]) => {
+    setArticleValue({ ...articleValue, tags: value });
+  };
+  const setContent = (value: string) => {
+    setArticleValue({ ...articleValue, content: value });
+  };
+  const setCoverImg = (value: string) => {
+    setArticleValue({ ...articleValue, coverImg: value });
+  };
+
   const handleSave = async () => {
     try {
-      const content = contentValue as string;
-      const title = titleValue as string;
-      const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
       const newArticle: Article = {
-        title: title,
-        content: content,
-        coverImg: coverImg,
-        tags: tags as [],
+        title: articleValue.title,
+        content: articleValue.content,
+        coverImg: articleValue.coverImg,
+        tags: articleValue.tags,
       };
 
-      if (article.ulid) {
-        await updateArticle(newArticle, article.ulid);
-      }
+      await updateArticle(newArticle, articleValue.ulid as string);
     } catch (error) {
       console.error(error);
     }
@@ -104,16 +94,13 @@ export const EditArticle = ({
       <Editor.EditTab
         dict={dict}
         handleSave={handleSave}
-        coverImg={coverImg}
         setCoverImg={setCoverImg}
-        titleValue={titleValue}
         setTitle={setTitle}
-        tagsValue={tagsValue}
         setTags={setTags}
         editorState={editorState}
         setEditorState={setEditorState}
-        contentValue={contentValue}
         setContent={setContent}
+        article={articleValue}
       />
     );
   } else if (activeTabIndex === 1) {
@@ -121,13 +108,10 @@ export const EditArticle = ({
       <Editor.PreviewTab
         dict={dict}
         userValue={userValue as User}
-        coverImg={coverImg}
-        titleValue={titleValue}
-        tagsValue={tagsValue}
-        contentValue={contentValue}
         handleLike={handleLike}
         isLiked={isLiked}
         likesCount={likesCount}
+        article={articleValue}
       />
     );
   } else {

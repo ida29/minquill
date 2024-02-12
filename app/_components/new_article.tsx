@@ -7,9 +7,11 @@ import { Dictionary } from "@/app/_utils/dictionary";
 import { useState, useEffect } from "react";
 import { createArticle, Article } from "@/app/_utils/article";
 import { User } from "@/app/_utils/user";
+import { Tag } from "@/app/_utils/tag";
 import { NewArticleHeader } from "@/app/_components/new_article_header";
 import { useRouter } from "next/navigation";
 import * as Editor from "@/app/_components/Editor/index";
+import { safeJSONParse } from "@/app/_utils/safeJSONParse";
 
 export const NewArticle = ({
   dict,
@@ -20,18 +22,55 @@ export const NewArticle = ({
 }) => {
   const router = useRouter();
 
-  const [titleValue, setTitle] = useLocalStorageState("title", {
-    defaultValue: "",
+  //const [titleValue, setTitle] = useLocalStorageState("title", {
+  //  defaultValue: "",
+  //});
+  //const [tagsValue, setTags] = useLocalStorageState("tags", {
+  //  defaultValue: "",
+  //});
+  //const [contentValue, setContent] = useLocalStorageState("content", {
+  //  defaultValue: "",
+  //});
+  //const [coverImg, setCoverImg] = useLocalStorageState("coverImg", {
+  //  defaultValue: "",
+  //});
+  const [articleJson, setArticleJson] = useLocalStorageState("savedArticle4", {
+    defaultValue: JSON.stringify({
+      title: "",
+      content: "",
+      authorId: user.username,
+      author: user,
+      ulid: "",
+      coverImg: "",
+      likes: [],
+      comments: [],
+      tags: [],
+    }),
   });
-  const [tagsValue, setTags] = useLocalStorageState("tags", {
-    defaultValue: "",
-  });
-  const [contentValue, setContent] = useLocalStorageState("content", {
-    defaultValue: "",
-  });
-  const [coverImg, setCoverImg] = useLocalStorageState("coverImg", {
-    defaultValue: "",
-  });
+  const setTitle = (value: string) => {
+    const article: Article | null = safeJSONParse(articleJson);
+    if (article === null) return;
+    article.title = value;
+    setArticleJson(JSON.stringify(article));
+  };
+  const setTags = (value: Tag[]) => {
+    const article: Article | null = safeJSONParse(articleJson);
+    if (article === null) return;
+    article.tags = value;
+    setArticleJson(JSON.stringify(article));
+  };
+  const setContent = (value: string) => {
+    const article: Article | null = safeJSONParse(articleJson);
+    if (article === null) return;
+    article.content = value;
+    setArticleJson(JSON.stringify(article));
+  };
+  const setCoverImg = (value: string) => {
+    const article: Article | null = safeJSONParse(articleJson);
+    if (article === null) return;
+    article.coverImg = value;
+    setArticleJson(JSON.stringify(article));
+  };
 
   const [userValue, setUser] = useState<User>(user);
 
@@ -42,28 +81,39 @@ export const NewArticle = ({
     setActiveTabIndex(index);
   };
 
+  const article: Article | null = safeJSONParse(articleJson.trim());
+  if (article === null) {
+    return <>Error</>;
+  }
+
   const handlePublish = async () => {
     try {
-      const content = contentValue as string;
-      const title = titleValue as string;
-      const tags = (tagsValue as string)?.split(",").map((part) => part.trim());
       const newArticle: Article = {
-        title: title,
-        content: content,
-        coverImg: coverImg,
-        tags: tags as [],
+        title: article.title,
+        content: article.content,
+        coverImg: article.coverImg,
+        tags: article.tags as [],
       };
       router.push(`/${user.username}`);
-      const article = await createArticle(newArticle);
-      if (article === undefined) {
+      const res = await createArticle(newArticle);
+      if (res === undefined) {
         console.error("Failed to create article");
         return;
       }
 
-      setTitle("");
-      setTags("");
-      setContent("");
-      setCoverImg("");
+      setArticleJson(
+        JSON.stringify({
+          title: "",
+          content: "",
+          authorId: user.username,
+          author: user,
+          ulid: "",
+          coverImg: "",
+          likes: [],
+          comments: [],
+          tags: [],
+        }),
+      );
     } catch (error) {
       console.error(error);
     }
@@ -75,16 +125,13 @@ export const NewArticle = ({
       <Editor.EditTab
         dict={dict}
         handlePublish={handlePublish}
-        coverImg={coverImg}
         setCoverImg={setCoverImg}
-        titleValue={titleValue}
         setTitle={setTitle}
-        tagsValue={tagsValue}
         setTags={setTags}
         editorState={editorState}
         setEditorState={setEditorState}
-        contentValue={contentValue}
         setContent={setContent}
+        article={article}
       />
     );
   } else if (activeTabIndex === 1) {
@@ -92,12 +139,9 @@ export const NewArticle = ({
       <Editor.PreviewTab
         dict={dict}
         userValue={userValue as User}
-        coverImg={coverImg}
-        titleValue={titleValue}
-        tagsValue={tagsValue}
-        contentValue={contentValue}
         isLiked={false}
         likesCount={0}
+        article={article}
       />
     );
   } else {
